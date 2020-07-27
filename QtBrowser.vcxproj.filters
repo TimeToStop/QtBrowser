@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Pre Compiled">
+      <UniqueIdentifier>{6029b4be-a1eb-438d-a808-4f9b2e61aae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\JS">
+      <UniqueIdentifier>{30e75600-7045-4b2b-be2a-52b0362e88aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\git">
+      <UniqueIdentifier>{97099eda-6ca6-4d1e-9dc6-fda7dec3bccb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{2450babd-0c54-4912-b1e8-5ad2945d8ee4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface">
+      <UniqueIdentifier>{d0246e80-d579-476b-b699-7d53061afecb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Browser">
+      <UniqueIdentifier>{c0733b92-0c8a-441f-8478-5668edc23e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Console">
+      <UniqueIdentifier>{28cc49de-d042-401c-b576-93a3246283d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Console">
+      <UniqueIdentifier>{2ef3551e-c572-49f3-a316-b599d0d681c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Browser">
+      <UniqueIdentifier>{b4c66ee1-ace1-41c6-91e7-10302720eaca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{1dcf051f-ac77-425c-b6e5-ed3349bd515d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Interface">
+      <UniqueIdentifier>{8d440a89-943e-48dc-b3ad-aec5384bcdf0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\browser.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\browserexecutor.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\command.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\commandexecutor.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\console.cpp">
+      <Filter>Source Files\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\consoleview.cpp">
+      <Filter>Source Files\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\createnewproject.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\disconnectcmd.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\hoverhandler.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\loadurlcmd.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\mainwindow.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\taskexecutor.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Browser\browser.h">
+      <Filter>Header Files\Browser</Filter>
+    </QtMoc>
+    <QtMoc Include="Interface\console.h">
+      <Filter>Header Files\Console</Filter>
+    </QtMoc>
+    <QtMoc Include="Interface\consoleview.h">
+      <Filter>Header Files\Console</Filter>
+    </QtMoc>
+    <QtMoc Include="Interface\createnewproject.h">
+      <Filter>Header Files\Interface</Filter>
+    </QtMoc>
+    <QtMoc Include="Browser\hoverhandler.h">
+      <Filter>Header Files\System</Filter>
+    </QtMoc>
+    <QtMoc Include="Interface\mainwindow.h">
+      <Filter>Header Files\Interface</Filter>
+    </QtMoc>
+    <QtMoc Include="Browser\taskexecutor.h">
+      <Filter>Header Files\System</Filter>
+    </QtMoc>
+    <QtMoc Include="BrowserController\browserexecutor.h">
+      <Filter>Header Files\Browser</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Interface\mainwindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Interface\createnewproject.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Interface\console.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Interface\ui_mainwindow.h">
+      <Filter>Pre Compiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\ui_createnewproject.h">
+      <Filter>Pre Compiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\ui_console.h">
+      <Filter>Pre Compiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\debug.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\command.h">
+      <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\commandexecutor.h">
+      <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\disconnectcmd.h">
+      <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\loadurlcmd.h">
+      <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="JS\hover.js">
+      <Filter>Resource Files\JS</Filter>
+    </None>
+    <None Include="JS\init.js">
+      <Filter>Resource Files\JS</Filter>
+    </None>
+    <None Include="JS\jquery-3-5-1.min.js">
+      <Filter>Resource Files\JS</Filter>
+    </None>
+    <None Include="JS\qwebchannel.js">
+      <Filter>Resource Files\JS</Filter>
+    </None>
+    <None Include=".gitattributes">
+      <Filter>Resource Files\git</Filter>
+    </None>
+    <None Include=".gitignore">
+      <Filter>Resource Files\git</Filter>
+    </None>
+  </ItemGroup>
+</Project>
