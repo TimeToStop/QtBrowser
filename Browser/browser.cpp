@@ -41,14 +41,34 @@ void Browser::loadURL(const QString& url)
 	});
 
 	task.rmListenFor<QWebEngineView>(this, &QWebEngineView::loadFinished);
-	task.execute([page, this, &task]() {
-			CONSOLE_LOG("Run initial scripts");
-			page->runJavaScript(m_script, QWebEngineScript::MainWorld, [&task, this](const QVariant& v) {
+	task.execute([page, this, &task]() 
+	{
+		CONSOLE_LOG("Run initial scripts");
+		page->runJavaScript(m_script, QWebEngineScript::MainWorld, [&task, this](const QVariant& v) 
+		{
 			task.taskExecuted();
-			});
 		});
+	});
 
 	CONSOLE_LOG("Load ended");
+}
+
+QString Browser::findById(const QString& id)
+{
+	QString result;
+	TaskExecutor task;
+	task.execute([&task, &id, &result, this]() 
+	{
+		this->page()->runJavaScript(QString("function ___find() {return document.getElementById(\'" + id + "\').innerHTML;} ___find();"),
+			QWebEngineScript::MainWorld,
+			[&task, &result](const QVariant& v)
+			{
+				result = v.toString();
+				task.taskExecuted();
+			});
+	});
+
+	return result;
 }
 
 void Browser::loadStartedSlot()

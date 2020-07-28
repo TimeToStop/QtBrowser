@@ -4,12 +4,14 @@
 
 #include "disconnectcmd.h"
 #include "loadurlcmd.h"
+#include "findbyidcmd.h"
 
 CommandExecutor::CommandExecutor():
     m_commands()
 {
     m_commands.insert(CommandType::DISCONNECT, std::make_shared<DisconnectCmd>());
     m_commands.insert(CommandType::LOAD_URL,   std::make_shared<LoadURLCmd>());
+    m_commands.insert(CommandType::FIND_BY_ID, std::make_shared<FindByIdCmd>());
 }
 
 CommandExecutor::~CommandExecutor()

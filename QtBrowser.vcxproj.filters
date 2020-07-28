@@ -96,6 +96,9 @@
     <ClCompile Include="Browser\taskexecutor.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
+    <ClCompile Include="BrowserController\findbyidcmd.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Browser\browser.h">
@@ -157,6 +160,9 @@
       <Filter>Header Files\Browser</Filter>
     </ClInclude>
     <ClInclude Include="BrowserController\loadurlcmd.h">
+      <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\findbyidcmd.h">
       <Filter>Header Files\Browser</Filter>
     </ClInclude>
   </ItemGroup>

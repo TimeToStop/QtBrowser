@@ -13,6 +13,7 @@ public:
 	virtual ~Browser();
 
 	void loadURL(const QString&);
+	QString findById(const QString&);
 
 signals:
 	void syncLoadStarted();

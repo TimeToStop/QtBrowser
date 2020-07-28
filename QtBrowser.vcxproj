@@ -100,6 +100,7 @@
     <ClCompile Include="BrowserController\command.cpp" />
     <ClCompile Include="BrowserController\commandexecutor.cpp" />
     <ClCompile Include="BrowserController\disconnectcmd.cpp" />
+    <ClCompile Include="BrowserController\findbyidcmd.cpp" />
     <ClCompile Include="BrowserController\loadurlcmd.cpp" />
     <ClCompile Include="Browser\browser.cpp" />
     <ClCompile Include="Browser\hoverhandler.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="BrowserController\command.h" />
     <ClInclude Include="BrowserController\commandexecutor.h" />
     <ClInclude Include="BrowserController\disconnectcmd.h" />
+    <ClInclude Include="BrowserController\findbyidcmd.h" />
     <ClInclude Include="BrowserController\loadurlcmd.h" />
     <ClInclude Include="Interface\debug.h" />
     <ClInclude Include="Interface\ui_console.h" />
