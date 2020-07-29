@@ -99,9 +99,12 @@
     <ClCompile Include="BrowserController\browserexecutor.cpp" />
     <ClCompile Include="BrowserController\command.cpp" />
     <ClCompile Include="BrowserController\commandexecutor.cpp" />
+    <ClCompile Include="BrowserController\connectcmd.cpp" />
     <ClCompile Include="BrowserController\disconnectcmd.cpp" />
-    <ClCompile Include="BrowserController\findbyidcmd.cpp" />
+    <ClCompile Include="BrowserController\executejscmd.cpp" />
+    <ClCompile Include="BrowserController\executejsfromfile.cpp" />
     <ClCompile Include="BrowserController\loadurlcmd.cpp" />
+    <ClCompile Include="BrowserController\logcmd.cpp" />
     <ClCompile Include="Browser\browser.cpp" />
     <ClCompile Include="Browser\hoverhandler.cpp" />
     <ClCompile Include="Browser\taskexecutor.cpp" />
@@ -130,9 +133,12 @@
     <QtMoc Include="BrowserController\browserexecutor.h" />
     <ClInclude Include="BrowserController\command.h" />
     <ClInclude Include="BrowserController\commandexecutor.h" />
+    <ClInclude Include="BrowserController\connectcmd.h" />
     <ClInclude Include="BrowserController\disconnectcmd.h" />
-    <ClInclude Include="BrowserController\findbyidcmd.h" />
+    <ClInclude Include="BrowserController\executejscmd.h" />
+    <ClInclude Include="BrowserController\executejsfromfile.h" />
     <ClInclude Include="BrowserController\loadurlcmd.h" />
+    <ClInclude Include="BrowserController\logcmd.h" />
     <ClInclude Include="Interface\debug.h" />
     <ClInclude Include="Interface\ui_console.h" />
     <QtMoc Include="Interface\createnewproject.h" />

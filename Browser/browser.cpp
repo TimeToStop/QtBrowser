@@ -53,19 +53,17 @@ void Browser::loadURL(const QString& url)
 	CONSOLE_LOG("Load ended");
 }
 
-QString Browser::findById(const QString& id)
+QString Browser::syncJavaScriptExecuting(const QString& script, qint64 world)
 {
 	QString result;
 	TaskExecutor task;
-	task.execute([&task, &id, &result, this]() 
+	task.execute([&result, &task, &script, &world, this]()
 	{
-		this->page()->runJavaScript(QString("function ___find() {return document.getElementById(\'" + id + "\').innerHTML;} ___find();"),
-			QWebEngineScript::MainWorld,
-			[&task, &result](const QVariant& v)
-			{
-				result = v.toString();
-				task.taskExecuted();
-			});
+		page()->runJavaScript(script, world, [&task, &result](const QVariant& v)
+		{
+			result = v.toString();
+			task.taskExecuted();
+		});
 	});
 
 	return result;

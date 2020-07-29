@@ -9,6 +9,6 @@ public:
 	Command();
 	virtual ~Command();
 
-	virtual QByteArray execute(BrowserExecutor*, const QByteArray&) = 0;
+	virtual QByteArray execute(BrowserExecutor*, QByteArray&) = 0;
 };
 

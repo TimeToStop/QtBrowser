@@ -12,7 +12,7 @@ LoadURLCmd::~LoadURLCmd()
 {
 }
 
-QByteArray LoadURLCmd::execute(BrowserExecutor* executor, const QByteArray& data)
+QByteArray LoadURLCmd::execute(BrowserExecutor* executor, QByteArray& data)
 {
     QString url(data);
     executor->browser()->loadURL(url);

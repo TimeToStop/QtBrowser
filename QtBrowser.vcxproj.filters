@@ -96,7 +96,16 @@
     <ClCompile Include="Browser\taskexecutor.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="BrowserController\findbyidcmd.cpp">
+    <ClCompile Include="BrowserController\executejscmd.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\executejsfromfile.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\connectcmd.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\logcmd.cpp">
       <Filter>Source Files\Browser</Filter>
     </ClCompile>
   </ItemGroup>
@@ -162,7 +171,16 @@
     <ClInclude Include="BrowserController\loadurlcmd.h">
       <Filter>Header Files\Browser</Filter>
     </ClInclude>
-    <ClInclude Include="BrowserController\findbyidcmd.h">
+    <ClInclude Include="BrowserController\executejscmd.h">
+      <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\executejsfromfile.h">
+      <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\connectcmd.h">
+      <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\logcmd.h">
       <Filter>Header Files\Browser</Filter>
     </ClInclude>
   </ItemGroup>

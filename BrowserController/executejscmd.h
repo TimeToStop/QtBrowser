@@ -1,11 +1,12 @@
 #pragma once
+
 #include "command.h"
 
-class LoadURLCmd : public Command
+class ExecuteJsCmd : public Command
 {
 public:
-	LoadURLCmd();
-	virtual ~LoadURLCmd();
+	ExecuteJsCmd();
+	virtual ~ExecuteJsCmd();
 
 	virtual QByteArray execute(BrowserExecutor*, QByteArray&) override;
 };

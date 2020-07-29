@@ -6,15 +6,12 @@
 
 enum class CommandType : int
 {
-	DISCONNECT = 0,
-
-	LOAD_URL = 3,
-
-	FIND_BY_ID,
-
-	CONSOLE_LOG,
-	CONSOLE_WARNING,
-	CONSOLE_ERROR
+	DISCONNECT			 = 0,
+	CONNECT				 = 1,
+	LOAD_URL			 = 2,
+	LOG					 = 3,
+	EXECUTE_JS			 = 4,
+	EXECUTE_JS_FROM_FILE = 5
 };
 
 class BrowserExecutor;

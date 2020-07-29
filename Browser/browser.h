@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWebEngineView>
+#include <QWebEngineScript>
 
 class Browser : public QWebEngineView
 {
@@ -13,7 +14,7 @@ public:
 	virtual ~Browser();
 
 	void loadURL(const QString&);
-	QString findById(const QString&);
+	QString syncJavaScriptExecuting(const QString&, qint64 = QWebEngineScript::MainWorld);
 
 signals:
 	void syncLoadStarted();
