@@ -10,7 +10,9 @@
 #include "debug.h"
 
 Browser::Browser(QWidget *parent):
-	QWebEngineView(parent)
+	QWebEngineView(parent),
+	m_is_browser_init_loading(false),
+	m_scripts()
 {
 	initScript();
 	
@@ -25,6 +27,7 @@ Browser::~Browser()
 
 void Browser::loadURL(const QString& url)
 {
+	m_is_browser_init_loading = true;
 	QWebEnginePage* page = new QWebEnginePage(this);
 	QWebChannel* channel = new QWebChannel(page);
 	HoverHandler* handler = new HoverHandler(page);
@@ -38,18 +41,10 @@ void Browser::loadURL(const QString& url)
 	task.execute([&url, page]() {
 		CONSOLE_LOG("Synchronized loading started");
 		page->load(QUrl(url));
-	});
+	});	
 
-	task.rmListenFor<QWebEngineView>(this, &QWebEngineView::loadFinished);
-	task.execute([page, this, &task]() 
-	{
-		CONSOLE_LOG("Run initial scripts");
-		page->runJavaScript(m_script, QWebEngineScript::MainWorld, [&task, this](const QVariant& v) 
-		{
-			task.taskExecuted();
-		});
-	});
-
+	m_scripts.initAllScripts(page);
+	m_is_browser_init_loading = false;
 	CONSOLE_LOG("Load ended");
 }
 
@@ -81,14 +76,9 @@ void Browser::loadProgressSlot(int v)
 
 void Browser::loadFinishedSlot(bool b)
 {
-	if (b)
+	if (!m_is_browser_init_loading)
 	{
-		TaskExecutor task;
-		task.execute([this, &task]() {
-		page()->runJavaScript(m_script, QWebEngineScript::MainWorld, [&task](const QVariant& v) {
-				task.taskExecuted();
-			});
-		});
+		m_scripts.initAllScripts(page());
 	}
 
 	emit(syncLoadProgress(100));
@@ -102,34 +92,23 @@ void Browser::hoveredSlot(const QString& tag, const QString& id, const QStringLi
 
 void Browser::initScript()
 {
-	QString jquery = loadFile("JS/jquery-3-5-1.min.js");
-	QString qwebchannel = loadFile("JS/qwebchannel.js");
-	QString init = loadFile("JS/init.js");
-    QString hover = loadFile("JS/hover.js");
-
-	m_script = (QStringList() << jquery
-		<< qwebchannel
-		<< init
-		<< hover).join('\n');
-}
-
-QString Browser::loadFile(const QString& file_name)
-{
-	QString res;
-	QFile file(file_name);
-	if (file.open(QIODevice::ReadOnly))
+	if (!m_scripts.addScript("jquery", "JS/jquery-3-5-1.min.js"))
 	{
-		QByteArray b = file.readAll();
-		res = b;
-	}
-	else
-	{
-		qDebug() << "###################";
-		qDebug() << "Cannot load file: " << file_name;
-		qDebug() << "###################";
+		CONSOLE_WARNING("Cannot read file: JS/jquery-3-5-1.min.js");
 	}
 
-	return res;
+	if (!m_scripts.addScript("webchannel", "JS/qwebchannel.js"))
+	{
+		CONSOLE_WARNING("Cannot read file: JS/qwebchannel.js");
+	}
+	
+	if (!m_scripts.addScript("init", "JS/init.js"))
+	{
+		CONSOLE_WARNING("Cannot read file: JS/init.js");
+	}
+
+	if (!m_scripts.addScript("hover", "JS/hover.js"))
+	{
+		CONSOLE_WARNING("Cannot read file: JS/hover.js");
+	}
 }
-
-

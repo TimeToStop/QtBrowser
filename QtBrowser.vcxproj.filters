@@ -108,6 +108,9 @@
     <ClCompile Include="BrowserController\logcmd.cpp">
       <Filter>Source Files\Browser</Filter>
     </ClCompile>
+    <ClCompile Include="Browser\scriptsmanager.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Browser\browser.h">
@@ -181,6 +184,9 @@
       <Filter>Header Files\Browser</Filter>
     </ClInclude>
     <ClInclude Include="BrowserController\logcmd.h">
+      <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\scriptsmanager.h">
       <Filter>Header Files\Browser</Filter>
     </ClInclude>
   </ItemGroup>

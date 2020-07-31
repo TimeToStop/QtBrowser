@@ -1,5 +1,7 @@
 #pragma once
 
+#include "scriptsmanager.h"
+
 #include <QWebEngineView>
 #include <QWebEngineScript>
 
@@ -7,7 +9,8 @@ class Browser : public QWebEngineView
 {
 	Q_OBJECT;
 
-	QString m_script;
+	bool m_is_browser_init_loading;
+	ScriptsManager m_scripts;
 
 public:
 	Browser(QWidget *parent);
@@ -31,5 +34,4 @@ public slots:
 
 private:
 	void initScript();
-	static QString loadFile(const QString&);
 };

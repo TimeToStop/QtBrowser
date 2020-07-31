@@ -113,6 +113,7 @@
     <ClCompile Include="Interface\createnewproject.cpp" />
     <ClCompile Include="Interface\mainwindow.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Browser\scriptsmanager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Browser\browser.h" />
@@ -128,6 +129,7 @@
     <QtUic Include="Interface\mainwindow.ui" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Browser\scriptsmanager.h" />
     <QtMoc Include="Interface\console.h" />
     <QtMoc Include="Interface\consoleview.h" />
     <QtMoc Include="BrowserController\browserexecutor.h" />
