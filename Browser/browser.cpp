@@ -52,7 +52,7 @@ QString Browser::syncJavaScriptExecuting(const QString& script, qint64 world)
 {
 	QString result;
 	TaskExecutor task;
-	task.execute([&result, &task, &script, &world, this]()
+	task.execute([&task, &result, &script, &world, this]()
 	{
 		page()->runJavaScript(script, world, [&task, &result](const QVariant& v)
 		{
