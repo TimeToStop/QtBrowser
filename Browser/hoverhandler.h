@@ -11,7 +11,7 @@ public:
 	virtual ~HoverHandler();
 
 signals:
-	void hovered(const QString&, const QString&, const QStringList&, const QString&);
+	void hovered(const QString&, const QString&, const QStringList&, const QString&, const QString&);
 
 public slots:
 	void onHovered(const QString&);

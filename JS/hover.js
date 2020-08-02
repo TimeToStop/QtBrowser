@@ -84,7 +84,8 @@ function sendHoverDataToCpp(element) {
         tag : element.tagName.toString().toLowerCase(),
         id : element.id,
         _class : classes,
-        inner : element.innerHTML 
+        inner : element.innerHTML,
+        path : element_path(element)
     }
 
     let json = JSON.stringify(element_info);

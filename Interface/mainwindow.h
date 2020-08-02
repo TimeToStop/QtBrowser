@@ -25,7 +25,7 @@ public slots:
 	void loadProgress(int);
 	void loadFinished(bool);
 
-	void onElementHovered(const QString&, const QString&, const QStringList&, const QString&);
+	void onElementHovered(const QString&, const QString&, const QStringList&, const QString&, const QString&);
 
 	void loadPage();
 	void runInteljiIdea();

@@ -148,32 +148,32 @@ function element_by_path(path)
 }
 
 
-// TEST
-function test()
-{
-    let elements = document.body.getElementsByTagName('*');
+// // TEST
+// function test()
+// {
+//     let elements = document.body.getElementsByTagName('*');
 
-     for(let e of elements)
-     {
-        if(e.id != null && e.id != '')
-        {
-            let test_e = parse_path(element_path(e));
-            let dynamic = dynamic_forward(test_e);
-            let fast = fast_forward(test_e);
+//      for(let e of elements)
+//      {
+//         if(e.id != null && e.id != '')
+//         {
+//             let test_e = parse_path(element_path(e));
+//             let dynamic = dynamic_forward(test_e);
+//             let fast = fast_forward(test_e);
 
-            if(dynamic !== fast || dynamic !== e || fast !== e)
-            {
-                console.log('Error: ' + e.id + ' req: ' + (e === dynamic) + ' forward: ' + (e === fast));
-                console.log(e);
-                console.log(dynamic);
-                console.log(fast);
-            }
-        }
-     }
+//             if(dynamic !== fast || dynamic !== e || fast !== e)
+//             {
+//                 console.log('Error: ' + e.id + ' req: ' + (e === dynamic) + ' forward: ' + (e === fast));
+//                 console.log(e);
+//                 console.log(dynamic);
+//                 console.log(fast);
+//             }
+//         }
+//      }
 
-     console.log('Test has been ended');
-}
+//      console.log('Test has been ended');
+// }
 
-test();
+// test();
 
-//TEST END UP HERE
+// //TEST END UP HERE

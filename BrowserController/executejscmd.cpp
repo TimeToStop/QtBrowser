@@ -1,7 +1,7 @@
 #include "executejscmd.h"
 
-#include <QString>
 #include "browserexecutor.h"
+#include <QString>
 
 ExecuteJsCmd::ExecuteJsCmd():
     Command()

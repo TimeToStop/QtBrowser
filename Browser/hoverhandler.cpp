@@ -23,7 +23,7 @@ void HoverHandler::onHovered(const QString& data)
 	if (document.isObject())
 	{
 		QMap<QString, QVariant> v = document.toVariant().toMap();
-		QString tag, inner, id;
+		QString tag, inner, id, path;
 		QStringList classes;
 		tag = v["tag"].toString();
 		inner = v["inner"].toString();
@@ -34,6 +34,8 @@ void HoverHandler::onHovered(const QString& data)
 			classes.push_back(e.toString());
 		}
 
-		emit(hovered(tag, id, classes, inner));
+		path = v["path"].toString();
+
+		emit(hovered(tag, id, classes, inner, path));
 	}
 }

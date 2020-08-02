@@ -24,13 +24,13 @@ signals:
 	void syncLoadProgress(int);
 	void syncLoadFinished(bool);
 
-	void hovered(const QString&, const QString&, const QStringList&, const QString&);
+	void hovered(const QString&, const QString&, const QStringList&, const QString&, const QString&);
 
 public slots:
 	void loadStartedSlot();
 	void loadProgressSlot(int);
 	void loadFinishedSlot(bool);
-	void hoveredSlot(const QString&, const QString&, const QStringList&, const QString&);
+	void hoveredSlot(const QString&, const QString&, const QStringList&, const QString&, const QString&);
 
 private:
 	void initScript();

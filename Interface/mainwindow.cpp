@@ -62,10 +62,11 @@ void MainWindow::loadFinished(bool b)
 	ui->url->setText(ui->browser->url().toString());
 }
 
-void MainWindow::onElementHovered(const QString& tag, const QString& id, const QStringList& classes, const QString& inner)
+void MainWindow::onElementHovered(const QString& tag, const QString& id, const QStringList& classes, const QString& inner, const QString& path)
 {
 	ui->tag->setText(tag);
 	ui->id->setText(id);
+	ui->path->setText(path);
 	ui->classes->clear();
 	ui->classes->addItems(classes);
 	ui->inner->clear();

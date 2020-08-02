@@ -85,9 +85,9 @@ void Browser::loadFinishedSlot(bool b)
 	emit(syncLoadFinished(b));
 }
 
-void Browser::hoveredSlot(const QString& tag, const QString& id, const QStringList& classes, const QString& inner)
+void Browser::hoveredSlot(const QString& tag, const QString& id, const QStringList& classes, const QString& inner, const QString& path)
 {
-	hovered(tag, id, classes, inner);
+	hovered(tag, id, classes, inner, path);
 }
 
 void Browser::initScript()
@@ -105,6 +105,11 @@ void Browser::initScript()
 	if (!m_scripts.addScript("init", "JS/init.js"))
 	{
 		CONSOLE_WARNING("Cannot read file: JS/init.js");
+	}
+
+	if (!m_scripts.addScript("find", "JS/find.js"))
+	{
+		CONSOLE_WARNING("Cannot read file: JS/find.js");
 	}
 
 	if (!m_scripts.addScript("hover", "JS/hover.js"))
