@@ -14,5 +14,14 @@ ExecuteJsCmd::~ExecuteJsCmd()
 
 QByteArray ExecuteJsCmd::execute(BrowserExecutor* executor, QByteArray& script)
 {
-    return executor->browser()->syncJavaScriptExecuting(script).toUtf8();
+    byte header = 0;
+    QByteArray header_wrapper;
+    QString result = executor->browser()->syncJavaScriptExecuting(script);
+    if (result.startsWith("Uncaught"))
+    {
+        header |= (byte)HeaderInfo::EXCEPTION;
+    }
+    
+    header_wrapper.push_back(header);
+    return header_wrapper + result.toUtf8();
 }

@@ -17,6 +17,8 @@ class ConsoleView : public QWidget
 	static const int m_h_margin;
 	static const int m_bottom_margin;
 
+	int m_max_width;
+
 	QPen m_log_pen;
 	QPen m_warning_pen;
 	QPen m_error_pen;
@@ -31,12 +33,13 @@ public:
 	ConsoleView(QWidget *parent);
 	virtual ~ConsoleView();
 
+	void setMaxWidth(int);
 	void setFont(const QFont&);
 	void setLogColor(const QColor&);
 	void setWarningColor(const QColor&);
 	void setErrorColor(const QColor&);
 
-	void addText(MessageType, const QString&);
+	void addText(MessageType, QString);
 	void setViewHintX(int);
 	void setViewHintY(int);
 
@@ -46,4 +49,7 @@ public:
 
 protected:
 	virtual void paintEvent(QPaintEvent*) override;
+
+private:
+	void push(MessageType type, int h, const QString& msg);
 };

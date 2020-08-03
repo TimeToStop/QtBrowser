@@ -4,7 +4,9 @@
 
 class ConnectCmd : public Command
 {
+	static const QByteArray header;
 	static const QByteArray key;
+	static const QByteArray answer;
 
 public:
 	ConnectCmd();

@@ -13,6 +13,7 @@ public:
 	Console(QWidget *parent = Q_NULLPTR);
 	virtual ~Console();
 
+	void setMaxWidth(int);
 	void setWheelScrollSpeed(int);
 	void setFont(const QFont&);
 	void setLogColor(const QColor&);
@@ -24,6 +25,8 @@ public:
 	void error(const QString&);
 
 	void clear();
+
+	int consoleViewWidth();
 
 protected:
 	virtual void wheelEvent(QWheelEvent*) override;

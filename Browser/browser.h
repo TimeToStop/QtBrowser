@@ -9,6 +9,7 @@ class Browser : public QWebEngineView
 {
 	Q_OBJECT;
 
+	bool m_is_last_loaded_successful;
 	bool m_is_browser_init_loading;
 	ScriptsManager m_scripts;
 
@@ -16,6 +17,7 @@ public:
 	Browser(QWidget *parent);
 	virtual ~Browser();
 
+	bool isLastLoadedSuccessful() const;
 	void loadURL(const QString&);
 	QString syncJavaScriptExecuting(const QString&, qint64 = QWebEngineScript::MainWorld);
 

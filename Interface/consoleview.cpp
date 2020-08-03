@@ -9,6 +9,7 @@ const int ConsoleView::m_bottom_margin = 5;
 
 ConsoleView::ConsoleView(QWidget *parent): 
 	QWidget(parent),
+	m_max_width(-1),
 	m_log_pen(Qt::black),
 	m_warning_pen(Qt::yellow),
 	m_error_pen(Qt::red),
@@ -22,6 +23,14 @@ ConsoleView::ConsoleView(QWidget *parent):
 
 ConsoleView::~ConsoleView()
 {
+}
+
+void ConsoleView::setMaxWidth(int w)
+{
+	if (w > 0)
+	{
+		m_max_width = w;
+	}
 }
 
 void ConsoleView::setFont(const QFont& font)
@@ -45,19 +54,38 @@ void ConsoleView::setErrorColor(const QColor& c)
 	m_error_pen = c;
 }
 
-void ConsoleView::addText(MessageType type, const QString& msg)
+void ConsoleView::addText(MessageType type, QString msg)
 {
 	const int w = m_font_metrics.horizontalAdvance(msg);
 	const int h = m_font_metrics.capHeight() + m_h_margin;
 
 	if (m_content_size.width() < w)
 	{
-		m_content_size.setWidth(w);
+		if (m_max_width != -1 && m_max_width < w)
+		{
+			m_content_size.setWidth(m_max_width);
+			int width = 0;
+
+			for (int i = 0; i < msg.size(); i++)
+			{
+				width += m_font_metrics.horizontalAdvance(msg[i]);
+				if (width > m_max_width)
+				{
+					QString left = msg.left(i - 1);
+					QString right = msg.right(msg.size() - i + 1);
+					push(type, h, left);
+					addText(type, right);
+					return;
+				}
+			}
+		}
+		else
+		{
+			m_content_size.setWidth(w);
+		}
 	}
 
-	m_content_size += QSize(0, h);
-	m_messages.push_back({ type, msg });
-	repaint();
+	push(type, h, msg);
 }
 
 void ConsoleView::setViewHintX(int v)
@@ -110,4 +138,11 @@ void ConsoleView::paintEvent(QPaintEvent*)
 		}
 		painter.drawText(-m_view_hint.x(), h, msg.second);
 	}
+}
+
+void ConsoleView::push(MessageType type, int h, const QString& msg)
+{
+	m_content_size += QSize(0, h);
+	m_messages.push_back({ type, msg });
+	repaint();
 }

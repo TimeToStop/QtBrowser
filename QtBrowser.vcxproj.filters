@@ -55,6 +55,12 @@
     <Filter Include="Header Files\Interface">
       <UniqueIdentifier>{8d440a89-943e-48dc-b3ad-aec5384bcdf0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Browser\Commands">
+      <UniqueIdentifier>{d7536720-a124-495c-8c4f-27e5663b1387}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Browser\Commands">
+      <UniqueIdentifier>{01dca130-0b39-4b69-b415-6ecbf9ff351d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -64,9 +70,6 @@
       <Filter>Source Files\Browser</Filter>
     </ClCompile>
     <ClCompile Include="BrowserController\browserexecutor.cpp">
-      <Filter>Source Files\Browser</Filter>
-    </ClCompile>
-    <ClCompile Include="BrowserController\command.cpp">
       <Filter>Source Files\Browser</Filter>
     </ClCompile>
     <ClCompile Include="BrowserController\commandexecutor.cpp">
@@ -81,14 +84,8 @@
     <ClCompile Include="Interface\createnewproject.cpp">
       <Filter>Source Files\Interface</Filter>
     </ClCompile>
-    <ClCompile Include="BrowserController\disconnectcmd.cpp">
-      <Filter>Source Files\Browser</Filter>
-    </ClCompile>
     <ClCompile Include="Browser\hoverhandler.cpp">
       <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="BrowserController\loadurlcmd.cpp">
-      <Filter>Source Files\Browser</Filter>
     </ClCompile>
     <ClCompile Include="Interface\mainwindow.cpp">
       <Filter>Source Files\Interface</Filter>
@@ -96,20 +93,29 @@
     <ClCompile Include="Browser\taskexecutor.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="BrowserController\executejscmd.cpp">
-      <Filter>Source Files\Browser</Filter>
-    </ClCompile>
-    <ClCompile Include="BrowserController\executejsfromfile.cpp">
-      <Filter>Source Files\Browser</Filter>
-    </ClCompile>
-    <ClCompile Include="BrowserController\connectcmd.cpp">
-      <Filter>Source Files\Browser</Filter>
-    </ClCompile>
-    <ClCompile Include="BrowserController\logcmd.cpp">
-      <Filter>Source Files\Browser</Filter>
-    </ClCompile>
     <ClCompile Include="Browser\scriptsmanager.cpp">
       <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\command.cpp">
+      <Filter>Source Files\Browser\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\connectcmd.cpp">
+      <Filter>Source Files\Browser\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\disconnectcmd.cpp">
+      <Filter>Source Files\Browser\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\executejscmd.cpp">
+      <Filter>Source Files\Browser\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\executejsfromfile.cpp">
+      <Filter>Source Files\Browser\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\loadurlcmd.cpp">
+      <Filter>Source Files\Browser\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserController\logcmd.cpp">
+      <Filter>Source Files\Browser\Commands</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,32 +168,32 @@
     <ClInclude Include="Interface\debug.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="BrowserController\command.h">
-      <Filter>Header Files\Browser</Filter>
-    </ClInclude>
     <ClInclude Include="BrowserController\commandexecutor.h">
-      <Filter>Header Files\Browser</Filter>
-    </ClInclude>
-    <ClInclude Include="BrowserController\disconnectcmd.h">
-      <Filter>Header Files\Browser</Filter>
-    </ClInclude>
-    <ClInclude Include="BrowserController\loadurlcmd.h">
-      <Filter>Header Files\Browser</Filter>
-    </ClInclude>
-    <ClInclude Include="BrowserController\executejscmd.h">
-      <Filter>Header Files\Browser</Filter>
-    </ClInclude>
-    <ClInclude Include="BrowserController\executejsfromfile.h">
-      <Filter>Header Files\Browser</Filter>
-    </ClInclude>
-    <ClInclude Include="BrowserController\connectcmd.h">
-      <Filter>Header Files\Browser</Filter>
-    </ClInclude>
-    <ClInclude Include="BrowserController\logcmd.h">
       <Filter>Header Files\Browser</Filter>
     </ClInclude>
     <ClInclude Include="Browser\scriptsmanager.h">
       <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\command.h">
+      <Filter>Header Files\Browser\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\connectcmd.h">
+      <Filter>Header Files\Browser\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\disconnectcmd.h">
+      <Filter>Header Files\Browser\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\executejscmd.h">
+      <Filter>Header Files\Browser\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\executejsfromfile.h">
+      <Filter>Header Files\Browser\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\loadurlcmd.h">
+      <Filter>Header Files\Browser\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\logcmd.h">
+      <Filter>Header Files\Browser\Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

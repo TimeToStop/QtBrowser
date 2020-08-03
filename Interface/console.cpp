@@ -33,6 +33,11 @@ Console::~Console()
 	delete ui;
 }
 
+void Console::setMaxWidth(int w)
+{
+	ui->console_view->setMaxWidth(w);
+}
+
 void Console::setWheelScrollSpeed(int w)
 {
 	m_wheel_scroll_speed = w;
@@ -84,6 +89,11 @@ void Console::clear()
 {
 	ui->console_view->clear();
 	viewChanged();
+}
+
+int Console::consoleViewWidth()
+{
+	return ui->console_view->width();
 }
 
 void Console::wheelEvent(QWheelEvent* e)

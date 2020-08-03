@@ -3,6 +3,8 @@
 
 class BrowserExecutor;
 
+typedef unsigned char byte;
+
 class Command
 {
 public:

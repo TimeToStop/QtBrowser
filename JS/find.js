@@ -25,7 +25,7 @@ function element_path(element)
 
     for(let e = element; e.tagName !== 'body'.toUpperCase(); e = e.parentNode)
     {
-        path = e.tagName.toUpperCase() + '[' + getPathIndexFor(e) + ']' + '\\' + path;
+        path = e.tagName.toUpperCase() + '[' + getPathIndexFor(e) + ']' + '/' + path;
     }
 
     return path;
@@ -33,7 +33,7 @@ function element_path(element)
 
 function parse_path(path)
 {
-    let elements = path.split('\\');
+    let elements = path.split('/');
     let result = [];
     elements.pop();
 

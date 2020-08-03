@@ -14,20 +14,28 @@ ExecuteJsFromFile::~ExecuteJsFromFile()
 
 QByteArray ExecuteJsFromFile::execute(BrowserExecutor* executor, QByteArray& file_name)
 {
-    QByteArray answer;
+    byte header = 0;
+    QByteArray header_wrapper;
+    QString result;
     QFile f(file_name);
+
     if (f.open(QIODevice::ReadOnly))
     {
         QString script = f.readAll();
-        f.close();
+        result = executor->browser()->syncJavaScriptExecuting(script);
 
-        answer.append((char)OpenFileResult::FileFound);
-        answer.append(executor->browser()->syncJavaScriptExecuting(script).toUtf8());
+        if (result.startsWith("Uncaught"))
+        {
+            header |= (byte)HeaderInfo::EXECUTE_EXCEPTION;
+        }
+
+        f.close();
     }
     else
     {
-        answer.append((char)OpenFileResult::FileNotFound);
+        header |= (byte)HeaderInfo::FILE_NOT_FOUND;
     }
 
-    return answer;
+    header_wrapper.push_back(header);
+    return header_wrapper + result.toUtf8();
 }

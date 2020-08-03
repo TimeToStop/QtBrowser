@@ -11,6 +11,7 @@
 
 Browser::Browser(QWidget *parent):
 	QWebEngineView(parent),
+	m_is_last_loaded_successful(false),
 	m_is_browser_init_loading(false),
 	m_scripts()
 {
@@ -23,6 +24,11 @@ Browser::Browser(QWidget *parent):
 
 Browser::~Browser()
 {
+}
+
+bool Browser::isLastLoadedSuccessful() const
+{
+	return m_is_last_loaded_successful;
 }
 
 void Browser::loadURL(const QString& url)
@@ -81,6 +87,7 @@ void Browser::loadFinishedSlot(bool b)
 		m_scripts.initAllScripts(page());
 	}
 
+	m_is_last_loaded_successful = b;
 	emit(syncLoadProgress(100));
 	emit(syncLoadFinished(b));
 }

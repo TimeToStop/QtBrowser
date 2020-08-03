@@ -64,6 +64,7 @@ void MainWindow::loadFinished(bool b)
 
 void MainWindow::onElementHovered(const QString& tag, const QString& id, const QStringList& classes, const QString& inner, const QString& path)
 {
+	//ui->inner->setMaxWidth(ui->inner->consoleViewWidth());
 	ui->tag->setText(tag);
 	ui->id->setText(id);
 	ui->path->setText(path);

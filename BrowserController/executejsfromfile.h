@@ -2,17 +2,19 @@
 
 #include "command.h"
 
-enum class OpenFileResult : char
-{
-	FileNotFound = 0,
-	FileFound = 1
-};
-
 class ExecuteJsFromFile : public Command
 {
+	enum class HeaderInfo : byte
+	{
+		FILE_NOT_FOUND = 0x1,
+		EXECUTE_EXCEPTION = 0x2
+	};
+
+
 public:
 	ExecuteJsFromFile();
 	virtual ~ExecuteJsFromFile();
 
 	virtual QByteArray execute(BrowserExecutor*, QByteArray&) override;
 };
+;
