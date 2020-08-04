@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "createnewproject.h"
 #include "../BrowserController/browserexecutor.h"
 #include "taskexecutor.h"
 
@@ -97,12 +96,6 @@ void MainWindow::closeApplication()
 
 void MainWindow::newProject()
 {
-	CreateNewProject d;
-
-	if (d.exec() == QDialog::Accepted)
-	{
-
-	}
 }
 
 void MainWindow::openProject()

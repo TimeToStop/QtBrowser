@@ -61,6 +61,12 @@
     <Filter Include="Header Files\Browser\Commands">
       <UniqueIdentifier>{01dca130-0b39-4b69-b415-6ecbf9ff351d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Project">
+      <UniqueIdentifier>{4fc4b220-43bb-4122-92e6-955d6a536807}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Project">
+      <UniqueIdentifier>{85479365-54bd-45d6-a39a-10976b57056b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,9 +86,6 @@
     </ClCompile>
     <ClCompile Include="Interface\consoleview.cpp">
       <Filter>Source Files\Console</Filter>
-    </ClCompile>
-    <ClCompile Include="Interface\createnewproject.cpp">
-      <Filter>Source Files\Interface</Filter>
     </ClCompile>
     <ClCompile Include="Browser\hoverhandler.cpp">
       <Filter>Source Files\System</Filter>
@@ -117,6 +120,12 @@
     <ClCompile Include="BrowserController\logcmd.cpp">
       <Filter>Source Files\Browser\Commands</Filter>
     </ClCompile>
+    <ClCompile Include="ProjectManager\projectmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectManager\project.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Browser\browser.h">
@@ -127,9 +136,6 @@
     </QtMoc>
     <QtMoc Include="Interface\consoleview.h">
       <Filter>Header Files\Console</Filter>
-    </QtMoc>
-    <QtMoc Include="Interface\createnewproject.h">
-      <Filter>Header Files\Interface</Filter>
     </QtMoc>
     <QtMoc Include="Browser\hoverhandler.h">
       <Filter>Header Files\System</Filter>
@@ -194,6 +200,12 @@
     </ClInclude>
     <ClInclude Include="BrowserController\logcmd.h">
       <Filter>Header Files\Browser\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectManager\projectmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectManager\project.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

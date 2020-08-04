@@ -110,10 +110,11 @@
     <ClCompile Include="Browser\taskexecutor.cpp" />
     <ClCompile Include="Interface\console.cpp" />
     <ClCompile Include="Interface\consoleview.cpp" />
-    <ClCompile Include="Interface\createnewproject.cpp" />
     <ClCompile Include="Interface\mainwindow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Browser\scriptsmanager.cpp" />
+    <ClCompile Include="ProjectManager\project.cpp" />
+    <ClCompile Include="ProjectManager\projectmanager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Browser\browser.h" />
@@ -130,6 +131,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Browser\scriptsmanager.h" />
+    <ClInclude Include="ProjectManager\project.h" />
+    <ClInclude Include="ProjectManager\projectmanager.h" />
     <QtMoc Include="Interface\console.h" />
     <QtMoc Include="Interface\consoleview.h" />
     <QtMoc Include="BrowserController\browserexecutor.h" />
@@ -143,7 +146,6 @@
     <ClInclude Include="BrowserController\logcmd.h" />
     <ClInclude Include="Interface\debug.h" />
     <ClInclude Include="Interface\ui_console.h" />
-    <QtMoc Include="Interface\createnewproject.h" />
     <ClInclude Include="Interface\ui_createnewproject.h" />
     <ClInclude Include="Interface\ui_mainwindow.h" />
   </ItemGroup>
