@@ -120,11 +120,32 @@
     <ClCompile Include="BrowserController\logcmd.cpp">
       <Filter>Source Files\Browser\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="ProjectManager\projectmanager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ProjectManager\element.cpp">
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectManager\page.cpp">
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectManager\pagemetadata.cpp">
+      <Filter>Source Files\Project</Filter>
     </ClCompile>
     <ClCompile Include="ProjectManager\project.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectManager\projectmanager.cpp">
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\createnewproject.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\openproject.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\addpageelement.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\registerpage.cpp">
+      <Filter>Source Files\Interface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,23 +170,41 @@
     <QtMoc Include="BrowserController\browserexecutor.h">
       <Filter>Header Files\Browser</Filter>
     </QtMoc>
+    <QtMoc Include="Interface\createnewproject.h">
+      <Filter>Header Files\Interface</Filter>
+    </QtMoc>
+    <QtMoc Include="Interface\openproject.h">
+      <Filter>Header Files\Project</Filter>
+    </QtMoc>
+    <QtMoc Include="Interface\addpageelement.h">
+      <Filter>Header Files\Interface</Filter>
+    </QtMoc>
+    <QtMoc Include="Interface\registerpage.h">
+      <Filter>Header Files\Interface</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Interface\mainwindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="Interface\console.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
     <QtUic Include="Interface\createnewproject.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="Interface\console.ui">
+    <QtUic Include="Interface\openproject.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Interface\addpageelement.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Interface\registerpage.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Interface\ui_mainwindow.h">
-      <Filter>Pre Compiled</Filter>
-    </ClInclude>
-    <ClInclude Include="Interface\ui_createnewproject.h">
       <Filter>Pre Compiled</Filter>
     </ClInclude>
     <ClInclude Include="Interface\ui_console.h">
@@ -201,11 +240,32 @@
     <ClInclude Include="BrowserController\logcmd.h">
       <Filter>Header Files\Browser\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="ProjectManager\projectmanager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ProjectManager\element.h">
+      <Filter>Header Files\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectManager\page.h">
+      <Filter>Header Files\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectManager\pagemetadata.h">
+      <Filter>Header Files\Project</Filter>
     </ClInclude>
     <ClInclude Include="ProjectManager\project.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectManager\projectmanager.h">
+      <Filter>Header Files\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\ui_createnewproject.h">
+      <Filter>Pre Compiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\ui_openproject.h">
+      <Filter>Pre Compiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\ui_addpageelement.h">
+      <Filter>Pre Compiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\ui_registerpage.h">
+      <Filter>Pre Compiled</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

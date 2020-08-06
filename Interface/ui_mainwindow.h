@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'mainwindowsstTKB.ui'
+** Form generated from reading UI file 'mainwindowioSKdT.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MAINWINDOWSSTTKB_H
-#define MAINWINDOWSSTTKB_H
+#ifndef MAINWINDOWIOSKDT_H
+#define MAINWINDOWIOSKDT_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -16,6 +16,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
@@ -26,6 +27,7 @@
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "browser.h"
@@ -55,7 +57,15 @@ public:
     QLabel *label_6;
     QLineEdit *url;
     QPushButton *load;
+    QPushButton *register_page;
+    QHBoxLayout *horizontalLayout_7;
+    QLabel *label_9;
+    QComboBox *pages;
     QProgressBar *progress;
+    QGroupBox *groupBox_4;
+    QHBoxLayout *horizontalLayout_6;
+    QVBoxLayout *verticalLayout_7;
+    QTreeWidget *elements;
     QGroupBox *groupBox;
     QGridLayout *gridLayout_3;
     QGridLayout *gridLayout_2;
@@ -155,6 +165,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(label_6->sizePolicy().hasHeightForWidth());
         label_6->setSizePolicy(sizePolicy);
+        label_6->setMaximumSize(QSize(35, 16777215));
 
         horizontalLayout_3->addWidget(label_6);
 
@@ -173,14 +184,42 @@ public:
 
         horizontalLayout_3->addWidget(load);
 
+        register_page = new QPushButton(groupBox_3);
+        register_page->setObjectName(QString::fromUtf8("register_page"));
+
+        horizontalLayout_3->addWidget(register_page);
+
 
         verticalLayout_4->addLayout(horizontalLayout_3);
+
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setSpacing(6);
+        horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
+        label_9 = new QLabel(groupBox_3);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+        sizePolicy.setHeightForWidth(label_9->sizePolicy().hasHeightForWidth());
+        label_9->setSizePolicy(sizePolicy);
+        label_9->setMaximumSize(QSize(35, 16777215));
+
+        horizontalLayout_7->addWidget(label_9);
+
+        pages = new QComboBox(groupBox_3);
+        pages->addItem(QString());
+        pages->setObjectName(QString::fromUtf8("pages"));
+        sizePolicy1.setHeightForWidth(pages->sizePolicy().hasHeightForWidth());
+        pages->setSizePolicy(sizePolicy1);
+
+        horizontalLayout_7->addWidget(pages);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_7);
 
         progress = new QProgressBar(groupBox_3);
         progress->setObjectName(QString::fromUtf8("progress"));
         sizePolicy1.setHeightForWidth(progress->sizePolicy().hasHeightForWidth());
         progress->setSizePolicy(sizePolicy1);
         progress->setValue(24);
+        progress->setInvertedAppearance(false);
 
         verticalLayout_4->addWidget(progress);
 
@@ -189,6 +228,37 @@ public:
 
 
         verticalLayout_3->addWidget(groupBox_3);
+
+        groupBox_4 = new QGroupBox(centralWidget);
+        groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
+        horizontalLayout_6 = new QHBoxLayout(groupBox_4);
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
+        verticalLayout_7 = new QVBoxLayout();
+        verticalLayout_7->setSpacing(6);
+        verticalLayout_7->setObjectName(QString::fromUtf8("verticalLayout_7"));
+        elements = new QTreeWidget(groupBox_4);
+        QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
+        __qtreewidgetitem->setText(1, QString::fromUtf8("2"));
+        __qtreewidgetitem->setText(0, QString::fromUtf8("1"));
+        elements->setHeaderItem(__qtreewidgetitem);
+        elements->setObjectName(QString::fromUtf8("elements"));
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(elements->sizePolicy().hasHeightForWidth());
+        elements->setSizePolicy(sizePolicy2);
+        elements->setColumnCount(2);
+        elements->header()->setVisible(false);
+
+        verticalLayout_7->addWidget(elements);
+
+
+        horizontalLayout_6->addLayout(verticalLayout_7);
+
+
+        verticalLayout_3->addWidget(groupBox_4);
 
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
@@ -208,9 +278,6 @@ public:
 
         inner = new Console(groupBox);
         inner->setObjectName(QString::fromUtf8("inner"));
-        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(inner->sizePolicy().hasHeightForWidth());
         inner->setSizePolicy(sizePolicy2);
         inner->setMinimumSize(QSize(200, 0));
@@ -379,12 +446,17 @@ public:
         create_new_project->setText(QCoreApplication::translate("MainWindow", "New Project", nullptr));
         open_project->setText(QCoreApplication::translate("MainWindow", "Open Project", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Project:", nullptr));
-        project_name->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        project_name->setText(QString());
         run_inteliji->setText(QCoreApplication::translate("MainWindow", "Run Inteliji", nullptr));
         groupBox_3->setTitle(QCoreApplication::translate("MainWindow", "Browser:", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "Url:", nullptr));
         url->setText(QCoreApplication::translate("MainWindow", "http://google.com/", nullptr));
         load->setText(QCoreApplication::translate("MainWindow", "Load", nullptr));
+        register_page->setText(QCoreApplication::translate("MainWindow", "Register", nullptr));
+        label_9->setText(QCoreApplication::translate("MainWindow", "Pages:", nullptr));
+        pages->setItemText(0, QCoreApplication::translate("MainWindow", "None", nullptr));
+
+        groupBox_4->setTitle(QCoreApplication::translate("MainWindow", "Elements:", nullptr));
         groupBox->setTitle(QCoreApplication::translate("MainWindow", "Hovered Element Info:", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "Classes:", nullptr));
         label_4->setText(QCoreApplication::translate("MainWindow", "Id:", nullptr));
@@ -406,4 +478,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MAINWINDOWSSTTKB_H
+#endif // MAINWINDOWIOSKDT_H
