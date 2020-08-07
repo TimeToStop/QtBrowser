@@ -28,8 +28,7 @@ public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 	virtual ~MainWindow();
 
-	virtual void keyPressEvent(QKeyEvent*) override;
-	virtual void keyReleaseEvent(QKeyEvent*) override;
+	virtual bool eventFilter(QObject*, QEvent*) override;
 
 	void setMainProject(std::shared_ptr<Project>);
 	void updateTargetElements();
@@ -42,6 +41,7 @@ public slots:
 	void onElementHovered(const QString&, const QString&, const QStringList&, const QString&, const QString&);
 
 	void loadPage();
+	void loadPage(std::shared_ptr<Page>);
 	void registerPage();
 	void pageIndexChanged(int);
 	void runInteljiIdea();
@@ -50,6 +50,9 @@ public slots:
 
 	void newProject();
 	void openProject();
+
+private:
+	void addElement();
 
 private:
 	Ui::MainWindow *ui;

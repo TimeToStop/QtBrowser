@@ -3,7 +3,7 @@
 Page::Page(const QString& name):
     m_name(name),
     m_request_url(),
-    m_check_url(),
+    m_target_url(),
     m_elements()
 {
 }
@@ -22,8 +22,8 @@ void Page::dumpToFile(QFile& file) const
     file.write("\", \"");
     file.write(m_request_url.toUtf8());
     file.write("\", \"");
-    file.write(m_check_url.toUtf8());
-    file.write("\"};\n\n");
+    file.write(m_target_url.toUtf8());
+    file.write("\");\n\n");
     
     for (std::shared_ptr<Element> e : m_elements)
     {
@@ -43,9 +43,9 @@ void Page::setRequestURL(const QString& request)
     m_request_url = request;
 }
 
-void Page::setCheckURL(const QString& check)
+void Page::setTargetURL(const QString& target)
 {
-    m_check_url = check;
+    m_target_url = target;
 }
 
 void Page::addElement(const std::shared_ptr<Element>& element)
@@ -63,6 +63,16 @@ void Page::addElement(std::shared_ptr<Element>&& element)
 QString Page::name() const
 {
     return m_name;
+}
+
+QString Page::request() const
+{
+    return m_request_url;
+}
+
+QString Page::target() const
+{
+    return m_target_url;
 }
 
 size_t Page::size() const

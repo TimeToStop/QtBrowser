@@ -1,8 +1,11 @@
 #include "addpageelement.h"
 #include "ui_addpageelement.h"
 
-AddPageElement::AddPageElement(const QString& tag, const QString& id, const QStringList& classes, const QString& inner, const QString& path, QWidget *parent):
+#include <QMessageBox>
+
+AddPageElement::AddPageElement(const std::shared_ptr<Page>& page, const QString& tag, const QString& id, const QStringList& classes, const QString& inner, const QString& path, QWidget *parent):
 	QDialog(parent),
+	m_page(page),
 	ui(new Ui::AddPageElement())
 {
 	ui->setupUi(this);
@@ -27,10 +30,27 @@ QString AddPageElement::name() const
 	return ui->name->text();
 }
 
+QString AddPageElement::path() const
+{
+	return ui->path->text();
+}
+
 void AddPageElement::create()
 {
-	if (!ui->name->text().isEmpty())
+	QString name = ui->name->text();
+
+	if (!name.isEmpty())
 	{
+		for (size_t i = 0; i < m_page->size(); i++)
+		{
+			if (name == m_page->getElement(i)->name())
+			{
+				QMessageBox::critical(this, "Cannot create Element", "Name of the element is not unique");
+				return;
+			}
+		}
+
+
 		emit(accept());
 	}
 }

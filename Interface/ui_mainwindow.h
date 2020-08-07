@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'mainwindowioSKdT.ui'
+** Form generated from reading UI file 'mainwindowgsHKIL.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MAINWINDOWIOSKDT_H
-#define MAINWINDOWIOSKDT_H
+#ifndef MAINWINDOWGSHKIL_H
+#define MAINWINDOWGSHKIL_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -70,7 +70,6 @@ public:
     QGridLayout *gridLayout_3;
     QGridLayout *gridLayout_2;
     QLineEdit *tag;
-    Console *inner;
     QLabel *label_2;
     QLineEdit *id;
     QLabel *label_4;
@@ -81,6 +80,7 @@ public:
     QSpacerItem *verticalSpacer;
     QLabel *label_8;
     QLineEdit *path;
+    QLineEdit *inner;
     Browser *browser;
     QGroupBox *groupBox_2;
     QHBoxLayout *horizontalLayout_4;
@@ -102,6 +102,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(1769, 1034);
+        MainWindow->setFocusPolicy(Qt::StrongFocus);
         create_new_project = new QAction(MainWindow);
         create_new_project->setObjectName(QString::fromUtf8("create_new_project"));
         open_project = new QAction(MainWindow);
@@ -276,14 +277,6 @@ public:
 
         gridLayout_2->addWidget(tag, 0, 1, 1, 1);
 
-        inner = new Console(groupBox);
-        inner->setObjectName(QString::fromUtf8("inner"));
-        sizePolicy2.setHeightForWidth(inner->sizePolicy().hasHeightForWidth());
-        inner->setSizePolicy(sizePolicy2);
-        inner->setMinimumSize(QSize(200, 0));
-
-        gridLayout_2->addWidget(inner, 4, 1, 1, 1);
-
         label_2 = new QLabel(groupBox);
         label_2->setObjectName(QString::fromUtf8("label_2"));
 
@@ -337,6 +330,13 @@ public:
         path->setSizePolicy(sizePolicy1);
 
         gridLayout_2->addWidget(path, 2, 1, 1, 1);
+
+        inner = new QLineEdit(groupBox);
+        inner->setObjectName(QString::fromUtf8("inner"));
+        sizePolicy2.setHeightForWidth(inner->sizePolicy().hasHeightForWidth());
+        inner->setSizePolicy(sizePolicy2);
+
+        gridLayout_2->addWidget(inner, 4, 1, 1, 1);
 
 
         gridLayout_3->addLayout(gridLayout_2, 0, 0, 1, 1);
@@ -478,4 +478,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MAINWINDOWIOSKDT_H
+#endif // MAINWINDOWGSHKIL_H

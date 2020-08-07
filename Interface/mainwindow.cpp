@@ -8,6 +8,7 @@
 #include "openproject.h"
 
 #include "registerpage.h"
+#include "addpageelement.h"
 
 #include <QKeyEvent>
 
@@ -31,13 +32,13 @@ MainWindow::MainWindow(QWidget *parent):
 
 	connect(ui->browser, &Browser::hovered, this, &MainWindow::onElementHovered);
 
-	connect(ui->load, &QPushButton::clicked, this, &MainWindow::loadPage);
+	connect(ui->load, &QPushButton::clicked, this, qOverload<>(&MainWindow::loadPage));
 	connect(ui->run_inteliji, &QPushButton::clicked, this, &MainWindow::runInteljiIdea);
 	connect(ui->run_app, &QPushButton::clicked, this, &MainWindow::runApplication);
 	connect(ui->stop_app, &QPushButton::clicked, this, &MainWindow::closeApplication);
 
 	connect(ui->register_page, &QPushButton::clicked, this, &MainWindow::registerPage);
-	connect(ui->pages, &QOverload<int>(QComboBox::currentIndexChanged), this, &MainWindow::pageIndexChanged);
+	connect(ui->pages, qOverload<int>(&QComboBox::currentIndexChanged), this, &MainWindow::pageIndexChanged);
 
 	connect(ui->create_new_project, &QAction::triggered, this, &MainWindow::newProject);
 	connect(ui->open_project, &QAction::triggered, this, &MainWindow::openProject);
@@ -56,24 +57,32 @@ MainWindow::~MainWindow()
 	delete ui;
 }
 
-void MainWindow::keyPressEvent(QKeyEvent* e)
+bool MainWindow::eventFilter(QObject* obj, QEvent* event)
 {
-	if (e->key() == Qt::Key_Control)
+	if (event->type() == QEvent::KeyPress)
 	{
-		m_is_control_pressed = true;
-	}
-	else if (e->key() == Qt::Key_E && m_main_project != nullptr)
-	{
+		QKeyEvent* key_event = static_cast<QKeyEvent*>(event);
 
+		if (key_event->key() == Qt::Key_Control)
+		{
+			m_is_control_pressed = true;
+		}
+		else if (key_event->key() == Qt::Key_E && m_is_control_pressed && m_current_page != nullptr)
+		{
+			addElement();
+		}
 	}
-}
-
-void MainWindow::keyReleaseEvent(QKeyEvent* e)
-{
-	if (e->key() == Qt::Key_Control)
+	else if (event->type() == QEvent::KeyRelease)
 	{
-		m_is_control_pressed = false;
+		QKeyEvent* key_event = static_cast<QKeyEvent*>(event);
+
+		if (key_event->key() == Qt::Key_Control)
+		{
+			m_is_control_pressed = false;
+		}
 	}
+
+	return QObject::eventFilter(obj, event);
 }
 
 void MainWindow::setMainProject(std::shared_ptr<Project> project)
@@ -91,6 +100,9 @@ void MainWindow::updateTargetElements()
 {
 	if (m_main_project != nullptr)
 	{
+		m_main_project->saveMeta();
+		m_main_project->updateMetaData();
+		ui->pages->blockSignals(true);
 		ui->pages->clear();
 		ui->pages->addItem("None");
 
@@ -112,6 +124,8 @@ void MainWindow::updateTargetElements()
 				element_item->setText(1, element->name());
 			}
 		}
+
+		ui->pages->blockSignals(false);
 	}
 }
 
@@ -145,12 +159,17 @@ void MainWindow::onElementHovered(const QString& tag, const QString& id, const Q
 	ui->classes->clear();
 	ui->classes->addItems(classes);
 	ui->inner->clear();
-	ui->inner->log(inner);
+	ui->inner->setText(inner);
 }
 
 void MainWindow::loadPage()
 {
 	ui->browser->loadURL(ui->url->text());
+}
+
+void MainWindow::loadPage(std::shared_ptr<Page> page)
+{
+	ui->browser->loadURL(page->request());
 }
 
 void MainWindow::registerPage()
@@ -162,7 +181,7 @@ void MainWindow::registerPage()
 		if (d.exec() == QDialog::Accepted)
 		{
 			std::shared_ptr<Page> page = m_main_project->addPage(d.name());
-			page->setCheckURL(d.target());
+			page->setTargetURL(d.target());
 			page->setRequestURL(d.request());
 
 			updateTargetElements();
@@ -170,8 +189,17 @@ void MainWindow::registerPage()
 	}
 }
 
-void MainWindow::pageIndexChanged(int)
+void MainWindow::pageIndexChanged(int index)
 {
+	if (index != 0)
+	{
+		m_current_page = m_main_project->getPage((size_t)index - 1);
+		loadPage(m_current_page);
+	}
+	else
+	{
+		m_current_page = nullptr;
+	}
 }
 
 void MainWindow::runInteljiIdea()
@@ -213,5 +241,21 @@ void MainWindow::openProject()
 	if (d.exec() == QDialog::Accepted)
 	{
 		setMainProject(d.selectedProject());
+	}
+}
+
+void MainWindow::addElement()
+{
+	QStringList list;
+	for (int i = 0; i < ui->classes->count(); i++)
+	{
+		list << ui->classes->itemText(i);
+	}
+
+	AddPageElement d(m_current_page, ui->tag->text(), ui->id->text(), list, ui->inner->text(), ui->path->text(), this);
+	if (d.exec() == QDialog::Accepted)
+	{
+		m_current_page->addElement(std::make_shared<Element>(d.name(), d.path()));
+		updateTargetElements();
 	}
 }

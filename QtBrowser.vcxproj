@@ -58,12 +58,12 @@
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>msvc2019_64</QtInstall>
-    <QtModules>core;gui;network;uitools;webchannel;webengine;webenginewidgets;websockets;widgets;winextras</QtModules>
+    <QtModules>core;gui;network;uitools;webchannel;webengine;webenginewidgets;websockets;widgets;winextras;xml;xmlpatterns</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>msvc2019_64</QtInstall>
-    <QtModules>core;gui;network;uitools;webchannel;webengine;webenginewidgets;websockets;widgets;winextras</QtModules>
+    <QtModules>core;gui;network;uitools;webchannel;webengine;webenginewidgets;websockets;widgets;winextras;xml;xmlpatterns</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">

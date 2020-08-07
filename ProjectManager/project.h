@@ -6,6 +6,7 @@ class Project : public PageMetaData
 {
 	static const QString m_path_to_project_meta_data;
 	static const QString m_path_to_src;
+	static const QString m_path_to_target_meta;
 
 	QString m_name;
 	QString m_path_to_project;
@@ -27,6 +28,10 @@ public:
 
 	bool isOutDated() const;
 	void updateMetaData() const;
+	void saveMeta() const;
+	void loadFromMeta();
+
+	QString filePath(const QString&);
 
 	void addFile(const QString&, const QByteArray&);
 	void rmFile(const QString&);
