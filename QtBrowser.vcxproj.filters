@@ -40,12 +40,6 @@
     <Filter Include="Source Files\Browser">
       <UniqueIdentifier>{c0733b92-0c8a-441f-8478-5668edc23e98}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Console">
-      <UniqueIdentifier>{28cc49de-d042-401c-b576-93a3246283d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Console">
-      <UniqueIdentifier>{2ef3551e-c572-49f3-a316-b599d0d681c0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Browser">
       <UniqueIdentifier>{b4c66ee1-ace1-41c6-91e7-10302720eaca}</UniqueIdentifier>
     </Filter>
@@ -80,12 +74,6 @@
     </ClCompile>
     <ClCompile Include="BrowserController\commandexecutor.cpp">
       <Filter>Source Files\Browser</Filter>
-    </ClCompile>
-    <ClCompile Include="Interface\console.cpp">
-      <Filter>Source Files\Console</Filter>
-    </ClCompile>
-    <ClCompile Include="Interface\consoleview.cpp">
-      <Filter>Source Files\Console</Filter>
     </ClCompile>
     <ClCompile Include="Browser\hoverhandler.cpp">
       <Filter>Source Files\System</Filter>
@@ -152,12 +140,6 @@
     <QtMoc Include="Browser\browser.h">
       <Filter>Header Files\Browser</Filter>
     </QtMoc>
-    <QtMoc Include="Interface\console.h">
-      <Filter>Header Files\Console</Filter>
-    </QtMoc>
-    <QtMoc Include="Interface\consoleview.h">
-      <Filter>Header Files\Console</Filter>
-    </QtMoc>
     <QtMoc Include="Browser\hoverhandler.h">
       <Filter>Header Files\System</Filter>
     </QtMoc>
@@ -187,9 +169,6 @@
     <QtUic Include="Interface\mainwindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="Interface\console.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
     <QtUic Include="Interface\createnewproject.ui">
       <Filter>Form Files</Filter>
     </QtUic>
@@ -204,15 +183,6 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Interface\ui_mainwindow.h">
-      <Filter>Pre Compiled</Filter>
-    </ClInclude>
-    <ClInclude Include="Interface\ui_console.h">
-      <Filter>Pre Compiled</Filter>
-    </ClInclude>
-    <ClInclude Include="Interface\debug.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
     <ClInclude Include="BrowserController\commandexecutor.h">
       <Filter>Header Files\Browser</Filter>
     </ClInclude>
@@ -266,6 +236,9 @@
     </ClInclude>
     <ClInclude Include="Interface\ui_registerpage.h">
       <Filter>Pre Compiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\ui_mainwindow.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

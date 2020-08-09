@@ -109,8 +109,6 @@
     <ClCompile Include="Browser\hoverhandler.cpp" />
     <ClCompile Include="Browser\taskexecutor.cpp" />
     <ClCompile Include="Interface\addpageelement.cpp" />
-    <ClCompile Include="Interface\console.cpp" />
-    <ClCompile Include="Interface\consoleview.cpp" />
     <ClCompile Include="Interface\createnewproject.cpp" />
     <ClCompile Include="Interface\mainwindow.cpp" />
     <ClCompile Include="Interface\openproject.cpp" />
@@ -133,7 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Interface\addpageelement.ui" />
-    <QtUic Include="Interface\console.ui" />
     <QtUic Include="Interface\createnewproject.ui" />
     <QtUic Include="Interface\mainwindow.ui" />
     <QtUic Include="Interface\openproject.ui" />
@@ -147,6 +144,7 @@
     <QtMoc Include="Interface\registerpage.h" />
     <ClInclude Include="Interface\ui_addpageelement.h" />
     <ClInclude Include="Interface\ui_createnewproject.h" />
+    <ClInclude Include="Interface\ui_mainwindow.h" />
     <ClInclude Include="Interface\ui_openproject.h" />
     <ClInclude Include="Interface\ui_registerpage.h" />
     <ClInclude Include="ProjectManager\element.h" />
@@ -154,8 +152,6 @@
     <ClInclude Include="ProjectManager\pagemetadata.h" />
     <ClInclude Include="ProjectManager\project.h" />
     <ClInclude Include="ProjectManager\projectmanager.h" />
-    <QtMoc Include="Interface\console.h" />
-    <QtMoc Include="Interface\consoleview.h" />
     <QtMoc Include="BrowserController\browserexecutor.h" />
     <ClInclude Include="BrowserController\command.h" />
     <ClInclude Include="BrowserController\commandexecutor.h" />
@@ -165,9 +161,6 @@
     <ClInclude Include="BrowserController\executejsfromfile.h" />
     <ClInclude Include="BrowserController\loadurlcmd.h" />
     <ClInclude Include="BrowserController\logcmd.h" />
-    <ClInclude Include="Interface\debug.h" />
-    <ClInclude Include="Interface\ui_console.h" />
-    <ClInclude Include="Interface\ui_mainwindow.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />

@@ -12,48 +12,62 @@
 
 #include <QKeyEvent>
 
-Console* MainWindow::m_console = nullptr;
-
 MainWindow::MainWindow(QWidget *parent):
 	QMainWindow(parent),
 	m_is_control_pressed(false),
+	m_path_to_maven("E:/Solver/apache-maven-3.6.3/bin/mvn.cmd"),
 	m_path_to_inteliji("C:/Program Files/JetBrains/IntelliJ IDEA Community Edition 2020.1.2/bin/idea64.exe"),
 	m_main_project(nullptr),
 	m_project_manager(),
-	m_application(new BrowserExecutor()),
+	m_application(),
 	ui(new Ui::MainWindow())
 {
 	ui->setupUi(this);
-	MainWindow::m_console = ui->console;
 
-	connect(ui->browser, &Browser::syncLoadStarted, this, &MainWindow::loadStarted);
+	/*
+	* Browser signals
+	*/
+	connect(ui->browser, &Browser::syncLoadStarted,  this, &MainWindow::loadStarted);
 	connect(ui->browser, &Browser::syncLoadProgress, this, &MainWindow::loadProgress);
 	connect(ui->browser, &Browser::syncLoadFinished, this, &MainWindow::loadFinished);
+	connect(ui->browser, &Browser::hovered,			 this, &MainWindow::onElementHovered);
 
-	connect(ui->browser, &Browser::hovered, this, &MainWindow::onElementHovered);
+	/*
+	* Buttons UI
+	*/
 
-	connect(ui->load, &QPushButton::clicked, this, qOverload<>(&MainWindow::loadPage));
-	connect(ui->run_inteliji, &QPushButton::clicked, this, &MainWindow::runInteljiIdea);
-	connect(ui->run_app, &QPushButton::clicked, this, &MainWindow::runApplication);
-	connect(ui->stop_app, &QPushButton::clicked, this, &MainWindow::closeApplication);
+	connect(ui->load,						   &QPushButton	::clicked,				this, qOverload<>(&MainWindow::loadPage			));
+	connect(ui->run_inteliji,				   &QPushButton	::clicked,				this,		      &MainWindow::runInteljiIdea	);
+	connect(ui->run_app,					   &QPushButton	::clicked,				this,			  &MainWindow::runApplication	);
+	connect(ui->stop,						   &QPushButton	::clicked,				this,		      &MainWindow::closeApplication	);
+	connect(ui->register_page,				   &QPushButton	::clicked,				this,			  &MainWindow::registerPage		);
+	connect(ui->pages,			qOverload<int>(&QComboBox   ::currentIndexChanged), this,			  &MainWindow::pageIndexChanged	);
 
-	connect(ui->register_page, &QPushButton::clicked, this, &MainWindow::registerPage);
-	connect(ui->pages, qOverload<int>(&QComboBox::currentIndexChanged), this, &MainWindow::pageIndexChanged);
+	/*
+	* UI Actions
+	*/
 
-	connect(ui->create_new_project, &QAction::triggered, this, &MainWindow::newProject);
-	connect(ui->open_project, &QAction::triggered, this, &MainWindow::openProject);
+	connect(ui->create_new_project,	&QAction::triggered, this, &MainWindow::newProject);
+	connect(ui->open_project,		&QAction::triggered, this, &MainWindow::openProject);
+
+	/*
+	*  Browser Progress
+	*/
 
 	ui->progress->setRange(0, 100);
 	ui->progress->setValue(0);
 
-	m_application->setBrowser(ui->browser);
+	/*
+	*  Default settings
+	*/
 
-	m_project_manager.setPathToMaven("E:/Solver/apache-maven-3.6.3/bin/mvn.cmd");
+	ui->html_source->hide();
+	m_application.setBrowser(ui->browser);
+	m_project_manager.setPathToMaven(m_path_to_maven);
 }
 
 MainWindow::~MainWindow()
 {
-	delete m_application;
 	delete ui;
 }
 
@@ -152,7 +166,6 @@ void MainWindow::loadFinished(bool b)
 
 void MainWindow::onElementHovered(const QString& tag, const QString& id, const QStringList& classes, const QString& inner, const QString& path)
 {
-	//ui->inner->setMaxWidth(ui->inner->consoleViewWidth());
 	ui->tag->setText(tag);
 	ui->id->setText(id);
 	ui->path->setText(path);
@@ -215,13 +228,13 @@ void MainWindow::runInteljiIdea()
 
 void MainWindow::runApplication()
 {
-	m_application->close();
-	m_application->start("E://Solver/BrowserController/src");
+	m_application.close();
+	m_application.start("E://Solver/BrowserController/src");
 }
 
 void MainWindow::closeApplication()
 {
-	m_application->close();
+	m_application.close();
 }
 
 void MainWindow::newProject()
@@ -252,7 +265,7 @@ void MainWindow::addElement()
 		list << ui->classes->itemText(i);
 	}
 
-	AddPageElement d(m_current_page, ui->tag->text(), ui->id->text(), list, ui->inner->text(), ui->path->text(), this);
+	AddPageElement d(m_current_page, ui->tag->text(), ui->id->text(), list, ui->inner->toPlainText(), ui->path->text(), this);
 	if (d.exec() == QDialog::Accepted)
 	{
 		m_current_page->addElement(std::make_shared<Element>(d.name(), d.path()));

@@ -5,7 +5,9 @@
 class ProjectManager
 {
 	static const QString m_path_to_projects_meta_data;
+	static const QByteArray m_default_main_data;
 	
+	QByteArray m_core_jar_file_data;
 	QString m_path_to_maven;
 
 	std::vector<std::shared_ptr<Project>> m_projects;

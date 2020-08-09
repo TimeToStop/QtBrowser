@@ -169,23 +169,20 @@ void Project::loadFromMeta()
     }
 }
 
-
-QString Project::filePath(const QString& path)
+QString Project::projectFilePath(const QString& path)
 {
-    if (!path.isEmpty() && path[0] == '/')
-    {
-        return m_path_to_project + m_path_to_src + path;
-    }
-    else
-    {
-        return m_path_to_project + m_path_to_src + "/" + path;
-    }
+    return m_path_to_project + path;
 }
 
-void Project::addFile(const QString& path, const QByteArray& data)
+QString Project::srcFilePath(const QString& path)
+{
+    return m_path_to_project + m_path_to_src + path;
+}
+
+void Project::addSrcFile(const QString& path, const QByteArray& data)
 {
     QFile file(m_path_to_project + m_path_to_src + path);
-    
+
     if (file.open(QIODevice::WriteOnly))
     {
         file.write(data);
@@ -194,17 +191,89 @@ void Project::addFile(const QString& path, const QByteArray& data)
     }
 }
 
-void Project::rmFile(const QString& path)
+void Project::addProjectFile(const QString& path, const QByteArray& data)
+{
+    QFile file(m_path_to_project + path);
+
+    if (file.open(QIODevice::WriteOnly))
+    {
+        file.write(data);
+        file.flush();
+        file.close();
+    }
+}
+
+void Project::rmSrcFile(const QString& path)
 {
     QFile::remove(m_path_to_project + m_path_to_src + path);
 }
 
-void Project::addDirectory(const QString& path)
+void Project::rmProjectFile(const QString& path)
+{
+    QFile::remove(m_path_to_project + path);
+}
+
+void Project::addSrcDirectory(const QString& path)
 {
     QDir d(m_path_to_project + m_path_to_src);
-    
+
     if (d.exists())
     {
         d.mkpath(path);
+    }
+}
+
+void Project::addProjectDirectory(const QString& path)
+{
+    QDir d(m_path_to_project);
+
+    if (d.exists())
+    {
+        d.mkpath(path);
+    }
+}
+
+void Project::addMavenLocalDependency(const QString& path)
+{
+    QFile pom_in(m_path_to_project + "/pom.xml");
+
+    if (pom_in.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        const QString to_find = "<dependencies>";
+        const QString dependency = 
+            "\n<dependency>\n"
+            "<groupId>com.google.code</groupId>\n"
+            "<artifactId>framework</artifactId>\n"
+            "<version>0.0.1</version>\n"
+            "<scope>system</scope>\n"
+            "<systemPath>" + path + "</systemPath>\n"
+            "</dependency>";
+
+        QString data = pom_in.readAll();
+        int index = data.indexOf(to_find);
+        if (index != -1)
+        {
+            data.insert(index + to_find.size(), 
+                dependency
+            );
+        }
+        else
+        {
+            data.insert(data.indexOf("<name>"), 
+                "<dependencies>" +
+                dependency +
+                "</dependencies>");
+        }
+
+        pom_in.close();
+
+        QFile pom_out(m_path_to_project + "/pom.xml");
+        
+        if (pom_out.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            pom_out.write(data.toUtf8());
+            pom_out.flush();
+            pom_out.close();
+        }
     }
 }

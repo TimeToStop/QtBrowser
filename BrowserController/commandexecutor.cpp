@@ -1,5 +1,4 @@
 #include "commandexecutor.h"
-#include "debug.h"
 #include "browserexecutor.h"
 
 #include "connectcmd.h"
@@ -35,7 +34,6 @@ QByteArray CommandExecutor::execute(BrowserExecutor* executor, QByteArray& data)
     }
     else
     {
-        CONSOLE_LOG("Calling unknown command");
         return QByteArray();
     }
 }

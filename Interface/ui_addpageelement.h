@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'addpageelementTPqYcr.ui'
+** Form generated from reading UI file 'addpageelementIgzqDV.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef ADDPAGEELEMENTTPQYCR_H
-#define ADDPAGEELEMENTTPQYCR_H
+#ifndef ADDPAGEELEMENTIGZQDV_H
+#define ADDPAGEELEMENTIGZQDV_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -20,8 +20,8 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
-#include "console.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -39,18 +39,18 @@ public:
     QGroupBox *groupBox;
     QHBoxLayout *horizontalLayout_5;
     QGridLayout *gridLayout_2;
-    QLineEdit *tag;
-    Console *inner;
-    QLabel *label_2;
-    QLineEdit *id;
-    QLabel *label_4;
-    QLabel *label_3;
     QComboBox *classes;
+    QLabel *label_2;
     QVBoxLayout *verticalLayout_5;
     QLabel *label_5;
     QSpacerItem *verticalSpacer_2;
-    QLabel *label_8;
+    QLineEdit *tag;
+    QLabel *label_3;
     QLineEdit *path;
+    QLabel *label_8;
+    QLabel *label_4;
+    QLineEdit *id;
+    QTextBrowser *inner;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
     QPushButton *create;
@@ -111,56 +111,15 @@ public:
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setSpacing(6);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        tag = new QLineEdit(groupBox);
-        tag->setObjectName(QString::fromUtf8("tag"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(tag->sizePolicy().hasHeightForWidth());
-        tag->setSizePolicy(sizePolicy1);
+        classes = new QComboBox(groupBox);
+        classes->setObjectName(QString::fromUtf8("classes"));
 
-        gridLayout_2->addWidget(tag, 0, 1, 1, 1);
-
-        inner = new Console(groupBox);
-        inner->setObjectName(QString::fromUtf8("inner"));
-        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(inner->sizePolicy().hasHeightForWidth());
-        inner->setSizePolicy(sizePolicy2);
-        inner->setMinimumSize(QSize(200, 0));
-
-        gridLayout_2->addWidget(inner, 4, 1, 1, 1);
+        gridLayout_2->addWidget(classes, 3, 1, 1, 1);
 
         label_2 = new QLabel(groupBox);
         label_2->setObjectName(QString::fromUtf8("label_2"));
 
         gridLayout_2->addWidget(label_2, 3, 0, 1, 1);
-
-        id = new QLineEdit(groupBox);
-        id->setObjectName(QString::fromUtf8("id"));
-        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(id->sizePolicy().hasHeightForWidth());
-        id->setSizePolicy(sizePolicy3);
-
-        gridLayout_2->addWidget(id, 1, 1, 1, 1);
-
-        label_4 = new QLabel(groupBox);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-
-        gridLayout_2->addWidget(label_4, 1, 0, 1, 1);
-
-        label_3 = new QLabel(groupBox);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-
-        gridLayout_2->addWidget(label_3, 0, 0, 1, 1);
-
-        classes = new QComboBox(groupBox);
-        classes->setObjectName(QString::fromUtf8("classes"));
-
-        gridLayout_2->addWidget(classes, 3, 1, 1, 1);
 
         verticalLayout_5 = new QVBoxLayout();
         verticalLayout_5->setSpacing(6);
@@ -175,19 +134,54 @@ public:
         verticalLayout_5->addItem(verticalSpacer_2);
 
 
-        gridLayout_2->addLayout(verticalLayout_5, 4, 0, 1, 1);
+        gridLayout_2->addLayout(verticalLayout_5, 5, 0, 1, 1);
+
+        tag = new QLineEdit(groupBox);
+        tag->setObjectName(QString::fromUtf8("tag"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(tag->sizePolicy().hasHeightForWidth());
+        tag->setSizePolicy(sizePolicy1);
+
+        gridLayout_2->addWidget(tag, 0, 1, 1, 1);
+
+        label_3 = new QLabel(groupBox);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+
+        gridLayout_2->addWidget(label_3, 0, 0, 1, 1);
+
+        path = new QLineEdit(groupBox);
+        path->setObjectName(QString::fromUtf8("path"));
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(path->sizePolicy().hasHeightForWidth());
+        path->setSizePolicy(sizePolicy2);
+
+        gridLayout_2->addWidget(path, 2, 1, 1, 1);
 
         label_8 = new QLabel(groupBox);
         label_8->setObjectName(QString::fromUtf8("label_8"));
 
         gridLayout_2->addWidget(label_8, 2, 0, 1, 1);
 
-        path = new QLineEdit(groupBox);
-        path->setObjectName(QString::fromUtf8("path"));
-        sizePolicy3.setHeightForWidth(path->sizePolicy().hasHeightForWidth());
-        path->setSizePolicy(sizePolicy3);
+        label_4 = new QLabel(groupBox);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
 
-        gridLayout_2->addWidget(path, 2, 1, 1, 1);
+        gridLayout_2->addWidget(label_4, 1, 0, 1, 1);
+
+        id = new QLineEdit(groupBox);
+        id->setObjectName(QString::fromUtf8("id"));
+        sizePolicy2.setHeightForWidth(id->sizePolicy().hasHeightForWidth());
+        id->setSizePolicy(sizePolicy2);
+
+        gridLayout_2->addWidget(id, 1, 1, 1, 1);
+
+        inner = new QTextBrowser(groupBox);
+        inner->setObjectName(QString::fromUtf8("inner"));
+
+        gridLayout_2->addWidget(inner, 5, 1, 1, 1);
 
 
         horizontalLayout_5->addLayout(gridLayout_2);
@@ -233,10 +227,10 @@ public:
         label->setText(QCoreApplication::translate("AddPageElement", "Name of Element:", nullptr));
         groupBox->setTitle(QCoreApplication::translate("AddPageElement", "Info:", nullptr));
         label_2->setText(QCoreApplication::translate("AddPageElement", "Classes:", nullptr));
-        label_4->setText(QCoreApplication::translate("AddPageElement", "Id:", nullptr));
-        label_3->setText(QCoreApplication::translate("AddPageElement", "Tag:", nullptr));
         label_5->setText(QCoreApplication::translate("AddPageElement", "Inner:", nullptr));
+        label_3->setText(QCoreApplication::translate("AddPageElement", "Tag:", nullptr));
         label_8->setText(QCoreApplication::translate("AddPageElement", "Path:", nullptr));
+        label_4->setText(QCoreApplication::translate("AddPageElement", "Id:", nullptr));
         create->setText(QCoreApplication::translate("AddPageElement", "Create", nullptr));
         exit->setText(QCoreApplication::translate("AddPageElement", "Exit", nullptr));
     } // retranslateUi
@@ -249,4 +243,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // ADDPAGEELEMENTTPQYCR_H
+#endif // ADDPAGEELEMENTIGZQDV_H

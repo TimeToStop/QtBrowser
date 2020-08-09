@@ -1,7 +1,5 @@
 #include "logcmd.h"
 
-#include "debug.h"
-
 LogCmd::LogCmd()
 {
 }
@@ -18,13 +16,10 @@ QByteArray LogCmd::execute(BrowserExecutor*, QByteArray& data)
 	switch (type)
 	{
 	case LogType::LOG:
-		CONSOLE_LOG(QString(data));
 		break;
 	case LogType::WARNING:
-		CONSOLE_WARNING(QString(data));
 		break;
 	case LogType::ERROR:
-		CONSOLE_ERROR(QString(data));
 		break;
 	default:
 		break;

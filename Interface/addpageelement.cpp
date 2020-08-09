@@ -17,7 +17,7 @@ AddPageElement::AddPageElement(const std::shared_ptr<Page>& page, const QString&
 	ui->id->setText(id);
 	ui->path->setText(path);
 	ui->classes->addItems(classes);
-	ui->inner->log(inner);
+	ui->inner->setHtml(inner);
 }
 
 AddPageElement::~AddPageElement()

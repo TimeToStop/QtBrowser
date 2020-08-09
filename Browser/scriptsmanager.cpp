@@ -1,7 +1,6 @@
 #include "scriptsmanager.h"
 
 #include "taskexecutor.h"
-#include "debug.h"
 
 #include <QFile>
 #include <QWebEngineScript>
@@ -77,7 +76,6 @@ QString ScriptsManager::runScript(const QString& script, QWebEnginePage* page)
             page->runJavaScript(script, QWebEngineScript::MainWorld, [&result, &task](const QVariant& v) 
             {
                     result = v.toString();
-                    CONSOLE_LOG(result);
                     task.taskExecuted();
             });
     });

@@ -1,6 +1,5 @@
 #include "browserexecutor.h"
 
-#include "debug.h"
 #include "taskexecutor.h"
 
 #include <QFile>
@@ -26,15 +25,10 @@ void BrowserExecutor::newConnection()
 {
 	if (!m_client_socket)
 	{
-		CONSOLE_LOG("New connection accepted");
 		m_client_socket = m_server->nextPendingConnection();
 		m_client_socket->setSocketOption(QAbstractSocket::LowDelayOption, 1);
 		QObject::connect(m_client_socket, &QTcpSocket::readyRead, this, &BrowserExecutor::clientReadReady);
 		QObject::connect(m_client_socket, &QTcpSocket::disconnected, this, &BrowserExecutor::clientDisconnected);
-	}
-	else
-	{
-		CONSOLE_LOG("More than one connection does not accepted");
 	}
 }
 
@@ -65,7 +59,6 @@ Browser* BrowserExecutor::browser() const
 
 void BrowserExecutor::clientDisconnected()
 {
-	CONSOLE_LOG("Task finished");
 	close();
 	emit(taskFinished(m_is_terminate));
 }
@@ -74,12 +67,10 @@ bool BrowserExecutor::start(const QString& project)
 {
 	if (!m_server->listen(QHostAddress::LocalHost))
 	{
-		CONSOLE_LOG("Cannot run server!");
 		return false;
 	}
 	else
 	{
-		CONSOLE_LOG("Server run at port: " + QString::number(m_server->serverPort()));
 		QObject::connect(m_server, &QTcpServer::newConnection, this, &BrowserExecutor::newConnection);
 		QFile file(project + "/properties.prop");
 		if (file.open(QIODevice::WriteOnly))
@@ -88,10 +79,6 @@ bool BrowserExecutor::start(const QString& project)
 			file.flush();
 			file.close();
 		}
-		else
-		{
-			CONSOLE_LOG("Cannot write port to file \"properties.prop\"");
-		}
 
 		return true;
 	}
@@ -99,7 +86,6 @@ bool BrowserExecutor::start(const QString& project)
 
 void BrowserExecutor::clientReadReady()
 {
-	CONSOLE_LOG("Read data form programm");
 	QByteArray data = m_client_socket->readAll();
 
 	while(m_client_socket->bytesAvailable())

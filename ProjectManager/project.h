@@ -31,12 +31,20 @@ public:
 	void saveMeta() const;
 	void loadFromMeta();
 
-	QString filePath(const QString&);
+	QString projectFilePath(const QString&);
+	QString srcFilePath(const QString&);
 
-	void addFile(const QString&, const QByteArray&);
-	void rmFile(const QString&);
+	void addSrcFile(const QString&, const QByteArray&);
+	void addProjectFile(const QString&, const QByteArray&);
 
-	void addDirectory(const QString&);
+	void rmSrcFile(const QString&);
+	void rmProjectFile(const QString&);
+
+	void addSrcDirectory(const QString&);
+	void addProjectDirectory(const QString&);
+
+
+	void addMavenLocalDependency(const QString& path);
 
 private:
 	virtual void dumpToFile(QFile&) const override;

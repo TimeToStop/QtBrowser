@@ -3,20 +3,16 @@
 #include "taskexecutor.h"
 #include "hoverhandler.h"
 
-#include <QtWebEngineWidgets/qwebenginescript.h>
-#include <QtCore/qfile.h>
-#include <QtWebChannel/qwebchannel.h>
-
-#include "debug.h"
+#include <QWebEngineScript>
+#include <QFile>
+#include <QWebChannel>
 
 Browser::Browser(QWidget *parent):
 	QWebEngineView(parent),
 	m_is_last_loaded_successful(false),
 	m_is_browser_init_loading(false),
 	m_scripts()
-{
-	initScript();
-	
+{	
 	connect(this, &QWebEngineView::loadStarted,  this, &Browser::loadStartedSlot);
 	connect(this, &QWebEngineView::loadProgress, this, &Browser::loadProgressSlot);
 	connect(this, &QWebEngineView::loadFinished, this, &Browser::loadFinishedSlot);
@@ -45,13 +41,16 @@ void Browser::loadURL(const QString& url)
 	TaskExecutor task;
 	task.addListenFor<QWebEngineView>(this, &QWebEngineView::loadFinished);
 	task.execute([&url, page]() {
-		CONSOLE_LOG("Synchronized loading started");
 		page->load(QUrl(url));
 	});	
 
 	m_scripts.initAllScripts(page);
 	m_is_browser_init_loading = false;
-	CONSOLE_LOG("Load ended");
+}
+
+bool Browser::addDefaultPageLoadedScript(const QString& name, const QString& path_to_script)
+{
+	return m_scripts.addScript(name, path_to_script);
 }
 
 QString Browser::syncJavaScriptExecuting(const QString& script, qint64 world)
@@ -97,30 +96,28 @@ void Browser::hoveredSlot(const QString& tag, const QString& id, const QStringLi
 	hovered(tag, id, classes, inner, path);
 }
 
-void Browser::initScript()
-{
-	if (!m_scripts.addScript("jquery", "JS/jquery-3-5-1.min.js"))
-	{
-		CONSOLE_WARNING("Cannot read file: JS/jquery-3-5-1.min.js");
-	}
-
-	if (!m_scripts.addScript("webchannel", "JS/qwebchannel.js"))
-	{
-		CONSOLE_WARNING("Cannot read file: JS/qwebchannel.js");
-	}
-	
-	if (!m_scripts.addScript("init", "JS/init.js"))
-	{
-		CONSOLE_WARNING("Cannot read file: JS/init.js");
-	}
-
-	if (!m_scripts.addScript("find", "JS/find.js"))
-	{
-		CONSOLE_WARNING("Cannot read file: JS/find.js");
-	}
-
-	if (!m_scripts.addScript("hover", "JS/hover.js"))
-	{
-		CONSOLE_WARNING("Cannot read file: JS/hover.js");
-	}
-}
+//
+//if (!m_scripts.addScript("jquery", "JS/jquery-3-5-1.min.js"))
+//{
+//	CONSOLE_WARNING("Cannot read file: JS/jquery-3-5-1.min.js");
+//}
+//
+//if (!m_scripts.addScript("webchannel", "JS/qwebchannel.js"))
+//{
+//	CONSOLE_WARNING("Cannot read file: JS/qwebchannel.js");
+//}
+//
+//if (!m_scripts.addScript("init", "JS/init.js"))
+//{
+//	CONSOLE_WARNING("Cannot read file: JS/init.js");
+//}
+//
+//if (!m_scripts.addScript("find", "JS/find.js"))
+//{
+//	CONSOLE_WARNING("Cannot read file: JS/find.js");
+//}
+//
+//if (!m_scripts.addScript("hover", "JS/hover.js"))
+//{
+//	CONSOLE_WARNING("Cannot read file: JS/hover.js");
+//}

@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'mainwindowgsHKIL.ui'
+** Form generated from reading UI file 'mainwindowwFVhgu.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MAINWINDOWGSHKIL_H
-#define MAINWINDOWGSHKIL_H
+#ifndef MAINWINDOWWFVHGU_H
+#define MAINWINDOWWFVHGU_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -26,12 +26,13 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "browser.h"
-#include "console.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -40,6 +41,10 @@ class Ui_MainWindow
 public:
     QAction *create_new_project;
     QAction *open_project;
+    QAction *actionPath_To_Maven;
+    QAction *actionPath_To_Inteliji_Idea;
+    QAction *actionDebug_Settings;
+    QAction *actionShow_HTML_Source;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
@@ -47,6 +52,9 @@ public:
     QLabel *label;
     QLabel *project_name;
     QSpacerItem *horizontalSpacer;
+    QPushButton *generate;
+    QPushButton *run_app;
+    QPushButton *stop;
     QPushButton *run_inteliji;
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout_3;
@@ -80,20 +88,23 @@ public:
     QSpacerItem *verticalSpacer;
     QLabel *label_8;
     QLineEdit *path;
-    QLineEdit *inner;
-    Browser *browser;
-    QGroupBox *groupBox_2;
+    QTextBrowser *inner;
     QHBoxLayout *horizontalLayout_4;
     QVBoxLayout *verticalLayout_6;
-    QHBoxLayout *horizontalLayout_5;
-    QLabel *label_7;
-    QLineEdit *application;
-    QPushButton *run_app;
-    QPushButton *stop_app;
-    QSpacerItem *verticalSpacer_2;
-    Console *console;
+    Browser *browser;
+    QTabWidget *tabWidget;
+    QWidget *tab;
+    QHBoxLayout *horizontalLayout_9;
+    QTextBrowser *console;
+    QWidget *tab_2;
+    QHBoxLayout *horizontalLayout_8;
+    QTextBrowser *application_output;
+    QVBoxLayout *verticalLayout_8;
+    QTextBrowser *html_source;
     QMenuBar *menuBar;
     QMenu *menuProject;
+    QMenu *menuSettings;
+    QMenu *menuView;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -107,6 +118,14 @@ public:
         create_new_project->setObjectName(QString::fromUtf8("create_new_project"));
         open_project = new QAction(MainWindow);
         open_project->setObjectName(QString::fromUtf8("open_project"));
+        actionPath_To_Maven = new QAction(MainWindow);
+        actionPath_To_Maven->setObjectName(QString::fromUtf8("actionPath_To_Maven"));
+        actionPath_To_Inteliji_Idea = new QAction(MainWindow);
+        actionPath_To_Inteliji_Idea->setObjectName(QString::fromUtf8("actionPath_To_Inteliji_Idea"));
+        actionDebug_Settings = new QAction(MainWindow);
+        actionDebug_Settings->setObjectName(QString::fromUtf8("actionDebug_Settings"));
+        actionShow_HTML_Source = new QAction(MainWindow);
+        actionShow_HTML_Source->setObjectName(QString::fromUtf8("actionShow_HTML_Source"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout_2 = new QVBoxLayout(centralWidget);
@@ -132,6 +151,21 @@ public:
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_2->addItem(horizontalSpacer);
+
+        generate = new QPushButton(centralWidget);
+        generate->setObjectName(QString::fromUtf8("generate"));
+
+        horizontalLayout_2->addWidget(generate);
+
+        run_app = new QPushButton(centralWidget);
+        run_app->setObjectName(QString::fromUtf8("run_app"));
+
+        horizontalLayout_2->addWidget(run_app);
+
+        stop = new QPushButton(centralWidget);
+        stop->setObjectName(QString::fromUtf8("stop"));
+
+        horizontalLayout_2->addWidget(stop);
 
         run_inteliji = new QPushButton(centralWidget);
         run_inteliji->setObjectName(QString::fromUtf8("run_inteliji"));
@@ -331,7 +365,7 @@ public:
 
         gridLayout_2->addWidget(path, 2, 1, 1, 1);
 
-        inner = new QLineEdit(groupBox);
+        inner = new QTextBrowser(groupBox);
         inner->setObjectName(QString::fromUtf8("inner"));
         sizePolicy2.setHeightForWidth(inner->sizePolicy().hasHeightForWidth());
         inner->setSizePolicy(sizePolicy2);
@@ -347,6 +381,12 @@ public:
 
         gridLayout->addLayout(verticalLayout_3, 0, 0, 1, 1);
 
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        verticalLayout_6 = new QVBoxLayout();
+        verticalLayout_6->setSpacing(6);
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
         browser = new Browser(centralWidget);
         browser->setObjectName(QString::fromUtf8("browser"));
         QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -355,61 +395,55 @@ public:
         sizePolicy3.setHeightForWidth(browser->sizePolicy().hasHeightForWidth());
         browser->setSizePolicy(sizePolicy3);
 
-        gridLayout->addWidget(browser, 0, 1, 1, 1);
+        verticalLayout_6->addWidget(browser);
 
-        groupBox_2 = new QGroupBox(centralWidget);
-        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        horizontalLayout_4 = new QHBoxLayout(groupBox_2);
-        horizontalLayout_4->setSpacing(6);
-        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        verticalLayout_6 = new QVBoxLayout();
-        verticalLayout_6->setSpacing(6);
-        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
-        horizontalLayout_5 = new QHBoxLayout();
-        horizontalLayout_5->setSpacing(6);
-        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
-        label_7 = new QLabel(groupBox_2);
-        label_7->setObjectName(QString::fromUtf8("label_7"));
+        tabWidget = new QTabWidget(centralWidget);
+        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        tab = new QWidget();
+        tab->setObjectName(QString::fromUtf8("tab"));
+        horizontalLayout_9 = new QHBoxLayout(tab);
+        horizontalLayout_9->setSpacing(6);
+        horizontalLayout_9->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
+        console = new QTextBrowser(tab);
+        console->setObjectName(QString::fromUtf8("console"));
 
-        horizontalLayout_5->addWidget(label_7);
+        horizontalLayout_9->addWidget(console);
 
-        application = new QLineEdit(groupBox_2);
-        application->setObjectName(QString::fromUtf8("application"));
-        sizePolicy1.setHeightForWidth(application->sizePolicy().hasHeightForWidth());
-        application->setSizePolicy(sizePolicy1);
+        tabWidget->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QString::fromUtf8("tab_2"));
+        horizontalLayout_8 = new QHBoxLayout(tab_2);
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
+        application_output = new QTextBrowser(tab_2);
+        application_output->setObjectName(QString::fromUtf8("application_output"));
 
-        horizontalLayout_5->addWidget(application);
+        horizontalLayout_8->addWidget(application_output);
 
-        run_app = new QPushButton(groupBox_2);
-        run_app->setObjectName(QString::fromUtf8("run_app"));
+        tabWidget->addTab(tab_2, QString());
 
-        horizontalLayout_5->addWidget(run_app);
-
-        stop_app = new QPushButton(groupBox_2);
-        stop_app->setObjectName(QString::fromUtf8("stop_app"));
-
-        horizontalLayout_5->addWidget(stop_app);
-
-
-        verticalLayout_6->addLayout(horizontalLayout_5);
-
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_6->addItem(verticalSpacer_2);
+        verticalLayout_6->addWidget(tabWidget);
 
 
         horizontalLayout_4->addLayout(verticalLayout_6);
 
+        verticalLayout_8 = new QVBoxLayout();
+        verticalLayout_8->setSpacing(6);
+        verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
+        html_source = new QTextBrowser(centralWidget);
+        html_source->setObjectName(QString::fromUtf8("html_source"));
+        sizePolicy3.setHeightForWidth(html_source->sizePolicy().hasHeightForWidth());
+        html_source->setSizePolicy(sizePolicy3);
 
-        gridLayout->addWidget(groupBox_2, 2, 0, 1, 1);
+        verticalLayout_8->addWidget(html_source);
 
-        console = new Console(centralWidget);
-        console->setObjectName(QString::fromUtf8("console"));
-        sizePolicy3.setHeightForWidth(console->sizePolicy().hasHeightForWidth());
-        console->setSizePolicy(sizePolicy3);
 
-        gridLayout->addWidget(console, 2, 1, 1, 1);
+        horizontalLayout_4->addLayout(verticalLayout_8);
+
+
+        gridLayout->addLayout(horizontalLayout_4, 0, 2, 1, 1);
 
 
         verticalLayout->addLayout(gridLayout);
@@ -423,6 +457,10 @@ public:
         menuBar->setGeometry(QRect(0, 0, 1769, 21));
         menuProject = new QMenu(menuBar);
         menuProject->setObjectName(QString::fromUtf8("menuProject"));
+        menuSettings = new QMenu(menuBar);
+        menuSettings->setObjectName(QString::fromUtf8("menuSettings"));
+        menuView = new QMenu(menuBar);
+        menuView->setObjectName(QString::fromUtf8("menuView"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -432,10 +470,19 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menuProject->menuAction());
+        menuBar->addAction(menuSettings->menuAction());
+        menuBar->addAction(menuView->menuAction());
         menuProject->addAction(create_new_project);
         menuProject->addAction(open_project);
+        menuSettings->addAction(actionPath_To_Maven);
+        menuSettings->addAction(actionPath_To_Inteliji_Idea);
+        menuSettings->addAction(actionDebug_Settings);
+        menuView->addAction(actionShow_HTML_Source);
 
         retranslateUi(MainWindow);
+
+        tabWidget->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -445,8 +492,15 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         create_new_project->setText(QCoreApplication::translate("MainWindow", "New Project", nullptr));
         open_project->setText(QCoreApplication::translate("MainWindow", "Open Project", nullptr));
+        actionPath_To_Maven->setText(QCoreApplication::translate("MainWindow", "Path To Maven", nullptr));
+        actionPath_To_Inteliji_Idea->setText(QCoreApplication::translate("MainWindow", "Path To Inteliji Idea", nullptr));
+        actionDebug_Settings->setText(QCoreApplication::translate("MainWindow", "Project Settings", nullptr));
+        actionShow_HTML_Source->setText(QCoreApplication::translate("MainWindow", "Show HTML Source", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Project:", nullptr));
         project_name->setText(QString());
+        generate->setText(QCoreApplication::translate("MainWindow", "Generate Meta", nullptr));
+        run_app->setText(QCoreApplication::translate("MainWindow", "Run Appliaction", nullptr));
+        stop->setText(QCoreApplication::translate("MainWindow", "Stop Application", nullptr));
         run_inteliji->setText(QCoreApplication::translate("MainWindow", "Run Inteliji", nullptr));
         groupBox_3->setTitle(QCoreApplication::translate("MainWindow", "Browser:", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "Url:", nullptr));
@@ -463,11 +517,11 @@ public:
         label_3->setText(QCoreApplication::translate("MainWindow", "Tag:", nullptr));
         label_5->setText(QCoreApplication::translate("MainWindow", "Inner:", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "Path:", nullptr));
-        groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Application:", nullptr));
-        label_7->setText(QCoreApplication::translate("MainWindow", "Version", nullptr));
-        run_app->setText(QCoreApplication::translate("MainWindow", " Run Application", nullptr));
-        stop_app->setText(QCoreApplication::translate("MainWindow", "Stop", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Console", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Application  Output", nullptr));
         menuProject->setTitle(QCoreApplication::translate("MainWindow", "Project", nullptr));
+        menuSettings->setTitle(QCoreApplication::translate("MainWindow", "Settings", nullptr));
+        menuView->setTitle(QCoreApplication::translate("MainWindow", "View", nullptr));
     } // retranslateUi
 
 };
@@ -478,4 +532,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MAINWINDOWGSHKIL_H
+#endif // MAINWINDOWWFVHGU_H
