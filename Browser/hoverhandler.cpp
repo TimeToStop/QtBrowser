@@ -1,9 +1,8 @@
 #include "hoverhandler.h"
 
-#include <qdebug.h>
-#include <qjsondocument.h>
-#include <qjsonobject.h>
-#include <qjsonarray.h>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 HoverHandler::HoverHandler(QObject *parent):
 	QObject(parent)

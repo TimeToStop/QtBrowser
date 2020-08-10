@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>136</height>
+    <width>598</width>
+    <height>107</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,24 +33,7 @@
        </item>
        <item>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Path To Page Elements</string>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="0">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Path To Properties</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="path_to_properties"/>
-         </item>
-         <item row="1" column="0">
           <widget class="QLabel" name="label_2">
            <property name="text">
             <string>Path To Port</string>
@@ -58,26 +41,26 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="path_to_port"/>
-         </item>
-         <item row="2" column="1">
           <widget class="QLineEdit" name="path_to_elements_meta"/>
          </item>
          <item row="0" column="2">
-          <widget class="QPushButton" name="browse_properties">
-           <property name="text">
-            <string>Browse</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
           <widget class="QPushButton" name="browse_port">
            <property name="text">
             <string>Browse</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="2">
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Path To Page Elements</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="path_to_port"/>
+         </item>
+         <item row="1" column="2">
           <widget class="QPushButton" name="browse_page_elements">
            <property name="text">
             <string>Browse</string>

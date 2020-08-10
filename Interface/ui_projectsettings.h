@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'projectsettingsuKxNTJ.ui'
+** Form generated from reading UI file 'projectsettingskPYIft.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef PROJECTSETTINGSUKXNTJ_H
-#define PROJECTSETTINGSUKXNTJ_H
+#ifndef PROJECTSETTINGSKPYIFT_H
+#define PROJECTSETTINGSKPYIFT_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -30,14 +30,11 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *verticalSpacer;
     QGridLayout *gridLayout;
-    QLabel *label_3;
-    QLabel *label;
-    QLineEdit *path_to_properties;
     QLabel *label_2;
-    QLineEdit *path_to_port;
     QLineEdit *path_to_elements_meta;
-    QPushButton *browse_properties;
     QPushButton *browse_port;
+    QLabel *label_3;
+    QLineEdit *path_to_port;
     QPushButton *browse_page_elements;
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer;
@@ -48,7 +45,7 @@ public:
     {
         if (ProjectSettings->objectName().isEmpty())
             ProjectSettings->setObjectName(QString::fromUtf8("ProjectSettings"));
-        ProjectSettings->resize(600, 136);
+        ProjectSettings->resize(598, 107);
         horizontalLayout = new QHBoxLayout(ProjectSettings);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -66,50 +63,35 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        label_3 = new QLabel(ProjectSettings);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-
-        gridLayout->addWidget(label_3, 2, 0, 1, 1);
-
-        label = new QLabel(ProjectSettings);
-        label->setObjectName(QString::fromUtf8("label"));
-
-        gridLayout->addWidget(label, 0, 0, 1, 1);
-
-        path_to_properties = new QLineEdit(ProjectSettings);
-        path_to_properties->setObjectName(QString::fromUtf8("path_to_properties"));
-
-        gridLayout->addWidget(path_to_properties, 0, 1, 1, 1);
-
         label_2 = new QLabel(ProjectSettings);
         label_2->setObjectName(QString::fromUtf8("label_2"));
 
-        gridLayout->addWidget(label_2, 1, 0, 1, 1);
-
-        path_to_port = new QLineEdit(ProjectSettings);
-        path_to_port->setObjectName(QString::fromUtf8("path_to_port"));
-
-        gridLayout->addWidget(path_to_port, 1, 1, 1, 1);
+        gridLayout->addWidget(label_2, 0, 0, 1, 1);
 
         path_to_elements_meta = new QLineEdit(ProjectSettings);
         path_to_elements_meta->setObjectName(QString::fromUtf8("path_to_elements_meta"));
 
-        gridLayout->addWidget(path_to_elements_meta, 2, 1, 1, 1);
-
-        browse_properties = new QPushButton(ProjectSettings);
-        browse_properties->setObjectName(QString::fromUtf8("browse_properties"));
-
-        gridLayout->addWidget(browse_properties, 0, 2, 1, 1);
+        gridLayout->addWidget(path_to_elements_meta, 1, 1, 1, 1);
 
         browse_port = new QPushButton(ProjectSettings);
         browse_port->setObjectName(QString::fromUtf8("browse_port"));
 
-        gridLayout->addWidget(browse_port, 1, 2, 1, 1);
+        gridLayout->addWidget(browse_port, 0, 2, 1, 1);
+
+        label_3 = new QLabel(ProjectSettings);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+
+        gridLayout->addWidget(label_3, 1, 0, 1, 1);
+
+        path_to_port = new QLineEdit(ProjectSettings);
+        path_to_port->setObjectName(QString::fromUtf8("path_to_port"));
+
+        gridLayout->addWidget(path_to_port, 0, 1, 1, 1);
 
         browse_page_elements = new QPushButton(ProjectSettings);
         browse_page_elements->setObjectName(QString::fromUtf8("browse_page_elements"));
 
-        gridLayout->addWidget(browse_page_elements, 2, 2, 1, 1);
+        gridLayout->addWidget(browse_page_elements, 1, 2, 1, 1);
 
 
         horizontalLayout_2->addLayout(gridLayout);
@@ -149,11 +131,9 @@ public:
     void retranslateUi(QDialog *ProjectSettings)
     {
         ProjectSettings->setWindowTitle(QCoreApplication::translate("ProjectSettings", "ProjectSettings", nullptr));
-        label_3->setText(QCoreApplication::translate("ProjectSettings", "Path To Page Elements", nullptr));
-        label->setText(QCoreApplication::translate("ProjectSettings", "Path To Properties", nullptr));
         label_2->setText(QCoreApplication::translate("ProjectSettings", "Path To Port", nullptr));
-        browse_properties->setText(QCoreApplication::translate("ProjectSettings", "Browse", nullptr));
         browse_port->setText(QCoreApplication::translate("ProjectSettings", "Browse", nullptr));
+        label_3->setText(QCoreApplication::translate("ProjectSettings", "Path To Page Elements", nullptr));
         browse_page_elements->setText(QCoreApplication::translate("ProjectSettings", "Browse", nullptr));
         accept->setText(QCoreApplication::translate("ProjectSettings", "Accept", nullptr));
         exit->setText(QCoreApplication::translate("ProjectSettings", "Exit", nullptr));
@@ -167,4 +147,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // PROJECTSETTINGSUKXNTJ_H
+#endif // PROJECTSETTINGSKPYIFT_H

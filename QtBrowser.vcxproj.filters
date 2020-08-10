@@ -61,6 +61,12 @@
     <Filter Include="Source Files\Project">
       <UniqueIdentifier>{85479365-54bd-45d6-a39a-10976b57056b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Console">
+      <UniqueIdentifier>{8d2c5167-8d2a-46c5-8f2f-3e1d807e7aa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Console">
+      <UniqueIdentifier>{499a47e0-206e-41e5-94e2-3bfa67ced6a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -135,6 +141,9 @@
     <ClCompile Include="Interface\projectsettings.cpp">
       <Filter>Source Files\Interface</Filter>
     </ClCompile>
+    <ClCompile Include="Interface\console.cpp">
+      <Filter>Source Files\Console</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Browser\browser.h">
@@ -166,6 +175,9 @@
     </QtMoc>
     <QtMoc Include="Interface\projectsettings.h">
       <Filter>Header Files\Interface</Filter>
+    </QtMoc>
+    <QtMoc Include="Interface\console.h">
+      <Filter>Header Files\Console</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

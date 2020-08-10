@@ -2,6 +2,9 @@
 #include "browser.h"
 #include "commandexecutor.h"
 
+#include "../ProjectManager/project.h"
+#include "console.h"
+
 #include <QProcess>
 #include <QTcpServer>
 #include <QTcpSocket>
@@ -11,7 +14,9 @@ class BrowserExecutor : public QObject
 	Q_OBJECT;
 
 	bool m_is_terminate;
+	std::shared_ptr<Project> m_project;
 	Browser* m_browser;
+	Console* m_console;
 	CommandExecutor* m_executor;
 	QProcess* m_process;
 	QTcpServer* m_server;
@@ -22,9 +27,10 @@ public:
 	virtual ~BrowserExecutor();
 
 	void setBrowser(Browser*);
+	void setConsole(Console*);
 	void setIsTerminateExecution(bool);
 	void clientDisconnected();
-	bool start(const QString&);
+	bool start(std::shared_ptr<Project>);
 	void close();
 
 	Browser* browser() const;

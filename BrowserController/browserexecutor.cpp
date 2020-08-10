@@ -5,8 +5,10 @@
 #include <QFile>
 
 BrowserExecutor::BrowserExecutor():
+	m_project(),
 	m_is_terminate(false),
 	m_browser(nullptr),
+	m_console(nullptr),
 	m_executor(new CommandExecutor()),
 	m_process(new QProcess()),
 	m_server(new QTcpServer()),
@@ -23,18 +25,30 @@ BrowserExecutor::~BrowserExecutor()
 
 void BrowserExecutor::newConnection()
 {
+	m_console->log("New connection found");
+
 	if (!m_client_socket)
 	{
+		m_console->log("Connection accepted");
 		m_client_socket = m_server->nextPendingConnection();
 		m_client_socket->setSocketOption(QAbstractSocket::LowDelayOption, 1);
 		QObject::connect(m_client_socket, &QTcpSocket::readyRead, this, &BrowserExecutor::clientReadReady);
 		QObject::connect(m_client_socket, &QTcpSocket::disconnected, this, &BrowserExecutor::clientDisconnected);
+	}
+	else
+	{
+		m_console->log("Connection is not unique");
 	}
 }
 
 void BrowserExecutor::setBrowser(Browser* browser)
 {
 	m_browser = browser;
+}
+
+void BrowserExecutor::setConsole(Console* console)
+{
+	m_console = console;
 }
 
 void BrowserExecutor::setIsTerminateExecution(bool b)
@@ -63,23 +77,20 @@ void BrowserExecutor::clientDisconnected()
 	emit(taskFinished(m_is_terminate));
 }
 
-bool BrowserExecutor::start(const QString& project)
+bool BrowserExecutor::start(std::shared_ptr<Project> project)
 {
+	m_project = project;
+
 	if (!m_server->listen(QHostAddress::LocalHost))
 	{
+		m_console->error("Cannot start application");
 		return false;
 	}
 	else
 	{
+		m_console->log("Application has been started");
 		QObject::connect(m_server, &QTcpServer::newConnection, this, &BrowserExecutor::newConnection);
-		QFile file(project + "/properties.prop");
-		if (file.open(QIODevice::WriteOnly))
-		{
-			file.write(QString::number(m_server->serverPort()).toUtf8());
-			file.flush();
-			file.close();
-		}
-
+		m_project->writePort(m_server->serverPort());
 		return true;
 	}
 }

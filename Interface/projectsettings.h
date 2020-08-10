@@ -13,12 +13,14 @@ public:
 	ProjectSettings(std::shared_ptr<Project> project, QWidget *parent = Q_NULLPTR);
 	virtual ~ProjectSettings();
 
-	QString pathToProperties() const;
 	QString pathToPort() const;
-	QString pathToObjectsMeta() const;
+	QString pathToElementsMeta() const;
 
 public slots:
 	void acceptedChanges();
+
+	void browsePortPath();
+	void browseElementsMetaPath();
 
 private:
 	Ui::ProjectSettings *ui;

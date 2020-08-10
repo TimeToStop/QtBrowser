@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'mainwindowmZxDnX.ui'
+** Form generated from reading UI file 'mainwindowEpJJBT.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MAINWINDOWMZXDNX_H
-#define MAINWINDOWMZXDNX_H
+#ifndef MAINWINDOWEPJJBT_H
+#define MAINWINDOWEPJJBT_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -33,6 +33,7 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "browser.h"
+#include "console.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -92,15 +93,15 @@ public:
     QHBoxLayout *horizontalLayout_4;
     QVBoxLayout *verticalLayout_6;
     Browser *browser;
-    QTabWidget *tabWidget;
+    QTabWidget *consoles_tab;
     QWidget *tab;
     QHBoxLayout *horizontalLayout_9;
-    QTextBrowser *console;
+    Console *main_console;
     QWidget *tab_2;
     QHBoxLayout *horizontalLayout_8;
-    QTextBrowser *application_output;
+    Console *application;
+    Console *html_source;
     QVBoxLayout *verticalLayout_8;
-    QTextBrowser *html_source;
     QMenuBar *menuBar;
     QMenu *menuProject;
     QMenu *menuSettings;
@@ -397,48 +398,51 @@ public:
 
         verticalLayout_6->addWidget(browser);
 
-        tabWidget = new QTabWidget(centralWidget);
-        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        consoles_tab = new QTabWidget(centralWidget);
+        consoles_tab->setObjectName(QString::fromUtf8("consoles_tab"));
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         horizontalLayout_9 = new QHBoxLayout(tab);
         horizontalLayout_9->setSpacing(6);
         horizontalLayout_9->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
-        console = new QTextBrowser(tab);
-        console->setObjectName(QString::fromUtf8("console"));
+        main_console = new Console(tab);
+        main_console->setObjectName(QString::fromUtf8("main_console"));
 
-        horizontalLayout_9->addWidget(console);
+        horizontalLayout_9->addWidget(main_console);
 
-        tabWidget->addTab(tab, QString());
+        consoles_tab->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
         horizontalLayout_8 = new QHBoxLayout(tab_2);
         horizontalLayout_8->setSpacing(6);
         horizontalLayout_8->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
-        application_output = new QTextBrowser(tab_2);
-        application_output->setObjectName(QString::fromUtf8("application_output"));
+        application = new Console(tab_2);
+        application->setObjectName(QString::fromUtf8("application"));
 
-        horizontalLayout_8->addWidget(application_output);
+        horizontalLayout_8->addWidget(application);
 
-        tabWidget->addTab(tab_2, QString());
+        consoles_tab->addTab(tab_2, QString());
 
-        verticalLayout_6->addWidget(tabWidget);
+        verticalLayout_6->addWidget(consoles_tab);
 
 
         horizontalLayout_4->addLayout(verticalLayout_6);
 
+        html_source = new Console(centralWidget);
+        html_source->setObjectName(QString::fromUtf8("html_source"));
+        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(html_source->sizePolicy().hasHeightForWidth());
+        html_source->setSizePolicy(sizePolicy4);
+
+        horizontalLayout_4->addWidget(html_source);
+
         verticalLayout_8 = new QVBoxLayout();
         verticalLayout_8->setSpacing(6);
         verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
-        html_source = new QTextBrowser(centralWidget);
-        html_source->setObjectName(QString::fromUtf8("html_source"));
-        sizePolicy3.setHeightForWidth(html_source->sizePolicy().hasHeightForWidth());
-        html_source->setSizePolicy(sizePolicy3);
-
-        verticalLayout_8->addWidget(html_source);
-
 
         horizontalLayout_4->addLayout(verticalLayout_8);
 
@@ -481,7 +485,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        consoles_tab->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -517,8 +521,8 @@ public:
         label_3->setText(QCoreApplication::translate("MainWindow", "Tag:", nullptr));
         label_5->setText(QCoreApplication::translate("MainWindow", "Inner:", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "Path:", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Console", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Application  Output", nullptr));
+        consoles_tab->setTabText(consoles_tab->indexOf(tab), QCoreApplication::translate("MainWindow", "Console", nullptr));
+        consoles_tab->setTabText(consoles_tab->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Application  Output", nullptr));
         menuProject->setTitle(QCoreApplication::translate("MainWindow", "Project", nullptr));
         menuSettings->setTitle(QCoreApplication::translate("MainWindow", "Settings", nullptr));
         menuView->setTitle(QCoreApplication::translate("MainWindow", "View", nullptr));
@@ -532,4 +536,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MAINWINDOWMZXDNX_H
+#endif // MAINWINDOWEPJJBT_H

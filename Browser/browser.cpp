@@ -9,10 +9,19 @@
 
 Browser::Browser(QWidget *parent):
 	QWebEngineView(parent),
+	m_default_script_names(),
 	m_is_last_loaded_successful(false),
 	m_is_browser_init_loading(false),
+	m_register_qt_object_script(),
 	m_scripts()
 {	
+	QFile qt_object_scripts("JS/qwebchannel.js");
+	if (qt_object_scripts.open(QIODevice::ReadOnly))
+	{
+		m_register_qt_object_script = qt_object_scripts.readAll();
+		qt_object_scripts.close();
+	}
+
 	connect(this, &QWebEngineView::loadStarted,  this, &Browser::loadStartedSlot);
 	connect(this, &QWebEngineView::loadProgress, this, &Browser::loadProgressSlot);
 	connect(this, &QWebEngineView::loadFinished, this, &Browser::loadFinishedSlot);
@@ -37,20 +46,44 @@ void Browser::loadURL(const QString& url)
 	channel->registerObject("hover_handler", handler);
 	page->setWebChannel(channel);
 	setPage(page);
+	
 
 	TaskExecutor task;
 	task.addListenFor<QWebEngineView>(this, &QWebEngineView::loadFinished);
-	task.execute([&url, page]() {
+	task.execute([&url, page]() 
+	{
 		page->load(QUrl(url));
 	});	
+
+	TaskExecutor task_qt_objects;
+	task_qt_objects.execute([&task_qt_objects, page, this]()
+	{
+			page->runJavaScript(m_register_qt_object_script, QWebEngineScript::MainWorld, [&task_qt_objects](const QVariant&)
+			{
+				task_qt_objects.taskExecuted();
+			});
+	});
 
 	m_scripts.initAllScripts(page);
 	m_is_browser_init_loading = false;
 }
 
-bool Browser::addDefaultPageLoadedScript(const QString& name, const QString& path_to_script)
+void Browser::setDefaultScripts(const QList<QPair<QString, QString>>& scripts)
 {
-	return m_scripts.addScript(name, path_to_script);
+	for (const QPair<QString, QString>& script : scripts)
+	{
+		m_scripts.addScript(script.first, script.second);
+	}
+}
+
+void Browser::removeDefaultScript(const QString& name)
+{
+	m_scripts.removeScript(name);
+}
+
+void Browser::clearDefaultScripts()
+{
+	m_scripts.clear();
 }
 
 QString Browser::syncJavaScriptExecuting(const QString& script, qint64 world)
@@ -83,6 +116,16 @@ void Browser::loadFinishedSlot(bool b)
 {
 	if (!m_is_browser_init_loading)
 	{
+		TaskExecutor task_qt_objects;
+		task_qt_objects.execute([&task_qt_objects, this]()
+		{
+			page()->runJavaScript(m_register_qt_object_script, QWebEngineScript::MainWorld, [&task_qt_objects](const QVariant&)
+			{
+				task_qt_objects.taskExecuted();
+			});
+		});
+
+
 		m_scripts.initAllScripts(page());
 	}
 

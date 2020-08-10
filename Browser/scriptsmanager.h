@@ -15,6 +15,8 @@ public:
 	virtual ~ScriptsManager();
 
 	bool addScript(const QString& name, const QString& path);
+	void removeScript(const QString& name);
+	void clear();
 	QList<ScriptResult> initAllScripts(QWebEnginePage*);
 	bool initScript(const QString&, QString&, QWebEnginePage*);
 

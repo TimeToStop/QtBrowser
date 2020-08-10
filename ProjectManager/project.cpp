@@ -17,8 +17,8 @@ const QString Project::m_default_path_to_port_file     = "port.port";
 Project::Project(const QString& name, const QString& path, bool is_creation):
     m_name(name),
     m_path_to_project(path),
-    m_path_to_port_file(),
-    m_path_to_elements_meta(),
+    m_path_to_port_file(path + m_default_path_to_port_file),
+    m_path_to_elements_meta(path + m_default_path_to_elements_meta),
     m_pages()
 {
     if (is_creation)
@@ -28,9 +28,8 @@ Project::Project(const QString& name, const QString& path, bool is_creation):
     else
     {
         readPropertiesFile();
+        loadFromMeta();
     }
-
-    loadFromMeta();
 }
 
 Project::~Project()
@@ -43,7 +42,7 @@ void Project::createDefaultPropertiesFile()
     QFile properties(m_path_to_project + m_properties_file);
 
     m_path_to_elements_meta = m_path_to_project + m_default_path_to_elements_meta;
-    m_path_to_port_file =     m_path_to_project + m_default_path_to_port_file;
+    m_path_to_port_file     = m_path_to_project + m_default_path_to_port_file;
 
     if (properties.open(QIODevice::WriteOnly))
     {
@@ -65,6 +64,19 @@ void Project::createDefaultPropertiesFile()
 
         properties.flush();
         properties.close();
+    }
+
+
+    QFile port(m_path_to_port_file);
+    if (port.open(QIODevice::WriteOnly))
+    {
+        port.close();
+    }
+
+    QFile elements(m_path_to_elements_meta);
+    if (elements.open(QIODevice::WriteOnly))
+    {
+        elements.close();
     }
 }
 
@@ -88,7 +100,12 @@ void Project::readPropertiesFile()
                     QXmlStreamAttributes attributes = reader.attributes();
                     if (attributes.hasAttribute("path"))
                     {
-                        m_path_to_elements_meta = attributes.value("path").toString();
+                        QFile file = attributes.value("path").toString();
+
+                        if (file.exists())
+                        {
+                            m_path_to_elements_meta = attributes.value("path").toString();
+                        }
                     }
                 }
                 else if(reader.name() == "port")
@@ -96,7 +113,12 @@ void Project::readPropertiesFile()
                     QXmlStreamAttributes attributes = reader.attributes();
                     if (attributes.hasAttribute("path"))
                     {
-                        m_path_to_port_file = attributes.value("path").toString();
+                        QFile file = attributes.value("path").toString();
+
+                        if (file.exists())
+                        {
+                            m_path_to_port_file = attributes.value("path").toString();
+                        }
                     }
                 }
             }
@@ -139,8 +161,8 @@ void Project::saveJavaPageMeta() const
 
     if (file.open(QIODevice::WriteOnly))
     {
-        file.write("package generated;\n\n");
-        file.write("import core.document.*;\n");
+        file.write("package generated;\n");
+        file.write("import core.document.*;\n\n");
         file.write("public final class Pages {\n");
 
         int i = 0;
@@ -185,7 +207,7 @@ void Project::saveJavaSettingsMeta() const
 
 void Project::saveProjectPageMeta() const
 {
-    QFile file(m_path_to_project + m_path_to_elements_meta);
+    QFile file(m_path_to_elements_meta);
 
     if (file.open(QIODevice::WriteOnly))
     {
@@ -228,6 +250,30 @@ void Project::setName(const QString& name)
     m_name = name;
 }
 
+void Project::setPathToPort(const QString& path)
+{
+    QFile file(m_path_to_port_file);
+
+    if (file.open(QIODevice::WriteOnly))
+    {
+        m_path_to_port_file = path;
+        QFile::remove(m_path_to_port_file);
+        file.close();
+    }
+}
+
+void Project::setPathToElementsMeta(const QString& path)
+{
+    QFile file(m_path_to_port_file);
+
+    if (file.open(QIODevice::WriteOnly))
+    {
+        m_path_to_elements_meta = path;
+        QFile::remove(m_path_to_elements_meta);
+        file.close();
+    }
+}
+
 std::shared_ptr<Page> Project::addPage(const QString& name)
 {
     std::shared_ptr<Page> page = std::make_shared<Page>(name);
@@ -248,6 +294,11 @@ QString Project::path() const
 QString Project::pathToPort() const
 {
     return m_path_to_port_file;
+}
+
+QString Project::pathToElementsMeta() const
+{
+    return QString();
 }
 
 size_t Project::size() const
@@ -271,6 +322,22 @@ bool Project::isOutDated() const
     return !d.exists();
 }
 
+bool Project::writePort(int port) const
+{
+    QFile portFile(m_path_to_port_file);
+
+    if (portFile.open(QIODevice::WriteOnly))
+    {
+        portFile.write(QString::number(port).toUtf8());
+        portFile.flush();
+        portFile.close();
+
+        return true;
+    }
+
+    return false;
+}
+
 void Project::saveJavaMeta() const
 {
     saveJavaPageMeta();
@@ -284,7 +351,7 @@ void Project::saveProjectMeta() const
 
 void Project::loadFromMeta()
 {
-    QFile file(m_path_to_project + m_path_to_elements_meta);
+    QFile file(m_path_to_elements_meta);
 
     if (file.open(QIODevice::ReadOnly))
     {

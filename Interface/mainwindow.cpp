@@ -15,17 +15,29 @@
 #include <QKeyEvent>
 #include <QFileDialog>
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+
+
+const QString MainWindow::m_path_to_global_settings = "File/global.settings";
+
+MainWindow* MainWindow::m_window = nullptr;
+
 MainWindow::MainWindow(QWidget *parent):
 	QMainWindow(parent),
 	m_is_control_pressed(false),
-	m_path_to_maven("E:/Solver/apache-maven-3.6.3/bin/mvn.cmd"),
-	m_path_to_inteliji("C:/Program Files/JetBrains/IntelliJ IDEA Community Edition 2020.1.2/bin/idea64.exe"),
+	m_path_to_maven(),
+	m_path_to_inteliji(),
+	m_scripts({ {"Find", "JS/find.js"}, {"Hover", "JS/hover.js"},
+		{"jQuery", "JS/jquery-3-5-1.min.js"} }),
 	m_main_project(nullptr),
 	m_project_manager(),
 	m_application(),
 	ui(new Ui::MainWindow())
 {
+	MainWindow::m_window = this;
 	ui->setupUi(this);
+	readGlobalSettings();
 
 	/*
 	* Browser signals
@@ -70,12 +82,15 @@ MainWindow::MainWindow(QWidget *parent):
 	*/
 
 	ui->html_source->hide();
+	ui->browser->setDefaultScripts(m_scripts);
 	m_application.setBrowser(ui->browser);
+	m_application.setConsole(ui->application);
 	m_project_manager.setPathToMaven(m_path_to_maven);
 }
 
 MainWindow::~MainWindow()
 {
+	saveGlobalSettings();
 	delete ui;
 }
 
@@ -150,6 +165,21 @@ void MainWindow::updateTargetElements()
 
 		ui->pages->blockSignals(false);
 	}
+}
+
+void MainWindow::log(const QString& msg)
+{
+	m_window->ui->main_console->log(msg);
+}
+
+void MainWindow::warning(const QString& msg)
+{
+	m_window->ui->main_console->warning(msg);
+}
+
+void MainWindow::error(const QString& msg)
+{
+	m_window->ui->main_console->error(msg);
 }
 
 void MainWindow::loadStarted()
@@ -229,16 +259,16 @@ void MainWindow::runInteljiIdea()
 	if (m_main_project != nullptr)
 	{
 		QProcess idea;
-		idea.start(m_path_to_inteliji, QStringList() << m_main_project->path());
+		idea.startDetached(m_path_to_inteliji, QStringList() << m_main_project->path());
 		idea.waitForStarted(-1); 
-		idea.waitForFinished(-1);
 	}
 }
 
 void MainWindow::runApplication()
 {
 	m_application.close();
-	m_application.start("E://Solver/BrowserController/src");
+	m_application.start(m_main_project);
+	ui->consoles_tab->setCurrentIndex(1);
 }
 
 void MainWindow::closeApplication()
@@ -294,7 +324,9 @@ void MainWindow::projectSettings()
 
 		if (d.exec() == QDialog::Accepted)
 		{
-		
+			m_main_project->setPathToPort(d.pathToPort());
+			m_main_project->setPathToElementsMeta(d.pathToElementsMeta());
+			m_main_project->saveProjectMeta();
 		}
 	}
 }
@@ -324,5 +356,71 @@ void MainWindow::addElement()
 	{
 		m_current_page->addElement(std::make_shared<Element>(d.name(), d.path()));
 		updateTargetElements();
+	}
+}
+
+void MainWindow::readGlobalSettings()
+{
+	QFile global(m_path_to_global_settings);
+
+	if (global.open(QIODevice::ReadOnly))
+	{
+		QXmlStreamReader reader(&global);
+		reader.readNextStartElement();
+		
+		if (reader.name() == "settings")
+		{
+			while (!reader.atEnd() && !reader.hasError())
+			{
+				reader.readNextStartElement();
+
+				if (reader.name() == "maven")
+				{
+					QXmlStreamAttributes attributes = reader.attributes();
+
+					if (attributes.hasAttribute("path"))
+					{
+						m_path_to_maven = attributes.value("path").toString();
+					}
+				}
+				else if (reader.name() == "inteliji")
+				{
+					QXmlStreamAttributes attributes = reader.attributes();
+
+					if (attributes.hasAttribute("path"))
+					{
+						m_path_to_inteliji = attributes.value("path").toString();
+					}
+				}
+			}
+		}
+
+		global.close();
+	}
+}
+
+void MainWindow::saveGlobalSettings()
+{
+	QFile global(m_path_to_global_settings);
+
+	if (global.open(QIODevice::WriteOnly))
+	{
+		QXmlStreamWriter writer(&global);
+	
+		writer.writeStartDocument();
+		writer.writeStartElement("settings");
+		writer.writeStartElement("maven");
+		writer.writeAttribute("path", m_path_to_maven);
+		writer.writeEndElement();
+
+		writer.writeStartElement("inteliji");
+		writer.writeAttribute("path", m_path_to_inteliji);
+		writer.writeEndElement();
+
+		writer.writeEndElement();
+		writer.writeEndDocument();
+
+		global.flush();
+		global.close();
 	}
 }

@@ -6,6 +6,6 @@ int main(int argc, char* argv[])
 	QApplication a(argc, argv);
 	MainWindow w;
 	a.installEventFilter(&w);
-	w.show();
+	w.showMaximized();
 	return a.exec();
 }

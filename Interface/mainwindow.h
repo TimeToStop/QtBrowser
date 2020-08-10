@@ -12,11 +12,16 @@ class MainWindow : public QMainWindow
 {
 	Q_OBJECT;
 
+	static const QString m_path_to_global_settings;
+
+	static MainWindow* m_window;
 
 	bool m_is_control_pressed;
 
 	QString m_path_to_maven;
 	QString m_path_to_inteliji;
+
+	QList<QPair<QString, QString>> m_scripts;
 
 	std::shared_ptr<Project> m_main_project;
 	std::shared_ptr<Page>    m_current_page;
@@ -32,6 +37,10 @@ public:
 
 	void setMainProject(std::shared_ptr<Project>);
 	void updateTargetElements();
+
+	static void log(const QString&);
+	static void warning(const QString&);
+	static void error(const QString&);
 
 public slots:
 	void loadStarted();
@@ -57,6 +66,9 @@ public slots:
 
 private:
 	void addElement();
+
+	void readGlobalSettings();
+	void saveGlobalSettings();
 
 private:
 	Ui::MainWindow *ui;

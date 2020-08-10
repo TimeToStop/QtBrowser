@@ -27,6 +27,25 @@ bool ScriptsManager::addScript(const QString& name, const QString& path)
     return false;
 }
 
+void ScriptsManager::removeScript(const QString& name)
+{
+    QMutableListIterator<Script> it(m_all_scripts);
+
+    while (it.hasNext())
+    {
+        if (it.next().first == name)
+        {
+            it.remove();
+            return;
+        }
+    }
+}
+
+void ScriptsManager::clear()
+{
+    m_all_scripts.clear();
+}
+
 QList<ScriptsManager::ScriptResult> ScriptsManager::initAllScripts(QWebEnginePage* page)
 {
     QList<ScriptResult> result;

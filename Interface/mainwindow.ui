@@ -364,7 +364,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QTabWidget" name="tabWidget">
+             <widget class="QTabWidget" name="consoles_tab">
               <property name="currentIndex">
                <number>0</number>
               </property>
@@ -374,7 +374,7 @@
                </attribute>
                <layout class="QHBoxLayout" name="horizontalLayout_9">
                 <item>
-                 <widget class="QTextBrowser" name="console"/>
+                 <widget class="Console" name="main_console" native="true"/>
                 </item>
                </layout>
               </widget>
@@ -384,7 +384,7 @@
                </attribute>
                <layout class="QHBoxLayout" name="horizontalLayout_8">
                 <item>
-                 <widget class="QTextBrowser" name="application_output"/>
+                 <widget class="Console" name="application" native="true"/>
                 </item>
                </layout>
               </widget>
@@ -393,18 +393,17 @@
            </layout>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_8">
-            <item>
-             <widget class="QTextBrowser" name="html_source">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="Console" name="html_source" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_8"/>
           </item>
          </layout>
         </item>
@@ -494,6 +493,12 @@
    <class>Browser</class>
    <extends>QWidget</extends>
    <header>browser.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Console</class>
+   <extends>QWidget</extends>
+   <header>console.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -22,21 +22,26 @@ class Project
 	std::vector<std::shared_ptr<Page>> m_pages;
 
 public:
-	Project(const QString&, const QString&, bool is_creation = false);
+	Project(const QString&, const QString&, bool is_creation);
 	~Project();
-
-	void setName(const QString&);
-	std::shared_ptr<Page> addPage(const QString&);
 
 	QString name() const;
 	QString path() const;
 	QString pathToPort() const;
+	QString pathToElementsMeta() const;
 
 	size_t size() const;
 	std::shared_ptr<Page> getPage(size_t i) const;
 	std::shared_ptr<Page> operator[](size_t) const;
 
+	void setName(const QString&);
+	void setPathToPort(const QString&);
+	void setPathToElementsMeta(const QString&);
+
+	std::shared_ptr<Page> addPage(const QString&);
+
 	bool isOutDated() const;
+	bool writePort(int) const;
 	void saveJavaMeta() const;
 	void saveProjectMeta() const;
 	void loadFromMeta();

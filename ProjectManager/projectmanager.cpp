@@ -13,13 +13,13 @@ const QByteArray ProjectManager::m_default_main_data = QStringLiteral(
 	"package main;\n"
 	"\n"
 	"import core.WebEngine;\n"
-	"import core.other.Settings;\n"
+	"import generated.ProjectSettings;\n"
 	"\n"
 	"public class Main\n"
 	"{\n"
 	"\tpublic static void main(String[] args)\n"
 	"\t{\n"
-		"\t\tWebEngine engine = WebEngine.create(new Settings());\n"
+		"\t\tWebEngine engine = WebEngine.create(new ProjectSettings());\n"
 		"\t\tif(engine != null)\n"
 		"\t\t{\n"
 		"\t\t\t// write your code here\n"
@@ -95,7 +95,7 @@ std::shared_ptr<Project> ProjectManager::create(const QString& name, const QStri
 
 		if (maven.waitForStarted(-1) && maven.waitForFinished(-1))
 		{
-			std::shared_ptr<Project> project = std::make_shared<Project>(name, d.absolutePath() + "/" + name);
+			std::shared_ptr<Project> project = std::make_shared<Project>(name, d.absolutePath() + "/" + name + "/", true);
 			project->rmSrcFile("/main/App.java");
 			project->addSrcDirectory("generated");
 			project->addProjectDirectory("plugins");
@@ -123,7 +123,7 @@ void ProjectManager::readProjectsData()
 			QStringList temp = p.split(" ");
 			if (temp.size() == 2)
 			{
-				m_projects.push_back(std::make_shared<Project>(temp[0], temp[1]));
+				m_projects.push_back(std::make_shared<Project>(temp[0], temp[1], false));
 			}
 		}
 

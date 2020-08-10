@@ -109,6 +109,7 @@
     <ClCompile Include="Browser\hoverhandler.cpp" />
     <ClCompile Include="Browser\taskexecutor.cpp" />
     <ClCompile Include="Interface\addpageelement.cpp" />
+    <ClCompile Include="Interface\console.cpp" />
     <ClCompile Include="Interface\createnewproject.cpp" />
     <ClCompile Include="Interface\mainwindow.cpp" />
     <ClCompile Include="Interface\openproject.cpp" />
@@ -144,6 +145,7 @@
     <QtMoc Include="Interface\addpageelement.h" />
     <QtMoc Include="Interface\registerpage.h" />
     <QtMoc Include="Interface\projectsettings.h" />
+    <QtMoc Include="Interface\console.h" />
     <ClInclude Include="Interface\ui_addpageelement.h" />
     <ClInclude Include="Interface\ui_createnewproject.h" />
     <ClInclude Include="Interface\ui_mainwindow.h" />

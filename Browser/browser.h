@@ -13,6 +13,7 @@ class Browser : public QWebEngineView
 
 	bool m_is_last_loaded_successful;
 	bool m_is_browser_init_loading;
+	QString m_register_qt_object_script;
 	ScriptsManager m_scripts;
 
 public:
@@ -21,7 +22,9 @@ public:
 
 	bool isLastLoadedSuccessful() const;
 	void loadURL(const QString&);
-	bool addDefaultPageLoadedScript(const QString& name, const QString& path_to_script);
+	void setDefaultScripts(const QList<QPair<QString, QString>>& scripts);
+	void removeDefaultScript(const QString&);
+	void clearDefaultScripts();
 	QString syncJavaScriptExecuting(const QString&, qint64 = QWebEngineScript::MainWorld);
 
 signals:
