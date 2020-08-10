@@ -10,7 +10,10 @@
 #include "registerpage.h"
 #include "addpageelement.h"
 
+#include "projectsettings.h"
+
 #include <QKeyEvent>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent):
 	QMainWindow(parent),
@@ -49,6 +52,11 @@ MainWindow::MainWindow(QWidget *parent):
 
 	connect(ui->create_new_project,	&QAction::triggered, this, &MainWindow::newProject);
 	connect(ui->open_project,		&QAction::triggered, this, &MainWindow::openProject);
+	connect(ui->path_to_maven,		&QAction::triggered, this, &MainWindow::changePathToMaven);
+	connect(ui->path_to_inteliji,	&QAction::triggered, this, &MainWindow::changePathToInteliji);
+	connect(ui->project_settings,	&QAction::triggered, this, &MainWindow::projectSettings);
+	connect(ui->show_html,			&QAction::triggered, this, &MainWindow::showHtmlSource);
+
 
 	/*
 	*  Browser Progress
@@ -114,8 +122,9 @@ void MainWindow::updateTargetElements()
 {
 	if (m_main_project != nullptr)
 	{
-		m_main_project->saveMeta();
-		m_main_project->updateMetaData();
+		m_main_project->saveJavaMeta();
+		m_main_project->saveProjectMeta();
+
 		ui->pages->blockSignals(true);
 		ui->pages->clear();
 		ui->pages->addItem("None");
@@ -254,6 +263,51 @@ void MainWindow::openProject()
 	if (d.exec() == QDialog::Accepted)
 	{
 		setMainProject(d.selectedProject());
+	}
+}
+
+void MainWindow::changePathToMaven()
+{
+	QString dir = QFileDialog::getOpenFileName(this, "Path To Maven", "", "mvn.cmd");
+
+	if (dir != "")
+	{
+		m_path_to_maven = dir;
+	}
+}
+
+void MainWindow::changePathToInteliji()
+{
+	QString dir = QFileDialog::getOpenFileName(this, "Path To Inteliji", "", "idea.exe");
+
+	if (dir != "")
+	{
+		m_path_to_inteliji = dir;
+	}
+}
+
+void MainWindow::projectSettings()
+{
+	if (m_main_project != nullptr)
+	{
+		ProjectSettings d(m_main_project, this);
+
+		if (d.exec() == QDialog::Accepted)
+		{
+		
+		}
+	}
+}
+
+void MainWindow::showHtmlSource()
+{
+	if (ui->html_source->isHidden())
+	{
+		ui->html_source->show();
+	}
+	else
+	{
+		ui->html_source->hide();
 	}
 }
 

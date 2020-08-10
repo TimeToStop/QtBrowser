@@ -4,32 +4,223 @@
 #include <QXMLStreamReader>
 #include <QXMLStreamWriter>
 
-const QString Project::m_path_to_project_meta_data = "/compiled";
-const QString Project::m_path_to_src = "/src/main/java";
-const QString Project::m_path_to_target_meta = "/target.elements.meta";
+const QString Project::m_path_to_src                   = "/src/main/java/";
+const QString Project::m_properties_file               = "project.properties";
 
-Project::Project(const QString& name, const QString& path):
+const QString Project::m_path_to_generated_src         = "generated/";
+const QString Project::m_src_pages                     = "Pages.java";
+const QString Project::m_src_settings                  = "ProjectSettings.java";
+
+const QString Project::m_default_path_to_elements_meta = "elements.meta";
+const QString Project::m_default_path_to_port_file     = "port.port";
+
+Project::Project(const QString& name, const QString& path, bool is_creation):
     m_name(name),
     m_path_to_project(path),
+    m_path_to_port_file(),
+    m_path_to_elements_meta(),
     m_pages()
 {
+    if (is_creation)
+    {
+        createDefaultPropertiesFile();
+    }
+    else
+    {
+        readPropertiesFile();
+    }
+
     loadFromMeta();
 }
 
 Project::~Project()
 {
+    saveToPropertiesFile();
 }
 
-void Project::dumpToFile(QFile& file) const
+void Project::createDefaultPropertiesFile() 
 {
-    file.write("public static final class Pages \n{\n");
-    
-    for (std::shared_ptr<Page> p : m_pages)
-    {
-        p->dumpToFile(file);
-    }
+    QFile properties(m_path_to_project + m_properties_file);
 
-    file.write("}\n");
+    m_path_to_elements_meta = m_path_to_project + m_default_path_to_elements_meta;
+    m_path_to_port_file =     m_path_to_project + m_default_path_to_port_file;
+
+    if (properties.open(QIODevice::WriteOnly))
+    {
+        QXmlStreamWriter writer(&properties);
+
+        writer.writeStartDocument();
+        writer.writeStartElement("project");
+
+        writer.writeStartElement("elements-meta");
+        writer.writeAttribute("path", m_path_to_elements_meta);
+        writer.writeEndElement();
+
+        writer.writeStartElement("port");
+        writer.writeAttribute("path", m_path_to_port_file);
+        writer.writeEndElement();
+
+        writer.writeEndElement();
+        writer.writeEndDocument();
+
+        properties.flush();
+        properties.close();
+    }
+}
+
+void Project::readPropertiesFile()
+{
+    QFile properties(m_path_to_project + m_properties_file);
+
+    if (properties.open(QIODevice::ReadOnly))
+    {
+        QXmlStreamReader reader(&properties);
+        reader.readNextStartElement();
+
+        if (reader.name() == "project")
+        {
+            while (!properties.atEnd() && !reader.hasError())
+            {
+                reader.readNextStartElement();
+
+                if (reader.name() == "elements-meta")
+                {
+                    QXmlStreamAttributes attributes = reader.attributes();
+                    if (attributes.hasAttribute("path"))
+                    {
+                        m_path_to_elements_meta = attributes.value("path").toString();
+                    }
+                }
+                else if(reader.name() == "port")
+                {
+                    QXmlStreamAttributes attributes = reader.attributes();
+                    if (attributes.hasAttribute("path"))
+                    {
+                        m_path_to_port_file = attributes.value("path").toString();
+                    }
+                }
+            }
+        }
+
+        properties.close();
+    }
+}
+ 
+void Project::saveToPropertiesFile() const
+{
+    QFile properties(m_path_to_project + m_properties_file);
+
+    if (properties.open(QIODevice::WriteOnly))
+    {
+        QXmlStreamWriter writer(&properties);
+
+        writer.writeStartDocument();
+        writer.writeStartElement("project");
+       
+        writer.writeStartElement("elements-meta");
+        writer.writeAttribute("path", m_path_to_elements_meta);
+        writer.writeEndElement();
+
+        writer.writeStartElement("port");
+        writer.writeAttribute("path", m_path_to_port_file);
+        writer.writeEndElement();
+
+        writer.writeEndElement();
+        writer.writeEndDocument();
+
+        properties.flush();
+        properties.close();
+    }
+}
+
+void Project::saveJavaPageMeta() const
+{
+    QFile file(m_path_to_project + m_path_to_src + m_path_to_generated_src + m_src_pages);
+
+    if (file.open(QIODevice::WriteOnly))
+    {
+        file.write("package generated;\n\n");
+        file.write("import core.document.*;\n");
+        file.write("public final class Pages {\n");
+
+        int i = 0;
+
+        for (const std::shared_ptr<Page>& page : m_pages)
+        {
+            file.write(("\tpublic static final class " + page->name() + " {\n").toUtf8());
+            file.write(("\t\tpublic static final PageID self = new PageID(" + QString::number(i)
+                + ", \"" + page->request() + "\",\"" + page->target() + "\");\n\n").toUtf8());
+
+            for (int i = 0; i < page->size(); i++)
+            {
+                file.write(("\t\tpublic static final ElementID " + page->getElement(i)->name() + " = new ElementID(" + page->name() + ".self, \"" + page->getElement(i)->path() + "\");\n").toUtf8());
+            }
+
+            file.write("}\n");
+        }
+
+        file.write("}\n");
+        file.flush();
+        file.close();
+    }
+}
+
+void Project::saveJavaSettingsMeta() const
+{
+    QFile settings(m_path_to_project + m_path_to_src + m_path_to_generated_src + m_src_settings);
+
+    if (settings.open(QIODevice::WriteOnly))
+    {
+        settings.write("package generated;\n");
+        settings.write("import core.other.Settings;\n\n");
+        settings.write("public class ProjectSettings extends Settings {\n");
+        settings.write("\tpublic ProjectSettings() {\n");
+        settings.write(("\tsuper.port = \"" + m_path_to_port_file + "\";\n").toUtf8());
+        settings.write("}\n");
+        settings.write("}\n");
+        settings.flush();
+        settings.close();
+    }
+}
+
+void Project::saveProjectPageMeta() const
+{
+    QFile file(m_path_to_project + m_path_to_elements_meta);
+
+    if (file.open(QIODevice::WriteOnly))
+    {
+        QXmlStreamWriter writer(&file);
+
+        writer.writeStartDocument();
+        writer.writeStartElement("pages");
+
+        for (const std::shared_ptr<Page>& page : m_pages)
+        {
+            writer.writeStartElement("page");
+
+            writer.writeAttribute("name", page->name());
+            writer.writeAttribute("request", page->request());
+            writer.writeAttribute("target", page->target());
+
+            for (size_t i = 0; i < page->size(); i++)
+            {
+                writer.writeStartElement("element");
+
+                writer.writeAttribute("name", page->getElement(i)->name());
+                writer.writeAttribute("path", page->getElement(i)->path());
+
+                writer.writeEndElement();
+            }
+
+            writer.writeEndElement();
+        }
+
+        writer.writeEndElement();
+        writer.writeEndDocument();
+
+        file.flush();
+        file.close();
+    }
 }
 
 void Project::setName(const QString& name)
@@ -54,6 +245,11 @@ QString Project::path() const
     return m_path_to_project;
 }
 
+QString Project::pathToPort() const
+{
+    return m_path_to_port_file;
+}
+
 size_t Project::size() const
 {
     return m_pages.size();
@@ -75,57 +271,20 @@ bool Project::isOutDated() const
     return !d.exists();
 }
 
-void Project::updateMetaData() const
+void Project::saveJavaMeta() const
 {
-    QFile page_meta(m_path_to_project + m_path_to_src + m_path_to_project_meta_data + "/pages.java");
-
-    if (page_meta.open(QIODevice::WriteOnly))
-    {
-        dumpToFile(page_meta);
-        page_meta.close();
-    }
+    saveJavaPageMeta();
+    saveJavaSettingsMeta();
 }
 
-void Project::saveMeta() const
+void Project::saveProjectMeta() const
 {
-    QFile file(m_path_to_project + m_path_to_target_meta);
-
-    if (file.open(QIODevice::WriteOnly))
-    {
-        QXmlStreamWriter writer(&file);
-
-        writer.writeStartDocument();
-        writer.writeStartElement("pages");
-        
-        for (const std::shared_ptr<Page>& page : m_pages)
-        {
-            writer.writeStartElement("page");
-
-            writer.writeAttribute("name", page->name());
-            writer.writeAttribute("request", page->request());
-            writer.writeAttribute("target", page->target());
-
-            for (size_t i = 0; i < page->size(); i++)
-            {
-                writer.writeStartElement("element");
-
-                writer.writeAttribute("name", page->getElement(i)->name());
-                writer.writeAttribute("path", page->getElement(i)->path());
-                
-                writer.writeEndElement();
-            }
-
-            writer.writeEndElement();
-        }
-
-        writer.writeEndElement();
-        writer.writeEndDocument();
-    }
+    saveProjectPageMeta();
 }
 
 void Project::loadFromMeta()
 {
-    QFile file(m_path_to_project + m_path_to_target_meta);
+    QFile file(m_path_to_project + m_path_to_elements_meta);
 
     if (file.open(QIODevice::ReadOnly))
     {
@@ -166,6 +325,8 @@ void Project::loadFromMeta()
                 }
             }
         }
+
+        file.close();
     }
 }
 

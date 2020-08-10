@@ -50,6 +50,10 @@ public slots:
 
 	void newProject();
 	void openProject();
+	void changePathToMaven();
+	void changePathToInteliji();
+	void projectSettings();
+	void showHtmlSource();
 
 private:
 	void addElement();

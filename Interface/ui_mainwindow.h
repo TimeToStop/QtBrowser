@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'mainwindowwFVhgu.ui'
+** Form generated from reading UI file 'mainwindowmZxDnX.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MAINWINDOWWFVHGU_H
-#define MAINWINDOWWFVHGU_H
+#ifndef MAINWINDOWMZXDNX_H
+#define MAINWINDOWMZXDNX_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -41,10 +41,10 @@ class Ui_MainWindow
 public:
     QAction *create_new_project;
     QAction *open_project;
-    QAction *actionPath_To_Maven;
-    QAction *actionPath_To_Inteliji_Idea;
-    QAction *actionDebug_Settings;
-    QAction *actionShow_HTML_Source;
+    QAction *path_to_maven;
+    QAction *path_to_inteliji;
+    QAction *project_settings;
+    QAction *show_html;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
@@ -118,14 +118,14 @@ public:
         create_new_project->setObjectName(QString::fromUtf8("create_new_project"));
         open_project = new QAction(MainWindow);
         open_project->setObjectName(QString::fromUtf8("open_project"));
-        actionPath_To_Maven = new QAction(MainWindow);
-        actionPath_To_Maven->setObjectName(QString::fromUtf8("actionPath_To_Maven"));
-        actionPath_To_Inteliji_Idea = new QAction(MainWindow);
-        actionPath_To_Inteliji_Idea->setObjectName(QString::fromUtf8("actionPath_To_Inteliji_Idea"));
-        actionDebug_Settings = new QAction(MainWindow);
-        actionDebug_Settings->setObjectName(QString::fromUtf8("actionDebug_Settings"));
-        actionShow_HTML_Source = new QAction(MainWindow);
-        actionShow_HTML_Source->setObjectName(QString::fromUtf8("actionShow_HTML_Source"));
+        path_to_maven = new QAction(MainWindow);
+        path_to_maven->setObjectName(QString::fromUtf8("path_to_maven"));
+        path_to_inteliji = new QAction(MainWindow);
+        path_to_inteliji->setObjectName(QString::fromUtf8("path_to_inteliji"));
+        project_settings = new QAction(MainWindow);
+        project_settings->setObjectName(QString::fromUtf8("project_settings"));
+        show_html = new QAction(MainWindow);
+        show_html->setObjectName(QString::fromUtf8("show_html"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout_2 = new QVBoxLayout(centralWidget);
@@ -474,10 +474,10 @@ public:
         menuBar->addAction(menuView->menuAction());
         menuProject->addAction(create_new_project);
         menuProject->addAction(open_project);
-        menuSettings->addAction(actionPath_To_Maven);
-        menuSettings->addAction(actionPath_To_Inteliji_Idea);
-        menuSettings->addAction(actionDebug_Settings);
-        menuView->addAction(actionShow_HTML_Source);
+        menuSettings->addAction(path_to_maven);
+        menuSettings->addAction(path_to_inteliji);
+        menuSettings->addAction(project_settings);
+        menuView->addAction(show_html);
 
         retranslateUi(MainWindow);
 
@@ -492,10 +492,10 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         create_new_project->setText(QCoreApplication::translate("MainWindow", "New Project", nullptr));
         open_project->setText(QCoreApplication::translate("MainWindow", "Open Project", nullptr));
-        actionPath_To_Maven->setText(QCoreApplication::translate("MainWindow", "Path To Maven", nullptr));
-        actionPath_To_Inteliji_Idea->setText(QCoreApplication::translate("MainWindow", "Path To Inteliji Idea", nullptr));
-        actionDebug_Settings->setText(QCoreApplication::translate("MainWindow", "Project Settings", nullptr));
-        actionShow_HTML_Source->setText(QCoreApplication::translate("MainWindow", "Show HTML Source", nullptr));
+        path_to_maven->setText(QCoreApplication::translate("MainWindow", "Path To Maven", nullptr));
+        path_to_inteliji->setText(QCoreApplication::translate("MainWindow", "Path To Inteliji Idea", nullptr));
+        project_settings->setText(QCoreApplication::translate("MainWindow", "Project Settings", nullptr));
+        show_html->setText(QCoreApplication::translate("MainWindow", "Show HTML Source", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Project:", nullptr));
         project_name->setText(QString());
         generate->setText(QCoreApplication::translate("MainWindow", "Generate Meta", nullptr));
@@ -532,4 +532,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MAINWINDOWWFVHGU_H
+#endif // MAINWINDOWMZXDNX_H

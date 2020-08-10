@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 
-class Page : public PageMetaData
+class Page 
 {
 	QString m_name;
 	QString m_request_url;
@@ -15,8 +15,6 @@ class Page : public PageMetaData
 public:
 	Page(const QString&);
 	virtual ~Page();
-
-	virtual void dumpToFile(QFile&) const override;
 
 	void setName(const QString&);
 

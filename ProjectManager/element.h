@@ -2,11 +2,9 @@
 
 #include <QString>
 
-#include "pagemetadata.h"
-
 class Page;
 
-class Element : public PageMetaData
+class Element
 {
 	Page* m_page;
 	QString m_name;
@@ -15,8 +13,6 @@ class Element : public PageMetaData
 public:
 	Element(const QString&, const QString&);
 	~Element();
-
-	virtual void dumpToFile(QFile&) const override;
 
 	void setPage(Page*);
 

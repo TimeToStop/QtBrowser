@@ -12,27 +12,6 @@ Page::~Page()
 {
 }
 
-void Page::dumpToFile(QFile& file) const
-{
-    file.write("public static final class ");
-    file.write(m_name.toUtf8());
-    file.write("\n{\n");
-    file.write("public static final PageID self = new PageID(\"");
-    file.write(m_name.toUtf8());
-    file.write("\", \"");
-    file.write(m_request_url.toUtf8());
-    file.write("\", \"");
-    file.write(m_target_url.toUtf8());
-    file.write("\");\n\n");
-    
-    for (std::shared_ptr<Element> e : m_elements)
-    {
-        e->dumpToFile(file);
-    }
-
-    file.write("\n}\n\n");
-}
-
 void Page::setName(const QString& name)
 {
     m_name = name;

@@ -31,7 +31,7 @@ const QByteArray ProjectManager::m_default_main_data = QStringLiteral(
 
 ProjectManager::ProjectManager()
 {
-	QFile project("E:/Solver/TestSolver/out/artifacts/TestSolver_jar/TestSolver.jar");
+	QFile project("E://Solver/BrowserController/target/BrowserController-1.1.1-SNAPSHOT.jar");
 	if (project.open(QIODevice::ReadOnly))
 	{
 		m_core_jar_file_data = project.readAll();

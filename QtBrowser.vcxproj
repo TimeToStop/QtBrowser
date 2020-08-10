@@ -112,12 +112,12 @@
     <ClCompile Include="Interface\createnewproject.cpp" />
     <ClCompile Include="Interface\mainwindow.cpp" />
     <ClCompile Include="Interface\openproject.cpp" />
+    <ClCompile Include="Interface\projectsettings.cpp" />
     <ClCompile Include="Interface\registerpage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Browser\scriptsmanager.cpp" />
     <ClCompile Include="ProjectManager\element.cpp" />
     <ClCompile Include="ProjectManager\page.cpp" />
-    <ClCompile Include="ProjectManager\pagemetadata.cpp" />
     <ClCompile Include="ProjectManager\project.cpp" />
     <ClCompile Include="ProjectManager\projectmanager.cpp" />
   </ItemGroup>
@@ -134,6 +134,7 @@
     <QtUic Include="Interface\createnewproject.ui" />
     <QtUic Include="Interface\mainwindow.ui" />
     <QtUic Include="Interface\openproject.ui" />
+    <QtUic Include="Interface\projectsettings.ui" />
     <QtUic Include="Interface\registerpage.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -142,14 +143,15 @@
     <QtMoc Include="Interface\openproject.h" />
     <QtMoc Include="Interface\addpageelement.h" />
     <QtMoc Include="Interface\registerpage.h" />
+    <QtMoc Include="Interface\projectsettings.h" />
     <ClInclude Include="Interface\ui_addpageelement.h" />
     <ClInclude Include="Interface\ui_createnewproject.h" />
     <ClInclude Include="Interface\ui_mainwindow.h" />
     <ClInclude Include="Interface\ui_openproject.h" />
+    <ClInclude Include="Interface\ui_projectsettings.h" />
     <ClInclude Include="Interface\ui_registerpage.h" />
     <ClInclude Include="ProjectManager\element.h" />
     <ClInclude Include="ProjectManager\page.h" />
-    <ClInclude Include="ProjectManager\pagemetadata.h" />
     <ClInclude Include="ProjectManager\project.h" />
     <ClInclude Include="ProjectManager\projectmanager.h" />
     <QtMoc Include="BrowserController\browserexecutor.h" />

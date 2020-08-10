@@ -2,33 +2,43 @@
 
 #include "page.h"
 
-class Project : public PageMetaData
+class Project
 {
-	static const QString m_path_to_project_meta_data;
 	static const QString m_path_to_src;
-	static const QString m_path_to_target_meta;
+	static const QString m_properties_file;
+	
+	static const QString m_path_to_generated_src;
+	static const QString m_src_pages;
+	static const QString m_src_settings;
+
+	static const QString m_default_path_to_elements_meta;
+	static const QString m_default_path_to_port_file;
 
 	QString m_name;
 	QString m_path_to_project;
+	QString m_path_to_port_file;
+	QString m_path_to_elements_meta;
+
 	std::vector<std::shared_ptr<Page>> m_pages;
 
 public:
-	Project(const QString&, const QString&);
-	virtual ~Project();
+	Project(const QString&, const QString&, bool is_creation = false);
+	~Project();
 
 	void setName(const QString&);
 	std::shared_ptr<Page> addPage(const QString&);
 
 	QString name() const;
 	QString path() const;
+	QString pathToPort() const;
 
 	size_t size() const;
 	std::shared_ptr<Page> getPage(size_t i) const;
 	std::shared_ptr<Page> operator[](size_t) const;
 
 	bool isOutDated() const;
-	void updateMetaData() const;
-	void saveMeta() const;
+	void saveJavaMeta() const;
+	void saveProjectMeta() const;
 	void loadFromMeta();
 
 	QString projectFilePath(const QString&);
@@ -43,10 +53,16 @@ public:
 	void addSrcDirectory(const QString&);
 	void addProjectDirectory(const QString&);
 
-
 	void addMavenLocalDependency(const QString& path);
 
 private:
-	virtual void dumpToFile(QFile&) const override;
+	void createDefaultPropertiesFile();
+	void readPropertiesFile();
+	void saveToPropertiesFile() const;
+
+	void saveJavaPageMeta() const;
+	void saveJavaSettingsMeta() const;
+
+	void saveProjectPageMeta() const;
 };
 
