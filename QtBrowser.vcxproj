@@ -103,6 +103,7 @@
     <ClCompile Include="BrowserController\disconnectcmd.cpp" />
     <ClCompile Include="BrowserController\executejscmd.cpp" />
     <ClCompile Include="BrowserController\executejsfromfile.cpp" />
+    <ClCompile Include="BrowserController\initcmd.cpp" />
     <ClCompile Include="BrowserController\loadurlcmd.cpp" />
     <ClCompile Include="BrowserController\logcmd.cpp" />
     <ClCompile Include="Browser\browser.cpp" />
@@ -119,6 +120,7 @@
     <ClCompile Include="Browser\scriptsmanager.cpp" />
     <ClCompile Include="ProjectManager\element.cpp" />
     <ClCompile Include="ProjectManager\page.cpp" />
+    <ClCompile Include="ProjectManager\plugin.cpp" />
     <ClCompile Include="ProjectManager\project.cpp" />
     <ClCompile Include="ProjectManager\projectmanager.cpp" />
   </ItemGroup>
@@ -139,6 +141,7 @@
     <QtUic Include="Interface\registerpage.ui" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BrowserController\initcmd.h" />
     <ClInclude Include="Browser\scriptsmanager.h" />
     <QtMoc Include="Interface\createnewproject.h" />
     <QtMoc Include="Interface\openproject.h" />
@@ -154,6 +157,7 @@
     <ClInclude Include="Interface\ui_registerpage.h" />
     <ClInclude Include="ProjectManager\element.h" />
     <ClInclude Include="ProjectManager\page.h" />
+    <ClInclude Include="ProjectManager\plugin.h" />
     <ClInclude Include="ProjectManager\project.h" />
     <ClInclude Include="ProjectManager\projectmanager.h" />
     <QtMoc Include="BrowserController\browserexecutor.h" />

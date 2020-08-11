@@ -39,8 +39,6 @@ public:
 	void updateTargetElements();
 
 	static void log(const QString&);
-	static void warning(const QString&);
-	static void error(const QString&);
 
 public slots:
 	void loadStarted();

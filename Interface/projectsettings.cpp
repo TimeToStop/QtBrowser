@@ -15,7 +15,7 @@ ProjectSettings::ProjectSettings(std::shared_ptr<Project> project, QWidget *pare
 	ui->path_to_elements_meta->setText(project->pathToElementsMeta());
 
 	connect(ui->accept,				  &QPushButton::clicked, this, &ProjectSettings::acceptedChanges);
-	connect(ui->exit,				  &QPushButton::clicked, this, &ProjectSettings::rejected);
+	connect(ui->exit,				  &QPushButton::clicked, this, &ProjectSettings::reject);
 	connect(ui->browse_port,		  &QPushButton::clicked, this, &ProjectSettings::browsePortPath);
 	connect(ui->browse_page_elements, &QPushButton::clicked, this, &ProjectSettings::browseElementsMetaPath);
 }
@@ -70,5 +70,5 @@ void ProjectSettings::acceptedChanges()
 		}
 	}
 
-	emit(accepted());
+	emit(accept());
 }

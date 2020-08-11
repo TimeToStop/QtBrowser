@@ -22,6 +22,8 @@ public:
 
 	bool isLastLoadedSuccessful() const;
 	void loadURL(const QString&);
+	void addDefaultScript(const QString& name, const QString& path);
+	void addDefaultScript(const QString&);
 	void setDefaultScripts(const QList<QPair<QString, QString>>& scripts);
 	void removeDefaultScript(const QString&);
 	void clearDefaultScripts();

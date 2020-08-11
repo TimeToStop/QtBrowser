@@ -8,10 +8,11 @@ enum class CommandType : int
 {
 	DISCONNECT			 = 0,
 	CONNECT				 = 1,
-	LOAD_URL			 = 2,
-	LOG					 = 3,
-	EXECUTE_JS			 = 4,
-	EXECUTE_JS_FROM_FILE = 5
+	INITIALIZATION		 = 2,
+	LOAD_URL			 = 3,
+	LOG					 = 4,
+	EXECUTE_JS			 = 5,
+	EXECUTE_JS_FROM_FILE = 6
 };
 
 class BrowserExecutor;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "page.h"
+#include "plugin.h"
 
 class Project
 {
@@ -18,8 +19,10 @@ class Project
 	QString m_path_to_project;
 	QString m_path_to_port_file;
 	QString m_path_to_elements_meta;
+	QString m_path_to_debug_source;
 
 	std::vector<std::shared_ptr<Page>> m_pages;
+	std::vector<std::shared_ptr<Plugin>> m_plugins;
 
 public:
 	Project(const QString&, const QString&, bool is_creation);
@@ -39,6 +42,7 @@ public:
 	void setPathToElementsMeta(const QString&);
 
 	std::shared_ptr<Page> addPage(const QString&);
+	void addPlugin(std::shared_ptr<Plugin>);
 
 	bool isOutDated() const;
 	bool writePort(int) const;

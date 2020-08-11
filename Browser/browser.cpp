@@ -68,6 +68,16 @@ void Browser::loadURL(const QString& url)
 	m_is_browser_init_loading = false;
 }
 
+void Browser::addDefaultScript(const QString& name, const QString& path)
+{
+	m_scripts.addScript(name, path);
+}
+
+void Browser::addDefaultScript(const QString& path)
+{
+	m_scripts.addScript("", path);
+}
+
 void Browser::setDefaultScripts(const QList<QPair<QString, QString>>& scripts)
 {
 	for (const QPair<QString, QString>& script : scripts)

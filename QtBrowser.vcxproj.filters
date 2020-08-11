@@ -144,6 +144,12 @@
     <ClCompile Include="Interface\console.cpp">
       <Filter>Source Files\Console</Filter>
     </ClCompile>
+    <ClCompile Include="BrowserController\initcmd.cpp">
+      <Filter>Source Files\Browser\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectManager\plugin.cpp">
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Browser\browser.h">
@@ -257,6 +263,12 @@
     </ClInclude>
     <ClInclude Include="Interface\ui_projectsettings.h">
       <Filter>Pre Compiled</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserController\initcmd.h">
+      <Filter>Header Files\Browser\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectManager\plugin.h">
+      <Filter>Header Files\Project</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

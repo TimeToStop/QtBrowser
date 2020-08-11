@@ -19,11 +19,14 @@ Project::Project(const QString& name, const QString& path, bool is_creation):
     m_path_to_project(path),
     m_path_to_port_file(path + m_default_path_to_port_file),
     m_path_to_elements_meta(path + m_default_path_to_elements_meta),
+    m_path_to_debug_source(path + "source/"),
     m_pages()
 {
     if (is_creation)
     {
         createDefaultPropertiesFile();
+        addPlugin(std::make_shared<Plugin>("core", ));
+        saveToPropertiesFile();
     }
     else
     {
@@ -39,34 +42,6 @@ Project::~Project()
 
 void Project::createDefaultPropertiesFile() 
 {
-    QFile properties(m_path_to_project + m_properties_file);
-
-    m_path_to_elements_meta = m_path_to_project + m_default_path_to_elements_meta;
-    m_path_to_port_file     = m_path_to_project + m_default_path_to_port_file;
-
-    if (properties.open(QIODevice::WriteOnly))
-    {
-        QXmlStreamWriter writer(&properties);
-
-        writer.writeStartDocument();
-        writer.writeStartElement("project");
-
-        writer.writeStartElement("elements-meta");
-        writer.writeAttribute("path", m_path_to_elements_meta);
-        writer.writeEndElement();
-
-        writer.writeStartElement("port");
-        writer.writeAttribute("path", m_path_to_port_file);
-        writer.writeEndElement();
-
-        writer.writeEndElement();
-        writer.writeEndDocument();
-
-        properties.flush();
-        properties.close();
-    }
-
-
     QFile port(m_path_to_port_file);
     if (port.open(QIODevice::WriteOnly))
     {
@@ -77,6 +52,12 @@ void Project::createDefaultPropertiesFile()
     if (elements.open(QIODevice::WriteOnly))
     {
         elements.close();
+    }
+
+    QDir source(m_path_to_project);
+    if (source.exists())
+    {
+        source.mkdir("source");
     }
 }
 
@@ -95,7 +76,7 @@ void Project::readPropertiesFile()
             {
                 reader.readNextStartElement();
 
-                if (reader.name() == "elements-meta")
+                if (reader.name() == "elements")
                 {
                     QXmlStreamAttributes attributes = reader.attributes();
                     if (attributes.hasAttribute("path"))
@@ -121,6 +102,19 @@ void Project::readPropertiesFile()
                         }
                     }
                 }
+                else if (reader.name() == "dsource")
+                {
+                    QXmlStreamAttributes attributes = reader.attributes();
+                    if (attributes.hasAttribute("path"))
+                    {
+                        QFile file = attributes.value("path").toString();
+
+                        if (file.exists())
+                        {
+                            m_path_to_debug_source = attributes.value("path").toString();
+                        }
+                    }
+                }
             }
         }
 
@@ -139,12 +133,16 @@ void Project::saveToPropertiesFile() const
         writer.writeStartDocument();
         writer.writeStartElement("project");
        
-        writer.writeStartElement("elements-meta");
+        writer.writeStartElement("elements");
         writer.writeAttribute("path", m_path_to_elements_meta);
         writer.writeEndElement();
 
         writer.writeStartElement("port");
         writer.writeAttribute("path", m_path_to_port_file);
+        writer.writeEndElement();
+
+        writer.writeStartElement("dsource");
+        writer.writeAttribute("path", m_path_to_debug_source);
         writer.writeEndElement();
 
         writer.writeEndElement();
@@ -198,7 +196,7 @@ void Project::saveJavaSettingsMeta() const
         settings.write("public class ProjectSettings extends Settings {\n");
         settings.write("\tpublic ProjectSettings() {\n");
         settings.write(("\tsuper.port = \"" + m_path_to_port_file + "\";\n").toUtf8());
-        settings.write("}\n");
+        settings.write("\t}\n");
         settings.write("}\n");
         settings.flush();
         settings.close();
@@ -281,6 +279,11 @@ std::shared_ptr<Page> Project::addPage(const QString& name)
     return page;
 }
 
+void Project::addPlugin(std::shared_ptr<Plugin> plugin)
+{
+    m_plugins.push_back(plugin);
+}
+
 QString Project::name() const
 {
     return m_name;
@@ -298,7 +301,7 @@ QString Project::pathToPort() const
 
 QString Project::pathToElementsMeta() const
 {
-    return QString();
+    return m_path_to_elements_meta;
 }
 
 size_t Project::size() const

@@ -172,16 +172,6 @@ void MainWindow::log(const QString& msg)
 	m_window->ui->main_console->log(msg);
 }
 
-void MainWindow::warning(const QString& msg)
-{
-	m_window->ui->main_console->warning(msg);
-}
-
-void MainWindow::error(const QString& msg)
-{
-	m_window->ui->main_console->error(msg);
-}
-
 void MainWindow::loadStarted()
 {
 	if(ui->progress->value() == 100)
@@ -211,7 +201,7 @@ void MainWindow::onElementHovered(const QString& tag, const QString& id, const Q
 	ui->classes->clear();
 	ui->classes->addItems(classes);
 	ui->inner->clear();
-	ui->inner->setText(inner);
+	ui->inner->log(inner);
 }
 
 void MainWindow::loadPage()

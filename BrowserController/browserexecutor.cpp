@@ -51,6 +51,11 @@ void BrowserExecutor::setConsole(Console* console)
 	m_console = console;
 }
 
+void BrowserExecutor::setSourceDirectory(const QString& path)
+{
+	m_path_to_source = m_project->path() + path;
+}
+
 void BrowserExecutor::setIsTerminateExecution(bool b)
 {
 	m_is_terminate = b;
@@ -71,6 +76,11 @@ Browser* BrowserExecutor::browser() const
 	return m_browser;
 }
 
+QString BrowserExecutor::sourceDirectory() const
+{
+	return m_path_to_source;
+}
+
 void BrowserExecutor::clientDisconnected()
 {
 	close();
@@ -83,7 +93,7 @@ bool BrowserExecutor::start(std::shared_ptr<Project> project)
 
 	if (!m_server->listen(QHostAddress::LocalHost))
 	{
-		m_console->error("Cannot start application");
+		m_console->log("Cannot start application");
 		return false;
 	}
 	else

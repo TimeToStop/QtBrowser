@@ -1,20 +1,16 @@
 #pragma once
 
-#include <QTextEdit>
+#include <QPlainTextEdit>
 
-class Console : public QTextEdit
+
+class Console : public QPlainTextEdit
 {
-	Q_OBJECT
+	Q_OBJECT;
+
 
 public:
 	Console(QWidget *parent = nullptr);
 	virtual ~Console();
 
 	void log(const QString&);
-	void warning(const QString&);
-	void error(const QString&);
-
-	void logHtml(const QString&);
-	void warningHtml(const QString&);
-	void errorHtml(const QString&);
 };
