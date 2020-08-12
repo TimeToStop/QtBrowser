@@ -96,11 +96,9 @@ std::shared_ptr<Project> ProjectManager::create(const QString& name, const QStri
 		if (maven.waitForStarted(-1) && maven.waitForFinished(-1))
 		{
 			std::shared_ptr<Project> project = Project::create(name, d.absolutePath() + "/" + name + "/");
-			project->rmSrcFile("/main/App.java");
-			project->addSrcDirectory("generated");
-			project->addProjectDirectory("plugins");
-			project->addProjectFile("/plugins/core-0-0-1.jar", m_core_jar_file_data);
-			project->addMavenLocalDependency(project->projectFilePath("/plugins/core-0-0-1.jar"));
+			project->addProjectDirectory("plugins/core-0-0-1");
+			project->addProjectFile("plugins/core-0-0-1/core-0-0-1.jar", m_core_jar_file_data);
+			project->addMavenLocalDependency(project->projectFilePath("plugins/core-0-0-1/core-0-0-1.jar"));
 			project->addSrcFile("/main/Main.java", m_default_main_data);
 			m_projects.push_back(project);
 			return project;

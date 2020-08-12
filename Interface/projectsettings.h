@@ -7,7 +7,9 @@ namespace Ui { class ProjectSettings; };
 
 class ProjectSettings : public QDialog
 {
-	Q_OBJECT
+	Q_OBJECT;
+
+	QString m_debug_source;
 
 public:
 	ProjectSettings(std::shared_ptr<Project> project, QWidget *parent = Q_NULLPTR);
@@ -15,7 +17,6 @@ public:
 
 	QString pathToPort() const;
 	QString pathToElementsMeta() const;
-	QString pathToDebugSource() const;
 	QStringList pathToDefaultScripts() const;
 
 	void addPathToTable(const QString&);
@@ -25,7 +26,6 @@ public slots:
 
 	void browsePortPath();
 	void browseElementsMetaPath();
-	void browseDebugSource();
 	void addDefaultScript();
 	void removeDefaultScript();
 

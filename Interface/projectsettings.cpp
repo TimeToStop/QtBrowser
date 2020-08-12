@@ -7,26 +7,34 @@
 
 ProjectSettings::ProjectSettings(std::shared_ptr<Project> project, QWidget *parent):
 	QDialog(parent),
+	m_debug_source(project->pathToDebugSource()),
 	ui(new Ui::ProjectSettings())
 {
 	ui->setupUi(this);
 
 	ui->path_to_port->setText(project->pathToPort());
 	ui->path_to_elements_meta->setText(project->pathToElementsMeta());
-	ui->path_to_source->setText(project->pathToDebugSource());
 
 	QStringList list = project->defaultJS();
 
 	for (const QString& path : list)
 	{
-		addPathToTable(path);
+		QFile f(m_debug_source + path);
+
+		if (f.exists())
+		{
+			addPathToTable(path);
+		}
+		else
+		{
+			addPathToTable("(Out Dated) " + path);
+		}
 	}
 
 	connect(ui->accept,				  &QPushButton::clicked, this, &ProjectSettings::acceptedChanges);
 	connect(ui->exit,				  &QPushButton::clicked, this, &ProjectSettings::reject);
 	connect(ui->browse_port,		  &QPushButton::clicked, this, &ProjectSettings::browsePortPath);
 	connect(ui->browse_page_elements, &QPushButton::clicked, this, &ProjectSettings::browseElementsMetaPath);
-	connect(ui->browse_source,		  &QPushButton::clicked, this, &ProjectSettings::browseDebugSource);
 	connect(ui->add_js,				  &QPushButton::clicked, this, &ProjectSettings::addDefaultScript);
 	connect(ui->remove_js,			  &QPushButton::clicked, this, &ProjectSettings::removeDefaultScript);
 }
@@ -46,18 +54,19 @@ QString ProjectSettings::pathToElementsMeta() const
 	return ui->path_to_elements_meta->text(); 
 }
 
-QString ProjectSettings::pathToDebugSource() const
-{
-	return ui->path_to_source->text();
-}
-
 QStringList ProjectSettings::pathToDefaultScripts() const
 {
 	QStringList list;
 	
 	for (int i = 0; i < ui->default_js->rowCount(); i++)
 	{
-		list << ui->default_js->item(i, 0)->text();
+		QString path = m_debug_source + ui->default_js->item(i, 0)->text();
+		QFile f(path);
+
+		if (f.exists())
+		{
+			list << ui->default_js->item(i, 0)->text();
+		}
 	}
 
 	return list;
@@ -90,23 +99,17 @@ void ProjectSettings::browseElementsMetaPath()
 	}
 }
 
-void ProjectSettings::browseDebugSource()
-{
-	QString path = QFileDialog::getExistingDirectory(this, "Source");
-
-	if (path != "")
-	{
-		ui->path_to_source->setText(path);
-	}
-}
-
 void ProjectSettings::addDefaultScript()
 {
 	QString path = QFileDialog::getOpenFileName(this, "JS", "", "*.js");
 
 	if (path != "")
 	{
-		addPathToTable(path);
+		if (path.startsWith(m_debug_source))
+		{
+			path.remove(m_debug_source);
+			addPathToTable(path);
+		}
 	}
 }
 

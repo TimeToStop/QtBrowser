@@ -12,12 +12,12 @@ ExecuteJsFromFile::~ExecuteJsFromFile()
 {
 }
 
-QByteArray ExecuteJsFromFile::execute(BrowserExecutor* executor, QByteArray& file_name)
+QByteArray ExecuteJsFromFile::execute(BrowserExecutor* executor, QByteArray& data)
 {
     byte header = 0;
     QByteArray header_wrapper;
     QString result;
-    QFile f(file_name);
+    QFile f(executor->getFileName(data));
 
     if (f.open(QIODevice::ReadOnly))
     {

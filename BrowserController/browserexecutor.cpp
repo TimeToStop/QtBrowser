@@ -51,11 +51,6 @@ void BrowserExecutor::setConsole(Console* console)
 	m_console = console;
 }
 
-void BrowserExecutor::setSourceDirectory(const QString& path)
-{
-	m_path_to_source = m_project->path() + path;
-}
-
 void BrowserExecutor::setIsTerminateExecution(bool b)
 {
 	m_is_terminate = b;
@@ -76,9 +71,17 @@ Browser* BrowserExecutor::browser() const
 	return m_browser;
 }
 
-QString BrowserExecutor::sourceDirectory() const
+QString BrowserExecutor::getFileName(const QString& path) const
 {
-	return m_path_to_source;
+	if (!path.isEmpty() && path[0] != '/')
+	{
+		return m_project->path() + "source/" + path;
+	}
+	else
+	{
+		return m_project->path() + "source" + path;
+	}
+
 }
 
 void BrowserExecutor::clientDisconnected()

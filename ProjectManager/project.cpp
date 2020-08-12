@@ -11,8 +11,7 @@ const QString Project::m_settings_template =
         "\tpublic ProjectSettings() {\n"
         "\t\tsuper();\n"
         "\t\tsuper.port_file_path = \"%1\";\n"
-        "\t\tsuper.debug_source_directory = \"%2\";\n"
-        "\t\tsuper.default_js_scripts = new String[] {%3};\n"
+        "\t\tsuper.default_js_scripts = new String[] {%2};\n"
         "\t}\n"
         "}\n";
 
@@ -32,7 +31,10 @@ std::shared_ptr<Project> Project::create(const QString& name, const QString& pat
     std::shared_ptr<Project> project = std::make_shared<Project>(name, path);
 
     project->createDefaultPropertiesFile();
-    project->addPlugin(std::make_shared<Plugin>("core", 1, project));
+    project->rmSrcFile("/main/App.java");
+    project->addSrcDirectory("generated");
+    project->addProjectDirectory("plugins"); 
+    project->addProjectDirectory("source");
     project->saveToPropertiesFile();
 
     return project;
@@ -55,8 +57,7 @@ Project::Project(const QString& name, const QString& path):
     m_path_to_elements_meta(path + m_default_path_to_elements_meta),
     m_path_to_debug_source(path + "source/"),
     m_default_js(),
-    m_pages(),
-    m_plugins()
+    m_pages()
 {
 }
 
@@ -86,6 +87,8 @@ void Project::createDefaultPropertiesFile()
     }
 }
 
+// TODO: Structure parse 
+
 void Project::readPropertiesFile()
 {
     QFile properties(m_path_to_project + m_properties_file);
@@ -93,14 +96,13 @@ void Project::readPropertiesFile()
     if (properties.open(QIODevice::ReadOnly))
     {
         QXmlStreamReader reader(&properties);
-        reader.readNextStartElement();
 
-        if (reader.name() == "project")
+        while (!reader.hasError())
         {
-            while (!properties.atEnd() && !reader.hasError())
-            {
-                reader.readNextStartElement();
+            QXmlStreamReader::TokenType token = reader.readNext();
 
+            if (token == QXmlStreamReader::StartElement)
+            {
                 if (reader.name() == "elements")
                 {
                     QXmlStreamAttributes attributes = reader.attributes();
@@ -114,7 +116,7 @@ void Project::readPropertiesFile()
                         }
                     }
                 }
-                else if(reader.name() == "port")
+                else if (reader.name() == "port")
                 {
                     QXmlStreamAttributes attributes = reader.attributes();
                     if (attributes.hasAttribute("path"))
@@ -127,63 +129,16 @@ void Project::readPropertiesFile()
                         }
                     }
                 }
-                else if (reader.name() == "dsource")
+                else if (reader.name() == "js")
                 {
                     QXmlStreamAttributes attributes = reader.attributes();
                     if (attributes.hasAttribute("path"))
                     {
-                        QFile file = attributes.value("path").toString();
+                        QFile file(m_path_to_debug_source + attributes.value("path").toString());
 
                         if (file.exists())
                         {
-                            m_path_to_debug_source = attributes.value("path").toString();
-                        }
-                    }
-                }
-                else if (reader.name() == "defaultJS")
-                {
-                    while (!properties.atEnd() && !reader.hasError())
-                    {
-                        reader.readNextStartElement();
-
-                        if (reader.name() == "js")
-                        {
-                            QXmlStreamAttributes attributes = reader.attributes();
-                            if (attributes.hasAttribute("path"))
-                            {
-                                QFile file = attributes.value("path").toString();
-
-                                if (file.exists())
-                                {
-                                    m_default_js.push_back(attributes.value("path").toString());
-                                }
-                            }
-                        }
-                    }
-                }
-                else if (reader.name() == "plugins")
-                {
-                    while (!properties.atEnd() && !reader.hasError())
-                    {
-                        reader.readNextStartElement();
-
-                        if (reader.name() == "plugin")
-                        {
-                            QXmlStreamAttributes attributes = reader.attributes();
-                            int id;
-                            QString name;
-
-                            if (attributes.hasAttribute("name"))
-                            {
-                                name = attributes.value("name").toString();
-                            }
-
-                            if (attributes.hasAttribute("id"))
-                            {
-                                id = attributes.value("id").toString().toInt();
-                            }
-
-                            m_plugins.push_back(std::make_shared<Plugin>(name, id, shared_from_this()));
+                            m_default_js.push_back(attributes.value("path").toString());
                         }
                     }
                 }
@@ -213,28 +168,12 @@ void Project::saveToPropertiesFile() const
         writer.writeAttribute("path", m_path_to_port_file);
         writer.writeEndElement();
 
-        writer.writeStartElement("dsource");
-        writer.writeAttribute("path", m_path_to_debug_source);
-        writer.writeEndElement();
-
         writer.writeStartElement("defaultJS");
 
         for (const QString& script_path : m_default_js)
         {
             writer.writeStartElement("js");
             writer.writeAttribute("path", script_path);
-            writer.writeEndElement();
-        }
-
-        writer.writeEndElement();
-
-        writer.writeStartElement("plugins");
-
-        for (const std::shared_ptr<Plugin>& plugin : m_plugins)
-        {
-            writer.writeStartElement("plugin");
-            writer.writeAttribute("id", QString::number(plugin->id()));
-            writer.writeAttribute("name", plugin->name());
             writer.writeEndElement();
         }
 
@@ -299,7 +238,7 @@ void Project::saveJavaSettingsMeta() const
             defaultJS += " \"" + m_default_js[lastElementIndex] + "\"";
         }
 
-        settings.write(m_settings_template.arg(m_path_to_port_file, m_path_to_debug_source, defaultJS).toUtf8());
+        settings.write(m_settings_template.arg(m_path_to_port_file, defaultJS).toUtf8());
         settings.flush();
         settings.close();
     }
@@ -391,11 +330,6 @@ std::shared_ptr<Page> Project::addPage(const QString& name)
     return page;
 }
 
-void Project::addPlugin(std::shared_ptr<Plugin> plugin)
-{
-    m_plugins.push_back(plugin);
-}
-
 QString Project::name() const
 {
     return m_name;
@@ -484,7 +418,7 @@ void Project::loadFromMeta()
         reader.readNextStartElement();
         if (reader.name() == "pages")
         {
-            while (!reader.atEnd() && !reader.hasError())
+            while (!reader.hasError())
             {
                 QXmlStreamReader::TokenType token = reader.readNext();
 
@@ -498,7 +432,7 @@ void Project::loadFromMeta()
                         page->setRequestURL(attributes.value("request").toString());
                         page->setTargetURL(attributes.value("target").toString());
 
-                        while (!reader.atEnd() && !reader.hasError())
+                        while (!reader.hasError())
                         {
                             QXmlStreamReader::TokenType token = reader.readNext();
 

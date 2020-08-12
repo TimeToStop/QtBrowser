@@ -15,7 +15,6 @@ class BrowserExecutor : public QObject
 
 	bool m_is_terminate;
 	std::shared_ptr<Project> m_project;
-	QString m_path_to_source;
 	Browser* m_browser;
 	Console* m_console;
 	CommandExecutor* m_executor;
@@ -29,14 +28,13 @@ public:
 
 	void setBrowser(Browser*);
 	void setConsole(Console*); 
-	void setSourceDirectory(const QString&);
 	void setIsTerminateExecution(bool);
 	void clientDisconnected();
 	bool start(std::shared_ptr<Project>);
 	void close();
 
 	Browser* browser() const;
-	QString sourceDirectory() const;
+	QString getFileName(const QString&) const;
 
 signals:
 	void taskFinished(bool);

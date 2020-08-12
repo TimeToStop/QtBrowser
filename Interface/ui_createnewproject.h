@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'createnewprojectDzUpGZ.ui'
+** Form generated from reading UI file 'createnewprojectLKPDlY.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef CREATENEWPROJECTDZUPGZ_H
-#define CREATENEWPROJECTDZUPGZ_H
+#ifndef CREATENEWPROJECTLKPDLY_H
+#define CREATENEWPROJECTLKPDLY_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -135,8 +135,10 @@ public:
     void retranslateUi(QDialog *CreateNewProject)
     {
         CreateNewProject->setWindowTitle(QCoreApplication::translate("CreateNewProject", "CreateNewProject", nullptr));
+        project_name->setText(QCoreApplication::translate("CreateNewProject", "TestProject", nullptr));
         label_2->setText(QCoreApplication::translate("CreateNewProject", "Project name:", nullptr));
         label->setText(QCoreApplication::translate("CreateNewProject", "Project directory:", nullptr));
+        project_dir->setText(QCoreApplication::translate("CreateNewProject", "E:/Solver/Test", nullptr));
         browse->setText(QCoreApplication::translate("CreateNewProject", "Browse", nullptr));
         accept->setText(QCoreApplication::translate("CreateNewProject", "Accept", nullptr));
         exit->setText(QCoreApplication::translate("CreateNewProject", "Exit", nullptr));
@@ -150,4 +152,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // CREATENEWPROJECTDZUPGZ_H
+#endif // CREATENEWPROJECTLKPDLY_H

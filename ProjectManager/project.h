@@ -1,7 +1,6 @@
 #pragma once
 
 #include "page.h"
-#include "plugin.h"
 
 #include <QString>
 #include <QStringList>
@@ -29,7 +28,6 @@ class Project : public std::enable_shared_from_this<Project>
 	QStringList m_default_js;
 
 	std::vector<std::shared_ptr<Page>> m_pages;
-	std::vector<std::shared_ptr<Plugin>> m_plugins;
 
 public:
 	Project(const QString&, const QString&);
@@ -56,7 +54,6 @@ public:
 	void setDefaultJS(const QStringList&);
 
 	std::shared_ptr<Page> addPage(const QString&);
-	void addPlugin(std::shared_ptr<Plugin>);
 
 	bool isOutDated() const;
 	bool writePort(int) const;

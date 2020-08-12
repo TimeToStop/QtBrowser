@@ -120,7 +120,6 @@
     <ClCompile Include="Browser\scriptsmanager.cpp" />
     <ClCompile Include="ProjectManager\element.cpp" />
     <ClCompile Include="ProjectManager\page.cpp" />
-    <ClCompile Include="ProjectManager\plugin.cpp" />
     <ClCompile Include="ProjectManager\project.cpp" />
     <ClCompile Include="ProjectManager\projectmanager.cpp" />
   </ItemGroup>
@@ -157,7 +156,6 @@
     <ClInclude Include="Interface\ui_registerpage.h" />
     <ClInclude Include="ProjectManager\element.h" />
     <ClInclude Include="ProjectManager\page.h" />
-    <ClInclude Include="ProjectManager\plugin.h" />
     <ClInclude Include="ProjectManager\project.h" />
     <ClInclude Include="ProjectManager\projectmanager.h" />
     <QtMoc Include="BrowserController\browserexecutor.h" />
