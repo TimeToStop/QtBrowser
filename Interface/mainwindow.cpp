@@ -316,6 +316,8 @@ void MainWindow::projectSettings()
 		{
 			m_main_project->setPathToPort(d.pathToPort());
 			m_main_project->setPathToElementsMeta(d.pathToElementsMeta());
+			m_main_project->setPathToDebugSource(d.pathToDebugSource());
+			m_main_project->setDefaultJS(d.pathToDefaultScripts());
 			m_main_project->saveProjectMeta();
 		}
 	}

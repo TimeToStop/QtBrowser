@@ -4,6 +4,19 @@
 #include <QXMLStreamReader>
 #include <QXMLStreamWriter>
 
+const QString Project::m_settings_template = 
+        "package generated;\n"
+        "import core.other.Settings;\n\n"
+        "public class ProjectSettings extends Settings {\n"
+        "\tpublic ProjectSettings() {\n"
+        "\t\tsuper();\n"
+        "\t\tsuper.port_file_path = \"%1\";\n"
+        "\t\tsuper.debug_source_directory = \"%2\";\n"
+        "\t\tsuper.default_js_scripts = new String[] {%3};\n"
+        "\t}\n"
+        "}\n";
+
+
 const QString Project::m_path_to_src                   = "/src/main/java/";
 const QString Project::m_properties_file               = "project.properties";
 
@@ -14,25 +27,37 @@ const QString Project::m_src_settings                  = "ProjectSettings.java";
 const QString Project::m_default_path_to_elements_meta = "elements.meta";
 const QString Project::m_default_path_to_port_file     = "port.port";
 
-Project::Project(const QString& name, const QString& path, bool is_creation):
+std::shared_ptr<Project> Project::create(const QString& name, const QString& path)
+{
+    std::shared_ptr<Project> project = std::make_shared<Project>(name, path);
+
+    project->createDefaultPropertiesFile();
+    project->addPlugin(std::make_shared<Plugin>("core", 1, project));
+    project->saveToPropertiesFile();
+
+    return project;
+}
+
+std::shared_ptr<Project> Project::load(const QString& name, const QString& path)
+{
+    std::shared_ptr<Project> project = std::make_shared<Project>(name, path);
+
+    project->readPropertiesFile();
+    project->loadFromMeta();
+
+    return project;
+}
+
+Project::Project(const QString& name, const QString& path):
     m_name(name),
     m_path_to_project(path),
     m_path_to_port_file(path + m_default_path_to_port_file),
     m_path_to_elements_meta(path + m_default_path_to_elements_meta),
     m_path_to_debug_source(path + "source/"),
-    m_pages()
+    m_default_js(),
+    m_pages(),
+    m_plugins()
 {
-    if (is_creation)
-    {
-        createDefaultPropertiesFile();
-        addPlugin(std::make_shared<Plugin>("core", ));
-        saveToPropertiesFile();
-    }
-    else
-    {
-        readPropertiesFile();
-        loadFromMeta();
-    }
 }
 
 Project::~Project()
@@ -115,6 +140,53 @@ void Project::readPropertiesFile()
                         }
                     }
                 }
+                else if (reader.name() == "defaultJS")
+                {
+                    while (!properties.atEnd() && !reader.hasError())
+                    {
+                        reader.readNextStartElement();
+
+                        if (reader.name() == "js")
+                        {
+                            QXmlStreamAttributes attributes = reader.attributes();
+                            if (attributes.hasAttribute("path"))
+                            {
+                                QFile file = attributes.value("path").toString();
+
+                                if (file.exists())
+                                {
+                                    m_default_js.push_back(attributes.value("path").toString());
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (reader.name() == "plugins")
+                {
+                    while (!properties.atEnd() && !reader.hasError())
+                    {
+                        reader.readNextStartElement();
+
+                        if (reader.name() == "plugin")
+                        {
+                            QXmlStreamAttributes attributes = reader.attributes();
+                            int id;
+                            QString name;
+
+                            if (attributes.hasAttribute("name"))
+                            {
+                                name = attributes.value("name").toString();
+                            }
+
+                            if (attributes.hasAttribute("id"))
+                            {
+                                id = attributes.value("id").toString().toInt();
+                            }
+
+                            m_plugins.push_back(std::make_shared<Plugin>(name, id, shared_from_this()));
+                        }
+                    }
+                }
             }
         }
 
@@ -132,7 +204,7 @@ void Project::saveToPropertiesFile() const
 
         writer.writeStartDocument();
         writer.writeStartElement("project");
-       
+
         writer.writeStartElement("elements");
         writer.writeAttribute("path", m_path_to_elements_meta);
         writer.writeEndElement();
@@ -143,6 +215,29 @@ void Project::saveToPropertiesFile() const
 
         writer.writeStartElement("dsource");
         writer.writeAttribute("path", m_path_to_debug_source);
+        writer.writeEndElement();
+
+        writer.writeStartElement("defaultJS");
+
+        for (const QString& script_path : m_default_js)
+        {
+            writer.writeStartElement("js");
+            writer.writeAttribute("path", script_path);
+            writer.writeEndElement();
+        }
+
+        writer.writeEndElement();
+
+        writer.writeStartElement("plugins");
+
+        for (const std::shared_ptr<Plugin>& plugin : m_plugins)
+        {
+            writer.writeStartElement("plugin");
+            writer.writeAttribute("id", QString::number(plugin->id()));
+            writer.writeAttribute("name", plugin->name());
+            writer.writeEndElement();
+        }
+
         writer.writeEndElement();
 
         writer.writeEndElement();
@@ -191,13 +286,20 @@ void Project::saveJavaSettingsMeta() const
 
     if (settings.open(QIODevice::WriteOnly))
     {
-        settings.write("package generated;\n");
-        settings.write("import core.other.Settings;\n\n");
-        settings.write("public class ProjectSettings extends Settings {\n");
-        settings.write("\tpublic ProjectSettings() {\n");
-        settings.write(("\tsuper.port = \"" + m_path_to_port_file + "\";\n").toUtf8());
-        settings.write("\t}\n");
-        settings.write("}\n");
+        QString defaultJS = "";
+        int lastElementIndex = m_default_js.size() - 1;
+
+        for (int i = 0; i  < lastElementIndex; i++)
+        {
+            defaultJS += " \"" + m_default_js[i] + "\", ";
+        }
+
+        if (lastElementIndex != -1)
+        {
+            defaultJS += " \"" + m_default_js[lastElementIndex] + "\"";
+        }
+
+        settings.write(m_settings_template.arg(m_path_to_port_file, m_path_to_debug_source, defaultJS).toUtf8());
         settings.flush();
         settings.close();
     }
@@ -272,6 +374,16 @@ void Project::setPathToElementsMeta(const QString& path)
     }
 }
 
+void Project::setPathToDebugSource(const QString& path)
+{
+    m_path_to_debug_source = path;
+}
+
+void Project::setDefaultJS(const QStringList& list)
+{
+    m_default_js = list;
+}
+
 std::shared_ptr<Page> Project::addPage(const QString& name)
 {
     std::shared_ptr<Page> page = std::make_shared<Page>(name);
@@ -302,6 +414,16 @@ QString Project::pathToPort() const
 QString Project::pathToElementsMeta() const
 {
     return m_path_to_elements_meta;
+}
+
+QString Project::pathToDebugSource() const
+{
+    return m_path_to_debug_source;
+}
+
+QStringList Project::defaultJS() const
+{
+    return m_default_js;
 }
 
 size_t Project::size() const

@@ -13,11 +13,22 @@ ProjectSettings::ProjectSettings(std::shared_ptr<Project> project, QWidget *pare
 
 	ui->path_to_port->setText(project->pathToPort());
 	ui->path_to_elements_meta->setText(project->pathToElementsMeta());
+	ui->path_to_source->setText(project->pathToDebugSource());
+
+	QStringList list = project->defaultJS();
+
+	for (const QString& path : list)
+	{
+		addPathToTable(path);
+	}
 
 	connect(ui->accept,				  &QPushButton::clicked, this, &ProjectSettings::acceptedChanges);
 	connect(ui->exit,				  &QPushButton::clicked, this, &ProjectSettings::reject);
 	connect(ui->browse_port,		  &QPushButton::clicked, this, &ProjectSettings::browsePortPath);
 	connect(ui->browse_page_elements, &QPushButton::clicked, this, &ProjectSettings::browseElementsMetaPath);
+	connect(ui->browse_source,		  &QPushButton::clicked, this, &ProjectSettings::browseDebugSource);
+	connect(ui->add_js,				  &QPushButton::clicked, this, &ProjectSettings::addDefaultScript);
+	connect(ui->remove_js,			  &QPushButton::clicked, this, &ProjectSettings::removeDefaultScript);
 }
 
 ProjectSettings::~ProjectSettings()
@@ -33,6 +44,30 @@ QString ProjectSettings::pathToPort() const
 QString ProjectSettings::pathToElementsMeta() const
 {
 	return ui->path_to_elements_meta->text(); 
+}
+
+QString ProjectSettings::pathToDebugSource() const
+{
+	return ui->path_to_source->text();
+}
+
+QStringList ProjectSettings::pathToDefaultScripts() const
+{
+	QStringList list;
+	
+	for (int i = 0; i < ui->default_js->rowCount(); i++)
+	{
+		list << ui->default_js->item(i, 0)->text();
+	}
+
+	return list;
+}
+
+void ProjectSettings::addPathToTable(const QString& path)
+{
+	int row = ui->default_js->rowCount();
+	ui->default_js->insertRow(row);
+	ui->default_js->setItem(row, 0, new QTableWidgetItem(path));
 }
 
 void ProjectSettings::browsePortPath()
@@ -52,6 +87,46 @@ void ProjectSettings::browseElementsMetaPath()
 	if (path != "")
 	{
 		ui->path_to_port->setText(path + "/elements.meta");
+	}
+}
+
+void ProjectSettings::browseDebugSource()
+{
+	QString path = QFileDialog::getExistingDirectory(this, "Source");
+
+	if (path != "")
+	{
+		ui->path_to_source->setText(path);
+	}
+}
+
+void ProjectSettings::addDefaultScript()
+{
+	QString path = QFileDialog::getOpenFileName(this, "JS", "", "*.js");
+
+	if (path != "")
+	{
+		addPathToTable(path);
+	}
+}
+
+void ProjectSettings::removeDefaultScript()
+{
+	QList<QTableWidgetItem*> selected = ui->default_js->selectedItems();
+
+	for (const QTableWidgetItem* cell : selected)
+	{
+		ui->default_js->removeRow(cell->row());
+	}
+}
+
+void ProjectSettings::changePath(int row, int column)
+{
+	QString path = QFileDialog::getOpenFileName(this, "JS", ui->default_js->item(row, column)->text(), "*.js");
+
+	if (path != "")
+	{
+		ui->default_js->item(row, column)->setText(path);
 	}
 }
 

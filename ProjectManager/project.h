@@ -3,8 +3,13 @@
 #include "page.h"
 #include "plugin.h"
 
-class Project
+#include <QString>
+#include <QStringList>
+
+class Project : public std::enable_shared_from_this<Project>
 {
+	static const QString m_settings_template;
+
 	static const QString m_path_to_src;
 	static const QString m_properties_file;
 	
@@ -21,17 +26,24 @@ class Project
 	QString m_path_to_elements_meta;
 	QString m_path_to_debug_source;
 
+	QStringList m_default_js;
+
 	std::vector<std::shared_ptr<Page>> m_pages;
 	std::vector<std::shared_ptr<Plugin>> m_plugins;
 
 public:
-	Project(const QString&, const QString&, bool is_creation);
+	Project(const QString&, const QString&);
 	~Project();
+
+	static std::shared_ptr<Project> create(const QString& name, const QString& path);
+	static std::shared_ptr<Project> load(const QString& name, const QString& path);
 
 	QString name() const;
 	QString path() const;
 	QString pathToPort() const;
 	QString pathToElementsMeta() const;
+	QString pathToDebugSource() const;
+	QStringList defaultJS() const;
 
 	size_t size() const;
 	std::shared_ptr<Page> getPage(size_t i) const;
@@ -40,6 +52,8 @@ public:
 	void setName(const QString&);
 	void setPathToPort(const QString&);
 	void setPathToElementsMeta(const QString&);
+	void setPathToDebugSource(const QString&);
+	void setDefaultJS(const QStringList&);
 
 	std::shared_ptr<Page> addPage(const QString&);
 	void addPlugin(std::shared_ptr<Plugin>);

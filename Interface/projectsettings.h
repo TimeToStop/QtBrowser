@@ -15,12 +15,21 @@ public:
 
 	QString pathToPort() const;
 	QString pathToElementsMeta() const;
+	QString pathToDebugSource() const;
+	QStringList pathToDefaultScripts() const;
+
+	void addPathToTable(const QString&);
 
 public slots:
 	void acceptedChanges();
 
 	void browsePortPath();
 	void browseElementsMetaPath();
+	void browseDebugSource();
+	void addDefaultScript();
+	void removeDefaultScript();
+
+	void changePath(int, int);
 
 private:
 	Ui::ProjectSettings *ui;

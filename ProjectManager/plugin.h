@@ -13,6 +13,7 @@ enum class MainCore : int
 class Plugin
 {
 	int m_id;
+	QString m_name;
 	QString m_path_to_source;
 
 public:
@@ -21,5 +22,6 @@ public:
 
 	int id() const;
 	QString source() const;
+	QString name() const;
 };
 

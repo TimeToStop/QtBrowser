@@ -95,7 +95,7 @@ std::shared_ptr<Project> ProjectManager::create(const QString& name, const QStri
 
 		if (maven.waitForStarted(-1) && maven.waitForFinished(-1))
 		{
-			std::shared_ptr<Project> project = std::make_shared<Project>(name, d.absolutePath() + "/" + name + "/", true);
+			std::shared_ptr<Project> project = Project::create(name, d.absolutePath() + "/" + name + "/");
 			project->rmSrcFile("/main/App.java");
 			project->addSrcDirectory("generated");
 			project->addProjectDirectory("plugins");
@@ -123,7 +123,7 @@ void ProjectManager::readProjectsData()
 			QStringList temp = p.split(" ");
 			if (temp.size() == 2)
 			{
-				m_projects.push_back(std::make_shared<Project>(temp[0], temp[1], false));
+				m_projects.push_back(Project::load(temp[0], temp[1]));
 			}
 		}
 
