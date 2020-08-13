@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>443</width>
-    <height>336</height>
+    <width>484</width>
+    <height>438</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,20 +17,56 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="1">
+        <widget class="QComboBox" name="type">
          <item>
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Name of Element:</string>
-           </property>
-          </widget>
+          <property name="text">
+           <string>TextInput</string>
+          </property>
          </item>
          <item>
-          <widget class="QLineEdit" name="name"/>
+          <property name="text">
+           <string>Readable</string>
+          </property>
          </item>
-        </layout>
+         <item>
+          <property name="text">
+           <string>Clickable</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Type:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="name"/>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Name of Element:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Redirect:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QCheckBox" name="redirect">
+         <property name="text">
+          <string>Wait For Redirection</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -152,7 +188,7 @@
              </widget>
             </item>
             <item row="5" column="1">
-             <widget class="QTextBrowser" name="inner"/>
+             <widget class="Console" name="inner" native="true"/>
             </item>
            </layout>
           </item>
@@ -197,6 +233,14 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>Console</class>
+   <extends>QWidget</extends>
+   <header>console.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

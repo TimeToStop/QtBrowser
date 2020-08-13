@@ -9,6 +9,10 @@ class Project : public std::enable_shared_from_this<Project>
 {
 	static const QString m_settings_template;
 
+	static const QString m_pages_class;
+	static const QString m_pages_page_class;
+	static const QString m_pages_element;
+
 	static const QString m_path_to_src;
 	static const QString m_properties_file;
 	

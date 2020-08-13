@@ -15,6 +15,21 @@ const QString Project::m_settings_template =
         "\t}\n"
         "}\n";
 
+const QString Project::m_pages_class =
+        "package generated;\n"
+        "import core.document.*;\n\n"
+        "public final class Pages {\n"
+        "%1\n"
+        "}\n\n";
+
+const QString Project::m_pages_page_class =
+        "\tpublic static final class %1 {\n"
+        "\tpublic static final PageID self = new PageID(%2,\"%3\",\"%4\");\n\n"
+        "%5\n"
+        "\t}\n\n";
+
+const QString Project::m_pages_element =
+        "\t\tpublic static final %1 %2 = new %1(%3.self, \"%4\");\n\n";
 
 const QString Project::m_path_to_src                   = "/src/main/java/";
 const QString Project::m_properties_file               = "project.properties";
@@ -193,27 +208,37 @@ void Project::saveJavaPageMeta() const
 
     if (file.open(QIODevice::WriteOnly))
     {
-        file.write("package generated;\n");
-        file.write("import core.document.*;\n\n");
-        file.write("public final class Pages {\n");
+        int page_id = 0;
+        QString page_list;
 
-        int i = 0;
-
-        for (const std::shared_ptr<Page>& page : m_pages)
+        for (const std::shared_ptr<Page> page : m_pages)
         {
-            file.write(("\tpublic static final class " + page->name() + " {\n").toUtf8());
-            file.write(("\t\tpublic static final PageID self = new PageID(" + QString::number(i)
-                + ", \"" + page->request() + "\",\"" + page->target() + "\");\n\n").toUtf8());
+            QString element_list;
 
             for (int i = 0; i < page->size(); i++)
             {
-                file.write(("\t\tpublic static final ElementID " + page->getElement(i)->name() + " = new ElementID(" + page->name() + ".self, \"" + page->getElement(i)->path() + "\");\n").toUtf8());
+                QString type;
+
+                switch (page->getElement(i)->type())
+                {
+                case ElementType::INPUT:
+                    type = "InputElementID";
+                    break;
+                case ElementType::CLICKABLE:
+                    type = "ClickElementID";
+                    break;
+                case ElementType::READABLE:
+                    type = "ReadElementID";
+                    break;
+                }
+
+                element_list += m_pages_element.arg(type, page->getElement(i)->name(), page->name(), page->getElement(i)->path());
             }
 
-            file.write("}\n");
+            page_list += m_pages_page_class.arg(page->name(), QString::number(page_id++), page->request(), page->target(), element_list);
         }
 
-        file.write("}\n");
+        file.write(m_pages_class.arg(page_list).toUtf8());
         file.flush();
         file.close();
     }
@@ -265,8 +290,33 @@ void Project::saveProjectPageMeta() const
 
             for (size_t i = 0; i < page->size(); i++)
             {
+                QString redirect, type;
                 writer.writeStartElement("element");
 
+                switch (page->getElement(i)->type())
+                {
+                case ElementType::INPUT:
+                    type = "input";
+                    break;
+                case ElementType::CLICKABLE:
+                    type = "click";
+                    break;
+                case ElementType::READABLE:
+                    type = "read";
+                    break;
+                }
+
+                if (page->getElement(i)->isWaitingForRedirect())
+                {
+                    redirect = "true";
+                }
+                else
+                {
+                    redirect = "false";
+                }
+
+                writer.writeAttribute("redirect", redirect);
+                writer.writeAttribute("type", type);
                 writer.writeAttribute("name", page->getElement(i)->name());
                 writer.writeAttribute("path", page->getElement(i)->path());
 
@@ -439,9 +489,46 @@ void Project::loadFromMeta()
                             if (token == QXmlStreamReader::StartElement && reader.name() == "element")
                             {
                                 QXmlStreamAttributes attributes = reader.attributes();
-                                if (attributes.hasAttribute("name") && attributes.hasAttribute("path"))
+                                if (attributes.hasAttribute("name") && attributes.hasAttribute("path") 
+                                    && attributes.hasAttribute("redirect") && attributes.hasAttribute("type"))
                                 {
-                                    page->addElement(std::make_shared<Element>(attributes.value("name").toString(), attributes.value("path").toString()));
+                                    bool redirect;
+                                    ElementType type;
+                                    QString redirect_attr = attributes.value("redirect").toString();
+                                    QString type_attr = attributes.value("type").toString();
+
+
+                                    if (redirect_attr == "true")
+                                    {
+                                        redirect = true;
+                                    }
+                                    else if (redirect_attr == "false")
+                                    {
+                                        redirect = false;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+
+                                    if (type_attr == "click")
+                                    {
+                                        type = ElementType::CLICKABLE;
+                                    }
+                                    else if (type_attr == "read")
+                                    {
+                                        type = ElementType::READABLE;
+                                    }
+                                    else if(type_attr == "input")
+                                    {
+                                        type = ElementType::INPUT;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+
+                                    page->addElement(std::make_shared<Element>(redirect, type, attributes.value("name").toString(), attributes.value("path").toString()));
                                 }
                             }
                         }

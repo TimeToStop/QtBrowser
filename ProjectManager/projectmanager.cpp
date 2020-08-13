@@ -3,8 +3,8 @@
 #include <QDir>
 #include <QFile>
 #include <QProcess>
-
-#include <QDebug>
+#include <QXMLStreamReader>
+#include <QXMLStreamWriter>
 
 #include "taskexecutor.h"
 
@@ -114,14 +114,20 @@ void ProjectManager::readProjectsData()
 
 	if (file.open(QIODevice::ReadOnly))
 	{
-		QStringList projects = QString(file.readAll()).split("\n");
+		QXmlStreamReader reader(&file);
 
-		for (const QString& p : projects)
+		while (!reader.hasError())
 		{
-			QStringList temp = p.split(" ");
-			if (temp.size() == 2)
+			reader.readNextStartElement();
+
+			if (reader.name() == "project")
 			{
-				m_projects.push_back(Project::load(temp[0], temp[1]));
+				QXmlStreamAttributes attributes = reader.attributes();
+
+				if (attributes.hasAttribute("name") && attributes.hasAttribute("path"))
+				{
+					m_projects.push_back(Project::load(attributes.value("name").toString(), attributes.value("path").toString()));
+				}
 			}
 		}
 
@@ -135,11 +141,21 @@ void ProjectManager::saveProjectsData()
 
 	if (file.open(QIODevice::WriteOnly))
 	{
+		QXmlStreamWriter writer(&file);
+
+		writer.writeStartDocument();
+		writer.writeStartElement("projects");
+
 		for (std::shared_ptr<Project> p : m_projects)
 		{
-			QString data = p->name() + " " + p->path() + "\n";
-			file.write(data.toUtf8());
+			writer.writeStartElement("project");
+			writer.writeAttribute("name", p->name());
+			writer.writeAttribute("path", p->path());
+			writer.writeEndElement();
 		}
+
+		writer.writeEndElement();
+		writer.writeEndDocument();
 
 		file.flush();
 		file.close();

@@ -345,7 +345,7 @@ void MainWindow::addElement()
 	AddPageElement d(m_current_page, ui->tag->text(), ui->id->text(), list, ui->inner->toPlainText(), ui->path->text(), this);
 	if (d.exec() == QDialog::Accepted)
 	{
-		m_current_page->addElement(std::make_shared<Element>(d.name(), d.path()));
+		m_current_page->addElement(std::make_shared<Element>(d.isWaitingForRedirect(), d.type(), d.name(), d.path()));
 		updateTargetElements();
 	}
 }

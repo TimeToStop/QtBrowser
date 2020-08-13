@@ -1,16 +1,17 @@
 /********************************************************************************
-** Form generated from reading UI file 'addpageelementIgzqDV.ui'
+** Form generated from reading UI file 'addpageelementomdzAC.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef ADDPAGEELEMENTIGZQDV_H
-#define ADDPAGEELEMENTIGZQDV_H
+#ifndef ADDPAGEELEMENTOMDZAC_H
+#define ADDPAGEELEMENTOMDZAC_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QGridLayout>
@@ -20,8 +21,8 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
+#include "console.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -30,10 +31,13 @@ class Ui_AddPageElement
 public:
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
-    QVBoxLayout *verticalLayout_2;
-    QHBoxLayout *horizontalLayout_4;
-    QLabel *label;
+    QGridLayout *gridLayout;
+    QComboBox *type;
+    QLabel *label_6;
     QLineEdit *name;
+    QLabel *label;
+    QLabel *label_7;
+    QCheckBox *redirect;
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *verticalSpacer;
     QGroupBox *groupBox;
@@ -50,7 +54,7 @@ public:
     QLabel *label_8;
     QLabel *label_4;
     QLineEdit *id;
-    QTextBrowser *inner;
+    Console *inner;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
     QPushButton *create;
@@ -60,7 +64,7 @@ public:
     {
         if (AddPageElement->objectName().isEmpty())
             AddPageElement->setObjectName(QString::fromUtf8("AddPageElement"));
-        AddPageElement->resize(443, 336);
+        AddPageElement->resize(484, 438);
         horizontalLayout = new QHBoxLayout(AddPageElement);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -68,27 +72,44 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        horizontalLayout_4 = new QHBoxLayout();
-        horizontalLayout_4->setSpacing(6);
-        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        label = new QLabel(AddPageElement);
-        label->setObjectName(QString::fromUtf8("label"));
+        gridLayout = new QGridLayout();
+        gridLayout->setSpacing(6);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        type = new QComboBox(AddPageElement);
+        type->addItem(QString());
+        type->addItem(QString());
+        type->addItem(QString());
+        type->setObjectName(QString::fromUtf8("type"));
 
-        horizontalLayout_4->addWidget(label);
+        gridLayout->addWidget(type, 1, 1, 1, 1);
+
+        label_6 = new QLabel(AddPageElement);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+
+        gridLayout->addWidget(label_6, 1, 0, 1, 1);
 
         name = new QLineEdit(AddPageElement);
         name->setObjectName(QString::fromUtf8("name"));
 
-        horizontalLayout_4->addWidget(name);
+        gridLayout->addWidget(name, 0, 1, 1, 1);
+
+        label = new QLabel(AddPageElement);
+        label->setObjectName(QString::fromUtf8("label"));
+
+        gridLayout->addWidget(label, 0, 0, 1, 1);
+
+        label_7 = new QLabel(AddPageElement);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+
+        gridLayout->addWidget(label_7, 2, 0, 1, 1);
+
+        redirect = new QCheckBox(AddPageElement);
+        redirect->setObjectName(QString::fromUtf8("redirect"));
+
+        gridLayout->addWidget(redirect, 2, 1, 1, 1);
 
 
-        verticalLayout_2->addLayout(horizontalLayout_4);
-
-
-        verticalLayout->addLayout(verticalLayout_2);
+        verticalLayout->addLayout(gridLayout);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
@@ -178,7 +199,7 @@ public:
 
         gridLayout_2->addWidget(id, 1, 1, 1, 1);
 
-        inner = new QTextBrowser(groupBox);
+        inner = new Console(groupBox);
         inner->setObjectName(QString::fromUtf8("inner"));
 
         gridLayout_2->addWidget(inner, 5, 1, 1, 1);
@@ -224,7 +245,14 @@ public:
     void retranslateUi(QDialog *AddPageElement)
     {
         AddPageElement->setWindowTitle(QCoreApplication::translate("AddPageElement", "AddPageElement", nullptr));
+        type->setItemText(0, QCoreApplication::translate("AddPageElement", "TextInput", nullptr));
+        type->setItemText(1, QCoreApplication::translate("AddPageElement", "Readable", nullptr));
+        type->setItemText(2, QCoreApplication::translate("AddPageElement", "Clickable", nullptr));
+
+        label_6->setText(QCoreApplication::translate("AddPageElement", "Type:", nullptr));
         label->setText(QCoreApplication::translate("AddPageElement", "Name of Element:", nullptr));
+        label_7->setText(QCoreApplication::translate("AddPageElement", "Redirect:", nullptr));
+        redirect->setText(QCoreApplication::translate("AddPageElement", "Wait For Redirection", nullptr));
         groupBox->setTitle(QCoreApplication::translate("AddPageElement", "Info:", nullptr));
         label_2->setText(QCoreApplication::translate("AddPageElement", "Classes:", nullptr));
         label_5->setText(QCoreApplication::translate("AddPageElement", "Inner:", nullptr));
@@ -243,4 +271,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // ADDPAGEELEMENTIGZQDV_H
+#endif // ADDPAGEELEMENTOMDZAC_H
