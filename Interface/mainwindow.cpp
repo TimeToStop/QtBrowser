@@ -9,6 +9,8 @@
 
 #include "registerpage.h"
 #include "addpageelement.h"
+#include "editelement.h"
+#include "elementwidgetitem.h"
 
 #include "projectsettings.h"
 
@@ -39,6 +41,8 @@ MainWindow::MainWindow(QWidget *parent):
 	ui->setupUi(this);
 	readGlobalSettings();
 
+	connect(ui->elements, &QTreeWidget::itemDoubleClicked, this, &MainWindow::editElement);
+
 	/*
 	* Browser signals
 	*/
@@ -46,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent):
 	connect(ui->browser, &Browser::syncLoadProgress, this, &MainWindow::loadProgress);
 	connect(ui->browser, &Browser::syncLoadFinished, this, &MainWindow::loadFinished);
 	connect(ui->browser, &Browser::hovered,			 this, &MainWindow::onElementHovered);
+
 
 	/*
 	* Buttons UI
@@ -108,6 +113,10 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
 		{
 			addElement();
 		}
+		else if (key_event->key() == Qt::Key_Delete)
+		{
+			rmElement();
+		}
 	}
 	else if (event->type() == QEvent::KeyRelease)
 	{
@@ -158,7 +167,7 @@ void MainWindow::updateTargetElements()
 			for (size_t i = 0; i < page->size(); i++)
 			{
 				std::shared_ptr<Element> element = page->getElement(i);
-				QTreeWidgetItem* element_item = new QTreeWidgetItem(page_item);
+				ElementWidgetItem* element_item = new ElementWidgetItem(element, page_item);
 				element_item->setText(1, element->name());
 			}
 		}
@@ -266,6 +275,16 @@ void MainWindow::closeApplication()
 	m_application.close();
 }
 
+void MainWindow::editElement(QTreeWidgetItem* item, int)
+{
+	ElementWidgetItem* element_item = dynamic_cast<ElementWidgetItem*>(item);
+
+	if (element_item != nullptr)
+	{
+		element_item->doubleClicked();
+	}
+}
+
 void MainWindow::newProject()
 {
 	CreateNewProject d(this);
@@ -348,6 +367,11 @@ void MainWindow::addElement()
 		m_current_page->addElement(std::make_shared<Element>(d.isWaitingForRedirect(), d.type(), d.name(), d.path()));
 		updateTargetElements();
 	}
+}
+
+void MainWindow::rmElement()
+{
+// TODO add remove Elements and Pages
 }
 
 void MainWindow::readGlobalSettings()

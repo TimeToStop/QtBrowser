@@ -147,6 +147,12 @@
     <ClCompile Include="BrowserController\initcmd.cpp">
       <Filter>Source Files\Browser\Commands</Filter>
     </ClCompile>
+    <ClCompile Include="Interface\elementwidgetitem.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\editelement.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Browser\browser.h">
@@ -182,6 +188,9 @@
     <QtMoc Include="Interface\console.h">
       <Filter>Header Files\Console</Filter>
     </QtMoc>
+    <QtMoc Include="Interface\editelement.h">
+      <Filter>Header Files\Interface</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Interface\mainwindow.ui">
@@ -200,6 +209,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Interface\projectsettings.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Interface\editelement.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -263,6 +275,12 @@
     </ClInclude>
     <ClInclude Include="BrowserController\initcmd.h">
       <Filter>Header Files\Browser\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\elementwidgetitem.h">
+      <Filter>Header Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\ui_editelement.h">
+      <Filter>Pre Compiled</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

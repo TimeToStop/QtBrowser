@@ -24,7 +24,11 @@ public:
 	~Element();
 
 	void setPage(Page*);
+	void setIsWaitingForRedirect(bool);
+	void setElementType(ElementType);
+	void setName(const QString&);
 
+	Page* page() const;
 	bool isWaitingForRedirect() const;
 	ElementType type() const;
 	QString name() const;

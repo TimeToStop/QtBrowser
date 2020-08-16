@@ -74,15 +74,11 @@ void AddPageElement::create()
 
 	if (!name.isEmpty())
 	{
-		for (size_t i = 0; i < m_page->size(); i++)
+		if (m_page->hasElementName(name))
 		{
-			if (name == m_page->getElement(i)->name())
-			{
-				QMessageBox::critical(this, "Cannot create Element", "Name of the element is not unique");
-				return;
-			}
+			QMessageBox::critical(this, "Cannot create Element", "Name of the element is not unique");
+			return;
 		}
-
 
 		emit(accept());
 	}

@@ -20,6 +20,26 @@ void Element::setPage(Page* page)
     m_page = page;
 }
 
+void Element::setIsWaitingForRedirect(bool wait)
+{
+    m_is_waiting_for_redirect = wait;
+}
+
+void Element::setElementType(ElementType type)
+{
+    m_type = type;
+}
+
+void Element::setName(const QString& name)
+{
+    m_name = name;
+}
+
+Page* Element::page() const
+{
+    return m_page;
+}
+
 bool Element::isWaitingForRedirect() const
 {
     return m_is_waiting_for_redirect;

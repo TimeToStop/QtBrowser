@@ -14,6 +14,9 @@ ExecuteJsFromFile::~ExecuteJsFromFile()
 
 QByteArray ExecuteJsFromFile::execute(BrowserExecutor* executor, QByteArray& data)
 {
+    byte request_header = data[0];
+    data.remove(0, 1);
+
     byte header = 0;
     QByteArray header_wrapper;
     QString result;
@@ -22,7 +25,7 @@ QByteArray ExecuteJsFromFile::execute(BrowserExecutor* executor, QByteArray& dat
     if (f.open(QIODevice::ReadOnly))
     {
         QString script = f.readAll();
-        result = executor->browser()->syncJavaScriptExecuting(script);
+        result = executor->browser()->syncJavaScriptExecuting(script, (request_header & (byte)RequestHeader::WAIT_FOR_REDIRECT) != 0);
 
         if (result.startsWith("Uncaught"))
         {

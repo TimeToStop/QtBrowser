@@ -5,7 +5,7 @@ function getPathIndexFor(element)
 
     for(let e of parent.children)
     {
-        if(e.tagName === element.tagName)
+        if(e.id !== 'element-selection-div-to-ignore' && e.tagName === element.tagName)
         {
             if(e.isSameNode(element))
             {
@@ -61,7 +61,7 @@ function dynamic_forward(tags)
         {
             for(var e of element.children)
             {
-                if(e.tagName === tags[depth]._tag)
+                if(e.id !== 'element-selection-div-to-ignore' && e.tagName === tags[depth]._tag)
                 {
                     anonimus(depth + 1, e);
                 }
@@ -109,7 +109,7 @@ function fast_forward(tags)
         let count_index = 0;
         for(let child of e.children)
         {
-            if(child.tagName === tags[i]._tag)
+            if(child.id !== 'element-selection-div-to-ignore' && child.tagName === tags[i]._tag)
             {
                 if(count_index === tags[i]._index)
                 {
@@ -148,32 +148,32 @@ function element_by_path(path)
 }
 
 
-// // TEST
-// function test()
-// {
-//     let elements = document.body.getElementsByTagName('*');
+// TEST
+function test()
+{
+    let elements = document.body.getElementsByTagName('*');
 
-//      for(let e of elements)
-//      {
-//         if(e.id != null && e.id != '')
-//         {
-//             let test_e = parse_path(element_path(e));
-//             let dynamic = dynamic_forward(test_e);
-//             let fast = fast_forward(test_e);
+     for(let e of elements)
+     {
+        if(e.id !== null && e.id !== '' && e.id !== 'element-selection-div-to-ignore')
+        {
+            let test_e = parse_path(element_path(e));
+            let dynamic = dynamic_forward(test_e);
+            let fast = fast_forward(test_e);
 
-//             if(dynamic !== fast || dynamic !== e || fast !== e)
-//             {
-//                 console.log('Error: ' + e.id + ' req: ' + (e === dynamic) + ' forward: ' + (e === fast));
-//                 console.log(e);
-//                 console.log(dynamic);
-//                 console.log(fast);
-//             }
-//         }
-//      }
+            if(!e.isSameNode(dynamic) || !e.isSameNode(fast))
+            {
+                console.log('Error: ' + e.id + ' req: ' + (e === dynamic) + ' forward: ' + (e === fast));
+                console.log(e);
+                console.log(dynamic);
+                console.log(fast);
+            }
+        }
+     }
 
-//      console.log('Test has been ended');
-// }
+     console.log('Test has been ended');
+}
 
-// test();
+test();
 
-// //TEST END UP HERE
+//TEST END UP HERE

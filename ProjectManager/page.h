@@ -32,5 +32,8 @@ public:
 	std::shared_ptr<Element> getElement(size_t);
 
 	std::shared_ptr<Element> operator[](size_t);
+
+
+	bool hasElementName(const QString&) const;
 };
 

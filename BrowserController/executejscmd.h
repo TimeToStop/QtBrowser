@@ -4,7 +4,12 @@
 
 class ExecuteJsCmd : public Command
 {
-	enum HeaderInfo : byte
+	enum class RequestHeader : byte
+	{
+		WAIT_FOR_REDIRECT = 0x1
+	};
+
+	enum class HeaderInfo : byte
 	{
 		EXCEPTION = 0x1
 	};

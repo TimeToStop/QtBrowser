@@ -29,7 +29,7 @@ const QString Project::m_pages_page_class =
         "\t}\n\n";
 
 const QString Project::m_pages_element =
-        "\t\tpublic static final %1 %2 = new %1(%3.self, \"%4\");\n\n";
+        "\t\tpublic static final %1 %2 = new %1(%3, %4.self, \"%5\");\n\n";
 
 const QString Project::m_path_to_src                   = "/src/main/java/";
 const QString Project::m_properties_file               = "project.properties";
@@ -217,7 +217,7 @@ void Project::saveJavaPageMeta() const
 
             for (int i = 0; i < page->size(); i++)
             {
-                QString type;
+                QString type, redirect;
 
                 switch (page->getElement(i)->type())
                 {
@@ -232,7 +232,16 @@ void Project::saveJavaPageMeta() const
                     break;
                 }
 
-                element_list += m_pages_element.arg(type, page->getElement(i)->name(), page->name(), page->getElement(i)->path());
+                if (page->getElement(i)->isWaitingForRedirect())
+                {
+                    redirect = "true";
+                }
+                else
+                {
+                    redirect = "false";
+                }
+
+                element_list += m_pages_element.arg(type, page->getElement(i)->name(), redirect, page->name(), page->getElement(i)->path());
             }
 
             page_list += m_pages_page_class.arg(page->name(), QString::number(page_id++), page->request(), page->target(), element_list);

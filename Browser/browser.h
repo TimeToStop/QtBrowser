@@ -27,7 +27,7 @@ public:
 	void setDefaultScripts(const QList<QPair<QString, QString>>& scripts);
 	void removeDefaultScript(const QString&);
 	void clearDefaultScripts();
-	QString syncJavaScriptExecuting(const QString&, qint64 = QWebEngineScript::MainWorld);
+	QString syncJavaScriptExecuting(const QString&, bool wait_for_redirect = false, qint64 = QWebEngineScript::MainWorld);
 
 signals:
 	void syncLoadStarted();

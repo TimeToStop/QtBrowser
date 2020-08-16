@@ -96,16 +96,30 @@ void Browser::clearDefaultScripts()
 	m_scripts.clear();
 }
 
-QString Browser::syncJavaScriptExecuting(const QString& script, qint64 world)
+QString Browser::syncJavaScriptExecuting(const QString& script, bool wait_for_redirect, qint64 world)
 {
 	QString result;
-	TaskExecutor task;
-	task.execute([&task, &result, &script, &world, this]()
+	TaskExecutor redirection;
+
+	if (wait_for_redirect)
 	{
-		page()->runJavaScript(script, world, [&task, &result](const QVariant& v)
+		redirection.addListenFor(this, &Browser::syncLoadFinished);
+	}
+
+	redirection.execute([&]()
+	{
+		TaskExecutor task;
+		task.execute([&]()
 		{
-			result = v.toString();
-			task.taskExecuted();
+			page()->runJavaScript(script, world, [&](const QVariant& v)
+			{
+				result = v.toString();
+				task.taskExecuted();
+				if (!wait_for_redirect)
+				{
+					redirection.taskExecuted();
+				}
+			});
 		});
 	});
 

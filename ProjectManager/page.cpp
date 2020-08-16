@@ -68,3 +68,16 @@ std::shared_ptr<Element> Page::operator[](size_t i)
 {
     return m_elements[i];
 }
+
+bool Page::hasElementName(const QString& name) const
+{
+    for (std::shared_ptr<Element> element : m_elements)
+    {
+        if (name == element->name())
+        {
+            return true;
+        }
+    }
+
+    return false;
+}

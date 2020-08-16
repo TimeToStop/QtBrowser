@@ -1,8 +1,10 @@
 #pragma once
 
-#include <QMainWindow>
 #include "../ProjectManager/projectmanager.h"
 #include "../BrowserController/browserexecutor.h"
+
+#include <QTreeWidget>
+#include <QMainWindow>
 
 namespace Ui { class MainWindow; };
 
@@ -55,6 +57,8 @@ public slots:
 	void runApplication();
 	void closeApplication();
 
+	void editElement(QTreeWidgetItem*, int);
+
 	void newProject();
 	void openProject();
 	void changePathToMaven();
@@ -64,6 +68,7 @@ public slots:
 
 private:
 	void addElement();
+	void rmElement();
 
 	void readGlobalSettings();
 	void saveGlobalSettings();

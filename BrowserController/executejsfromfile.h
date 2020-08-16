@@ -10,6 +10,11 @@ class ExecuteJsFromFile : public Command
 		EXECUTE_EXCEPTION = 0x2
 	};
 
+	enum class RequestHeader
+	{
+		WAIT_FOR_REDIRECT = 0x1
+	};
+
 
 public:
 	ExecuteJsFromFile();
