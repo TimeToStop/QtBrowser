@@ -1,6 +1,9 @@
 #include "page.h"
 
-Page::Page(const QString& name):
+#include "project.h"
+
+Page::Page(std::weak_ptr<Project> project, const QString& name):
+    m_project(project),
     m_name(name),
     m_request_url(),
     m_target_url(),
@@ -29,14 +32,29 @@ void Page::setTargetURL(const QString& target)
 
 void Page::addElement(const std::shared_ptr<Element>& element)
 {
-    element->setPage(this);
     m_elements.push_back(element);
 }
 
 void Page::addElement(std::shared_ptr<Element>&& element)
 {
-    element->setPage(this);
     m_elements.push_back(element);
+}
+
+void Page::removeElement(const std::shared_ptr<Element>& target)
+{
+    for (auto it = m_elements.begin(); it < m_elements.end(); ++it)
+    {
+        if (*it == target)
+        {
+            m_elements.erase(it);
+            return;
+        }
+    }
+}
+
+std::shared_ptr<Project> Page::project() const
+{
+    return m_project.lock();
 }
 
 QString Page::name() const

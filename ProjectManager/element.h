@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <QString>
 
 class Page;
@@ -13,22 +14,21 @@ enum class ElementType
 
 class Element
 {
-	Page* m_page;
+	std::weak_ptr<Page> m_page;
 	bool m_is_waiting_for_redirect;
 	ElementType m_type;
 	QString m_name;
 	QString m_path;
 
 public:
-	Element(bool is_waiting_for_redirect, ElementType type, const QString& name, const QString& path);
+	Element(std::weak_ptr<Page> page, bool is_waiting_for_redirect, ElementType type, const QString& name, const QString& path);
 	~Element();
 
-	void setPage(Page*);
 	void setIsWaitingForRedirect(bool);
 	void setElementType(ElementType);
 	void setName(const QString&);
 
-	Page* page() const;
+	std::shared_ptr<Page> page() const;
 	bool isWaitingForRedirect() const;
 	ElementType type() const;
 	QString name() const;

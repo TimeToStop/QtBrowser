@@ -11,6 +11,7 @@
 #include "addpageelement.h"
 #include "editelement.h"
 #include "elementwidgetitem.h"
+#include "pagewidgetitem.h"
 
 #include "projectsettings.h"
 
@@ -113,7 +114,7 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
 		{
 			addElement();
 		}
-		else if (key_event->key() == Qt::Key_Delete)
+		else if (obj == ui->elements && key_event->key() == Qt::Key_Delete)
 		{
 			rmElement();
 		}
@@ -158,7 +159,7 @@ void MainWindow::updateTargetElements()
 		for (size_t i = 0; i < m_main_project->size(); i++)
 		{
 			std::shared_ptr<Page> page = m_main_project->getPage(i);
-			QTreeWidgetItem* page_item = new QTreeWidgetItem(ui->elements);
+			PageWidgetItem* page_item = new PageWidgetItem(page, ui->elements);
 			page_item->setText(0, page->name());
 			ui->elements->addTopLevelItem(page_item);
 
@@ -291,6 +292,7 @@ void MainWindow::newProject()
 
 	if (d.exec() == QDialog::Accepted)
 	{
+		saveGlobalSettings();
 		setMainProject(m_project_manager.create(d.name(), d.path()));
 	}
 }
@@ -364,14 +366,45 @@ void MainWindow::addElement()
 	AddPageElement d(m_current_page, ui->tag->text(), ui->id->text(), list, ui->inner->toPlainText(), ui->path->text(), this);
 	if (d.exec() == QDialog::Accepted)
 	{
-		m_current_page->addElement(std::make_shared<Element>(d.isWaitingForRedirect(), d.type(), d.name(), d.path()));
+		m_current_page->addElement(std::make_shared<Element>(m_current_page, d.isWaitingForRedirect(), d.type(), d.name(), d.path()));
 		updateTargetElements();
 	}
 }
 
 void MainWindow::rmElement()
 {
-// TODO add remove Elements and Pages
+	QList<QTreeWidgetItem*> items = ui->elements->selectedItems();
+
+	for (QTreeWidgetItem* item : items)
+	{
+		QTreeWidgetItem* parent = item->parent();
+		PageWidgetItem* page = dynamic_cast<PageWidgetItem*>(item);
+	
+		if (page)
+		{
+			page->removePage();
+		}
+		else
+		{
+			ElementWidgetItem* element = dynamic_cast<ElementWidgetItem*>(item);
+			
+			if (element)
+			{
+				element->removeElement();
+			}
+		}
+
+		if (parent) 
+		{
+			delete parent->takeChild(parent->indexOfChild(item));
+		}
+		else 
+		{
+			delete ui->elements->takeTopLevelItem(ui->elements->indexOfTopLevelItem(item));
+		}
+	}
+
+	updateTargetElements();
 }
 
 void MainWindow::readGlobalSettings()

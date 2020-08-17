@@ -23,9 +23,10 @@ const QByteArray ProjectManager::m_default_main_data = QStringLiteral(
 		"\t\tif(engine != null)\n"
 		"\t\t{\n"
 		"\t\t\t// write your code here\n"
+		"\t\t\tengine.close();\n"
 		"\t\t}\n"
 	"\t}\n"
-"}\n"
+	"}\n"
 ""
 ).toUtf8();
 

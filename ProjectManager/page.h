@@ -5,25 +5,30 @@
 #include <memory>
 #include <vector>
 
-class Page 
+class Project;
+
+class Page : public std::enable_shared_from_this<Page>
 {
+	std::weak_ptr<Project> m_project;
 	QString m_name;
 	QString m_request_url;
 	QString m_target_url;
 	std::vector<std::shared_ptr<Element>> m_elements;
 
 public:
-	Page(const QString&);
+	Page(std::weak_ptr<Project>, const QString&);
 	virtual ~Page();
 
 	void setName(const QString&);
-
 	void setRequestURL(const QString&);
 	void setTargetURL(const QString&);
 
 	void addElement(const std::shared_ptr<Element>&);
 	void addElement(std::shared_ptr<Element>&&);
 
+	void removeElement(const std::shared_ptr<Element>&);
+
+	std::shared_ptr<Project> project() const;
 	QString name() const;
 	QString request() const;
 	QString target() const;

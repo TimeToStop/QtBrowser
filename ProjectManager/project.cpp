@@ -103,7 +103,6 @@ void Project::createDefaultPropertiesFile()
 }
 
 // TODO: Structure parse 
-
 void Project::readPropertiesFile()
 {
     QFile properties(m_path_to_project + m_properties_file);
@@ -384,9 +383,21 @@ void Project::setDefaultJS(const QStringList& list)
 
 std::shared_ptr<Page> Project::addPage(const QString& name)
 {
-    std::shared_ptr<Page> page = std::make_shared<Page>(name);
+    std::shared_ptr<Page> page = std::make_shared<Page>(shared_from_this(), name);
     m_pages.push_back(page);
     return page;
+}
+
+void Project::removePage(const std::shared_ptr<Page>& page)
+{
+    for (std::vector<std::shared_ptr<Page>>::iterator it = m_pages.begin(); it < m_pages.end(); ++it)
+    {
+        if (*it == page)
+        {
+            m_pages.erase(it);
+            return;
+        }
+    }
 }
 
 QString Project::name() const
@@ -486,7 +497,7 @@ void Project::loadFromMeta()
                     QXmlStreamAttributes attributes = reader.attributes();
                     if (attributes.hasAttribute("name") && attributes.hasAttribute("request") && attributes.hasAttribute("target"))
                     {
-                        std::shared_ptr<Page> page = std::make_shared<Page>(attributes.value("name").toString());
+                        std::shared_ptr<Page> page = std::make_shared<Page>(shared_from_this(), attributes.value("name").toString());
 
                         page->setRequestURL(attributes.value("request").toString());
                         page->setTargetURL(attributes.value("target").toString());
@@ -537,7 +548,7 @@ void Project::loadFromMeta()
                                         continue;
                                     }
 
-                                    page->addElement(std::make_shared<Element>(redirect, type, attributes.value("name").toString(), attributes.value("path").toString()));
+                                    page->addElement(std::make_shared<Element>(page, redirect, type, attributes.value("name").toString(), attributes.value("path").toString()));
                                 }
                             }
                         }

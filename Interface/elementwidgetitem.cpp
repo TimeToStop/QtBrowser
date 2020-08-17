@@ -1,6 +1,7 @@
 #include "elementwidgetitem.h"
 
 #include "editelement.h"
+#include "../ProjectManager/page.h"
 
 ElementWidgetItem::ElementWidgetItem(std::shared_ptr<Element> element, QTreeWidgetItem *parent):
 	QTreeWidgetItem(parent),
@@ -24,4 +25,9 @@ void ElementWidgetItem::doubleClicked()
 
 		setText(1, d.name());
 	}
+}
+
+void ElementWidgetItem::removeElement()
+{
+	m_element->page()->removeElement(m_element);
 }

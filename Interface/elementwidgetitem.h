@@ -12,4 +12,5 @@ public:
 	virtual ~ElementWidgetItem();
 
 	void doubleClicked();
+	void removeElement();
 };

@@ -58,6 +58,7 @@ public:
 	void setDefaultJS(const QStringList&);
 
 	std::shared_ptr<Page> addPage(const QString&);
+	void removePage(const std::shared_ptr<Page>&);
 
 	bool isOutDated() const;
 	bool writePort(int) const;

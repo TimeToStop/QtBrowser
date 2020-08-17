@@ -106,11 +106,14 @@ function fast_forward(tags)
 
     for(let i = 0; i < tags.length; i++)
     {
+        let has_tag = false;
         let count_index = 0;
         for(let child of e.children)
         {
             if(child.id !== 'element-selection-div-to-ignore' && child.tagName === tags[i]._tag)
             {
+                has_tag = true;
+                
                 if(count_index === tags[i]._index)
                 {
                     e = child;
@@ -123,7 +126,7 @@ function fast_forward(tags)
             }
         }
 
-        if(count_index !== tags[i]._index)
+        if(has_tag !== true || count_index !== tags[i]._index)
         {
             return null;
         }
@@ -148,32 +151,53 @@ function element_by_path(path)
 }
 
 
-// TEST
-function test()
-{
-    let elements = document.body.getElementsByTagName('*');
+// // TEST
+// function test()
+// {
+//     let elements = document.body.getElementsByTagName('*');
 
-     for(let e of elements)
-     {
-        if(e.id !== null && e.id !== '' && e.id !== 'element-selection-div-to-ignore')
-        {
-            let test_e = parse_path(element_path(e));
-            let dynamic = dynamic_forward(test_e);
-            let fast = fast_forward(test_e);
+//      for(let e of elements)
+//      {
+//         if(e.id !== null && e.id !== '' && e.id !== 'element-selection-div-to-ignore')
+//         {
+//             let test_e = parse_path(element_path(e));
+//             let dynamic = dynamic_forward(test_e);
+//             let fast = fast_forward(test_e);
 
-            if(!e.isSameNode(dynamic) || !e.isSameNode(fast))
-            {
-                console.log('Error: ' + e.id + ' req: ' + (e === dynamic) + ' forward: ' + (e === fast));
-                console.log(e);
-                console.log(dynamic);
-                console.log(fast);
-            }
-        }
-     }
+//             if(!e.isSameNode(dynamic) || !e.isSameNode(fast))
+//             {
+//                 console.log('Error: ' + e.id + ' req: ' + (e === dynamic) + ' forward: ' + (e === fast));
+//                 console.log(e);
+//                 console.log(dynamic);
+//                 console.log(fast);
+//             }
+//         }
+//      }
 
-     console.log('Test has been ended');
-}
+//      console.log('Test has been ended');
+// }
 
-test();
+// function testFindElement()
+// {
+//     console.log('All');
+//     let elements = document.body.getElementsByTagName('*');
+
+//     for(let e of elements)
+//     {
+//         if(e.id !== null && e.id !== '' && e.id !== 'element-selection-div-to-ignore')
+//         {
+//             if(!e.isSameNode(element_by_path(element_path(e))))
+//             {
+//                 console.log('Error');
+//                 console.log(e);
+//             }
+//         }
+//     }
+
+//     console.log('Test has been ended'); 
+// }
+
+// test();
+// testFindElement();
 
 //TEST END UP HERE

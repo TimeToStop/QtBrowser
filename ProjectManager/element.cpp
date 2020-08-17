@@ -2,8 +2,8 @@
 
 #include "page.h"
 
-Element::Element(bool is_waiting_for_redirect, ElementType type, const QString& name, const QString& path):
-    m_page(nullptr),
+Element::Element(std::weak_ptr<Page> page, bool is_waiting_for_redirect, ElementType type, const QString& name, const QString& path):
+    m_page(page),
     m_is_waiting_for_redirect(is_waiting_for_redirect),
     m_type(type),
     m_name(name),
@@ -13,11 +13,6 @@ Element::Element(bool is_waiting_for_redirect, ElementType type, const QString& 
 
 Element::~Element()
 {
-}
-
-void Element::setPage(Page* page)
-{
-    m_page = page;
 }
 
 void Element::setIsWaitingForRedirect(bool wait)
@@ -35,9 +30,9 @@ void Element::setName(const QString& name)
     m_name = name;
 }
 
-Page* Element::page() const
+std::shared_ptr<Page> Element::page() const
 {
-    return m_page;
+    return m_page.lock();
 }
 
 bool Element::isWaitingForRedirect() const

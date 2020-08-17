@@ -153,6 +153,9 @@
     <ClCompile Include="Interface\editelement.cpp">
       <Filter>Source Files\Interface</Filter>
     </ClCompile>
+    <ClCompile Include="Interface\pagewidgetitem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Browser\browser.h">
@@ -173,9 +176,6 @@
     <QtMoc Include="Interface\createnewproject.h">
       <Filter>Header Files\Interface</Filter>
     </QtMoc>
-    <QtMoc Include="Interface\openproject.h">
-      <Filter>Header Files\Project</Filter>
-    </QtMoc>
     <QtMoc Include="Interface\addpageelement.h">
       <Filter>Header Files\Interface</Filter>
     </QtMoc>
@@ -189,6 +189,9 @@
       <Filter>Header Files\Console</Filter>
     </QtMoc>
     <QtMoc Include="Interface\editelement.h">
+      <Filter>Header Files\Interface</Filter>
+    </QtMoc>
+    <QtMoc Include="Interface\openproject.h">
       <Filter>Header Files\Interface</Filter>
     </QtMoc>
   </ItemGroup>
@@ -281,6 +284,9 @@
     </ClInclude>
     <ClInclude Include="Interface\ui_editelement.h">
       <Filter>Pre Compiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\pagewidgetitem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
