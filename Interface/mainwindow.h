@@ -78,6 +78,7 @@ public slots:
 
 private:
 	void addElement();
+	void findElement();
 	void rmElement();
 
 	void readGlobalSettings();

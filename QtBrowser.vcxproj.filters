@@ -180,8 +180,8 @@
     <ClCompile Include="DOM\dompath.cpp">
       <Filter>Source Files\DOM</Filter>
     </ClCompile>
-    <ClCompile Include="ProjectManager\arrayelement.cpp">
-      <Filter>Source Files\Project</Filter>
+    <ClCompile Include="Interface\addarrayelement.cpp">
+      <Filter>Source Files\Interface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +224,9 @@
     <QtMoc Include="Interface\sourcetree.h">
       <Filter>Header Files\Interface</Filter>
     </QtMoc>
+    <QtMoc Include="Interface\addarrayelement.h">
+      <Filter>Header Files\Interface</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Interface\mainwindow.ui">
@@ -245,6 +248,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Interface\editelement.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Interface\addarrayelement.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -333,8 +339,8 @@
     <ClInclude Include="DOM\dompath.h">
       <Filter>Header Files\DOM</Filter>
     </ClInclude>
-    <ClInclude Include="ProjectManager\arrayelement.h">
-      <Filter>Header Files\Project</Filter>
+    <ClInclude Include="Interface\ui_addarrayelement.h">
+      <Filter>Pre Compiled</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@ DomNodeWidgetItem::DomNodeWidgetItem(DomNode* node):
     QTreeWidgetItem(),
     m_node(node)
 {
+    m_node->setItem(this);
 }
 
 DomNodeWidgetItem::~DomNodeWidgetItem()

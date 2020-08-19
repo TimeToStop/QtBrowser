@@ -5,6 +5,7 @@
 #include <QStringList>
 
 class DomPath;
+class DomNodeWidgetItem;
 
 class DomNode
 {
@@ -12,6 +13,7 @@ class DomNode
 	std::vector<DomNode*> m_children;
 
 	DomPath* m_path;
+	DomNodeWidgetItem* m_item;
 	QString m_id;
 	QString m_tag;
 	QStringList m_class_list;
@@ -28,6 +30,7 @@ public:
 	DomNode* parent() const;
 	DomNode* child(size_t) const;
 
+	DomNodeWidgetItem* item() const;
 	DomPath* path() const;
 	QString id() const;
 	QString tag() const;
@@ -38,6 +41,8 @@ public:
 	void addChild(DomNode*);
 	void removeChild(int);
 	void removeChild(DomNode*);
+
+	void setItem(DomNodeWidgetItem*);
 
 	void setId(const QString&);
 	void setTag(const QString&);

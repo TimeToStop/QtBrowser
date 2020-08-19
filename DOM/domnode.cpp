@@ -6,6 +6,7 @@ DomNode::DomNode(DomNode* parent):
     m_parent(parent),
     m_children(),
     m_path(new DomPath(this)),
+    m_item(nullptr),
     m_id(),
     m_tag(),
     m_class_list()
@@ -22,6 +23,7 @@ DomNode::DomNode(const QString& id, const QString& tag, const QStringList& class
     m_parent(parent),
     m_children(),
     m_path(new DomPath(this)),
+    m_item(nullptr),
     m_id(id),
     m_tag(tag),
     m_class_list(class_list)
@@ -84,6 +86,11 @@ DomNode* DomNode::child(size_t i) const
     return m_children[i];
 }
 
+DomNodeWidgetItem* DomNode::item() const
+{
+    return m_item;
+}
+
 DomPath* DomNode::path() const
 {
     return m_path;
@@ -129,6 +136,11 @@ void DomNode::removeChild(DomNode* target)
             m_children.erase(it);
         }
     }
+}
+
+void DomNode::setItem(DomNodeWidgetItem* item)
+{
+    m_item = item;
 }
 
 void DomNode::setId(const QString& id)

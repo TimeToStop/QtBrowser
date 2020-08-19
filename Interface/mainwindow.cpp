@@ -9,6 +9,7 @@
 
 #include "registerpage.h"
 #include "addpageelement.h"
+#include "addarrayelement.h"
 #include "editelement.h"
 #include "elementwidgetitem.h"
 #include "pagewidgetitem.h"
@@ -130,6 +131,10 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
 		else if (key_event->key() == Qt::Key_E && m_is_control_pressed && m_current_page != nullptr)
 		{
 			addElement();
+		}
+		else if (key_event->key() == Qt::Key_F && m_is_control_pressed && m_current_page != nullptr)
+		{
+			findElement();
 		}
 		else if (obj == ui->elements && key_event->key() == Qt::Key_Delete)
 		{
@@ -436,9 +441,17 @@ void MainWindow::selectArray()
 
 void MainWindow::addArrayToProject()
 {
-	if (m_current_page != nullptr && m_is_selecting_array && !m_array.isEmpty())
+	if (m_current_page != nullptr 
+		&& m_is_selecting_array
+		&& !m_array.isEmpty())
 	{
-		//TODO: add to project
+		AddArrayElement d(m_current_page, m_array.toString(), this);
+
+		if (d.exec() == QDialog::Accepted)
+		{
+			m_current_page->addElement(std::make_shared<Element>(m_current_page, true, d.isWaitForRedirect(), d.type(), d.name(), d.path()));
+			updateTargetElements();
+		}
 	}
 }
 
@@ -453,8 +466,64 @@ void MainWindow::addElement()
 	AddPageElement d(m_current_page, ui->tag->text(), ui->id->text(), list, ui->inner->toPlainText(), ui->path->text(), this);
 	if (d.exec() == QDialog::Accepted)
 	{
-		m_current_page->addElement(std::make_shared<Element>(m_current_page, d.isWaitingForRedirect(), d.type(), d.name(), d.path()));
+		m_current_page->addElement(std::make_shared<Element>(m_current_page, false, d.isWaitingForRedirect(), d.type(), d.name(), d.path()));
 		updateTargetElements();
+	}
+}
+
+void MainWindow::findElement()
+{
+	if (ui->dom_tree->topLevelItemCount() != 0)
+	{
+		DomNode* e = static_cast<DomNodeWidgetItem*>(ui->dom_tree->topLevelItem(0))->node();
+		QStringList path = ui->path->text().split("/");
+
+		for (const QString& element : path)
+		{
+			if (!element.isEmpty())
+			{
+				QStringList list = element.split("[");
+
+				if (list.size() == 2)
+				{
+					QString tag = list[0].toLower();
+					QString str_index = list[1];
+					str_index.chop(1);
+
+					int index = str_index.toInt();
+
+					for (int i = 0; i < e->childCount(); i++)
+					{
+						if (e->child(i)->tag() == tag)
+						{
+							--index;
+
+							if (index == -1)
+							{
+								e = e->child(i);
+								break;
+							}
+						}
+					}
+
+					if (index != -1)
+					{
+						QMessageBox::critical(this, "Error", "Cannot find element");
+						return;
+					}
+				}
+				else
+				{
+					QMessageBox::critical(this, "Error", "Bad path");
+					return;
+				}
+			}
+		}
+
+		if (e->item() != nullptr)
+		{
+			e->item()->setSelected(true);
+		}
 	}
 }
 

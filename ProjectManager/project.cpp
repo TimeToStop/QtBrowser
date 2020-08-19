@@ -298,7 +298,7 @@ void Project::saveProjectPageMeta() const
 
             for (size_t i = 0; i < page->size(); i++)
             {
-                QString redirect, type;
+                QString redirect, is_array, type;
                 writer.writeStartElement("element");
 
                 switch (page->getElement(i)->type())
@@ -323,8 +323,18 @@ void Project::saveProjectPageMeta() const
                     redirect = "false";
                 }
 
+                if (page->getElement(i)->isArray())
+                {
+                    is_array = "true";
+                }
+                else
+                {
+                    is_array = "false";
+                }
+
                 writer.writeAttribute("redirect", redirect);
                 writer.writeAttribute("type", type);
+                writer.writeAttribute("array", is_array);
                 writer.writeAttribute("name", page->getElement(i)->name());
                 writer.writeAttribute("path", page->getElement(i)->path());
 
@@ -513,7 +523,9 @@ void Project::loadFromMeta()
                                     && attributes.hasAttribute("redirect") && attributes.hasAttribute("type"))
                                 {
                                     bool redirect;
+                                    bool is_array;
                                     ElementType type;
+                                    QString array_attr = attributes.value("array").toString();
                                     QString redirect_attr = attributes.value("redirect").toString();
                                     QString type_attr = attributes.value("type").toString();
 
@@ -525,6 +537,19 @@ void Project::loadFromMeta()
                                     else if (redirect_attr == "false")
                                     {
                                         redirect = false;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+
+                                    if (array_attr == "true")
+                                    {
+                                        is_array = true;
+                                    }
+                                    else if (array_attr == "false")
+                                    {
+                                        is_array = false;
                                     }
                                     else
                                     {
@@ -548,7 +573,7 @@ void Project::loadFromMeta()
                                         continue;
                                     }
 
-                                    page->addElement(std::make_shared<Element>(page, redirect, type, attributes.value("name").toString(), attributes.value("path").toString()));
+                                    page->addElement(std::make_shared<Element>(page, is_array, redirect, type, attributes.value("name").toString(), attributes.value("path").toString()));
                                 }
                             }
                         }

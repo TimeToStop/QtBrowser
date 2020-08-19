@@ -114,6 +114,7 @@
     <ClCompile Include="DOM\domnode.cpp" />
     <ClCompile Include="DOM\domnodewidgetitem.cpp" />
     <ClCompile Include="DOM\dompath.cpp" />
+    <ClCompile Include="Interface\addarrayelement.cpp" />
     <ClCompile Include="Interface\addpageelement.cpp" />
     <ClCompile Include="Interface\console.cpp" />
     <ClCompile Include="Interface\createnewproject.cpp" />
@@ -127,7 +128,6 @@
     <ClCompile Include="Interface\sourcetree.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Browser\scriptsmanager.cpp" />
-    <ClCompile Include="ProjectManager\arrayelement.cpp" />
     <ClCompile Include="ProjectManager\element.cpp" />
     <ClCompile Include="ProjectManager\page.cpp" />
     <ClCompile Include="ProjectManager\project.cpp" />
@@ -142,6 +142,7 @@
     <QtMoc Include="Interface\mainwindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="Interface\addarrayelement.ui" />
     <QtUic Include="Interface\addpageelement.ui" />
     <QtUic Include="Interface\createnewproject.ui" />
     <QtUic Include="Interface\editelement.ui" />
@@ -164,10 +165,12 @@
     <ClInclude Include="DOM\domnode.h" />
     <ClInclude Include="DOM\domnodewidgetitem.h" />
     <ClInclude Include="DOM\dompath.h" />
+    <QtMoc Include="Interface\addarrayelement.h" />
     <ClInclude Include="Interface\elementwidgetitem.h" />
     <QtMoc Include="Interface\editelement.h" />
     <ClInclude Include="Interface\pagewidgetitem.h" />
     <QtMoc Include="Interface\sourcetree.h" />
+    <ClInclude Include="Interface\ui_addarrayelement.h" />
     <ClInclude Include="Interface\ui_addpageelement.h" />
     <ClInclude Include="Interface\ui_createnewproject.h" />
     <ClInclude Include="Interface\ui_editelement.h" />
@@ -175,7 +178,6 @@
     <ClInclude Include="Interface\ui_openproject.h" />
     <ClInclude Include="Interface\ui_projectsettings.h" />
     <ClInclude Include="Interface\ui_registerpage.h" />
-    <ClInclude Include="ProjectManager\arrayelement.h" />
     <ClInclude Include="ProjectManager\element.h" />
     <ClInclude Include="ProjectManager\page.h" />
     <ClInclude Include="ProjectManager\project.h" />
