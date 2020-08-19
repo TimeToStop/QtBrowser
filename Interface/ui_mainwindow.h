@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'mainwindowKNYPeo.ui'
+** Form generated from reading UI file 'mainwindowRoHhJb.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MAINWINDOWKNYPEO_H
-#define MAINWINDOWKNYPEO_H
+#ifndef MAINWINDOWROHHJB_H
+#define MAINWINDOWROHHJB_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -33,6 +33,7 @@
 #include <QtWidgets/QWidget>
 #include "browser.h"
 #include "console.h"
+#include "sourcetree.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -102,7 +103,17 @@ public:
     QWidget *tab_2;
     QHBoxLayout *horizontalLayout_8;
     Console *application;
-    Console *html_source;
+    QWidget *source;
+    QHBoxLayout *horizontalLayout_5;
+    QVBoxLayout *verticalLayout_11;
+    QGridLayout *gridLayout_4;
+    QPushButton *add_array_to_project;
+    QLineEdit *current_path;
+    QLabel *label_10;
+    QLineEdit *array_value;
+    QPushButton *select_array_elements;
+    QLabel *label_7;
+    SourceTree *dom_tree;
     QVBoxLayout *verticalLayout_8;
     QMenuBar *menuBar;
     QMenu *menuProject;
@@ -115,7 +126,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1634, 916);
+        MainWindow->resize(1690, 862);
         MainWindow->setFocusPolicy(Qt::StrongFocus);
         create_new_project = new QAction(MainWindow);
         create_new_project->setObjectName(QString::fromUtf8("create_new_project"));
@@ -463,12 +474,68 @@ public:
 
         horizontalLayout_4->addLayout(verticalLayout_6);
 
-        html_source = new Console(centralWidget);
-        html_source->setObjectName(QString::fromUtf8("html_source"));
-        sizePolicy.setHeightForWidth(html_source->sizePolicy().hasHeightForWidth());
-        html_source->setSizePolicy(sizePolicy);
+        source = new QWidget(centralWidget);
+        source->setObjectName(QString::fromUtf8("source"));
+        sizePolicy.setHeightForWidth(source->sizePolicy().hasHeightForWidth());
+        source->setSizePolicy(sizePolicy);
+        horizontalLayout_5 = new QHBoxLayout(source);
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        verticalLayout_11 = new QVBoxLayout();
+        verticalLayout_11->setSpacing(6);
+        verticalLayout_11->setObjectName(QString::fromUtf8("verticalLayout_11"));
+        gridLayout_4 = new QGridLayout();
+        gridLayout_4->setSpacing(6);
+        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
+        add_array_to_project = new QPushButton(source);
+        add_array_to_project->setObjectName(QString::fromUtf8("add_array_to_project"));
 
-        horizontalLayout_4->addWidget(html_source);
+        gridLayout_4->addWidget(add_array_to_project, 1, 2, 1, 1);
+
+        current_path = new QLineEdit(source);
+        current_path->setObjectName(QString::fromUtf8("current_path"));
+
+        gridLayout_4->addWidget(current_path, 0, 1, 1, 1);
+
+        label_10 = new QLabel(source);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+
+        gridLayout_4->addWidget(label_10, 1, 0, 1, 1);
+
+        array_value = new QLineEdit(source);
+        array_value->setObjectName(QString::fromUtf8("array_value"));
+
+        gridLayout_4->addWidget(array_value, 1, 1, 1, 1);
+
+        select_array_elements = new QPushButton(source);
+        select_array_elements->setObjectName(QString::fromUtf8("select_array_elements"));
+
+        gridLayout_4->addWidget(select_array_elements, 0, 2, 1, 1);
+
+        label_7 = new QLabel(source);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+
+        gridLayout_4->addWidget(label_7, 0, 0, 1, 1);
+
+
+        verticalLayout_11->addLayout(gridLayout_4);
+
+        dom_tree = new SourceTree(source);
+        QTreeWidgetItem *__qtreewidgetitem1 = new QTreeWidgetItem();
+        __qtreewidgetitem1->setText(0, QString::fromUtf8("1"));
+        dom_tree->setHeaderItem(__qtreewidgetitem1);
+        dom_tree->setObjectName(QString::fromUtf8("dom_tree"));
+        dom_tree->setMinimumSize(QSize(1000, 0));
+        dom_tree->header()->setVisible(false);
+
+        verticalLayout_11->addWidget(dom_tree);
+
+
+        horizontalLayout_5->addLayout(verticalLayout_11);
+
+
+        horizontalLayout_4->addWidget(source);
 
         verticalLayout_8 = new QVBoxLayout();
         verticalLayout_8->setSpacing(6);
@@ -491,7 +558,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1634, 21));
+        menuBar->setGeometry(QRect(0, 0, 1690, 21));
         menuProject = new QMenu(menuBar);
         menuProject->setObjectName(QString::fromUtf8("menuProject"));
         menuSettings = new QMenu(menuBar);
@@ -556,6 +623,10 @@ public:
         label_3->setText(QCoreApplication::translate("MainWindow", "Tag:", nullptr));
         consoles_tab->setTabText(consoles_tab->indexOf(tab), QCoreApplication::translate("MainWindow", "Console", nullptr));
         consoles_tab->setTabText(consoles_tab->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Application  Output", nullptr));
+        add_array_to_project->setText(QCoreApplication::translate("MainWindow", "Add To Project", nullptr));
+        label_10->setText(QCoreApplication::translate("MainWindow", "Array:", nullptr));
+        select_array_elements->setText(QCoreApplication::translate("MainWindow", "Select Array Elements", nullptr));
+        label_7->setText(QCoreApplication::translate("MainWindow", "Current Element Path:", nullptr));
         menuProject->setTitle(QCoreApplication::translate("MainWindow", "Project", nullptr));
         menuSettings->setTitle(QCoreApplication::translate("MainWindow", "Settings", nullptr));
         menuView->setTitle(QCoreApplication::translate("MainWindow", "View", nullptr));
@@ -569,4 +640,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MAINWINDOWKNYPEO_H
+#endif // MAINWINDOWROHHJB_H

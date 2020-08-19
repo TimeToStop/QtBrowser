@@ -68,6 +68,11 @@ void Browser::loadURL(const QString& url)
 	m_is_browser_init_loading = false;
 }
 
+QString Browser::htmlToJson()
+{
+	return syncJavaScriptExecuting("source();");
+}
+
 void Browser::addDefaultScript(const QString& name, const QString& path)
 {
 	m_scripts.addScript(name, path);
@@ -163,28 +168,3 @@ void Browser::hoveredSlot(const QString& tag, const QString& id, const QStringLi
 	hovered(tag, id, classes, inner, path);
 }
 
-//
-//if (!m_scripts.addScript("jquery", "JS/jquery-3-5-1.min.js"))
-//{
-//	CONSOLE_WARNING("Cannot read file: JS/jquery-3-5-1.min.js");
-//}
-//
-//if (!m_scripts.addScript("webchannel", "JS/qwebchannel.js"))
-//{
-//	CONSOLE_WARNING("Cannot read file: JS/qwebchannel.js");
-//}
-//
-//if (!m_scripts.addScript("init", "JS/init.js"))
-//{
-//	CONSOLE_WARNING("Cannot read file: JS/init.js");
-//}
-//
-//if (!m_scripts.addScript("find", "JS/find.js"))
-//{
-//	CONSOLE_WARNING("Cannot read file: JS/find.js");
-//}
-//
-//if (!m_scripts.addScript("hover", "JS/hover.js"))
-//{
-//	CONSOLE_WARNING("Cannot read file: JS/hover.js");
-//}

@@ -109,6 +109,11 @@
     <ClCompile Include="Browser\browser.cpp" />
     <ClCompile Include="Browser\hoverhandler.cpp" />
     <ClCompile Include="Browser\taskexecutor.cpp" />
+    <ClCompile Include="DOM\domarraypath.cpp" />
+    <ClCompile Include="DOM\domdocument.cpp" />
+    <ClCompile Include="DOM\domnode.cpp" />
+    <ClCompile Include="DOM\domnodewidgetitem.cpp" />
+    <ClCompile Include="DOM\dompath.cpp" />
     <ClCompile Include="Interface\addpageelement.cpp" />
     <ClCompile Include="Interface\console.cpp" />
     <ClCompile Include="Interface\createnewproject.cpp" />
@@ -119,8 +124,10 @@
     <ClCompile Include="Interface\pagewidgetitem.cpp" />
     <ClCompile Include="Interface\projectsettings.cpp" />
     <ClCompile Include="Interface\registerpage.cpp" />
+    <ClCompile Include="Interface\sourcetree.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Browser\scriptsmanager.cpp" />
+    <ClCompile Include="ProjectManager\arrayelement.cpp" />
     <ClCompile Include="ProjectManager\element.cpp" />
     <ClCompile Include="ProjectManager\page.cpp" />
     <ClCompile Include="ProjectManager\project.cpp" />
@@ -152,9 +159,15 @@
     <QtMoc Include="Interface\registerpage.h" />
     <QtMoc Include="Interface\projectsettings.h" />
     <QtMoc Include="Interface\console.h" />
+    <ClInclude Include="DOM\domarraypath.h" />
+    <ClInclude Include="DOM\domdocument.h" />
+    <ClInclude Include="DOM\domnode.h" />
+    <ClInclude Include="DOM\domnodewidgetitem.h" />
+    <ClInclude Include="DOM\dompath.h" />
     <ClInclude Include="Interface\elementwidgetitem.h" />
     <QtMoc Include="Interface\editelement.h" />
     <ClInclude Include="Interface\pagewidgetitem.h" />
+    <QtMoc Include="Interface\sourcetree.h" />
     <ClInclude Include="Interface\ui_addpageelement.h" />
     <ClInclude Include="Interface\ui_createnewproject.h" />
     <ClInclude Include="Interface\ui_editelement.h" />
@@ -162,6 +175,7 @@
     <ClInclude Include="Interface\ui_openproject.h" />
     <ClInclude Include="Interface\ui_projectsettings.h" />
     <ClInclude Include="Interface\ui_registerpage.h" />
+    <ClInclude Include="ProjectManager\arrayelement.h" />
     <ClInclude Include="ProjectManager\element.h" />
     <ClInclude Include="ProjectManager\page.h" />
     <ClInclude Include="ProjectManager\project.h" />

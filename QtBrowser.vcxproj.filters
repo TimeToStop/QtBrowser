@@ -67,6 +67,12 @@
     <Filter Include="Header Files\Console">
       <UniqueIdentifier>{499a47e0-206e-41e5-94e2-3bfa67ced6a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\DOM">
+      <UniqueIdentifier>{290de997-0216-4bd6-9b7e-f977e88f7aa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DOM">
+      <UniqueIdentifier>{94e85a46-2cc2-4b75-9a07-d3f5df86942f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -154,7 +160,28 @@
       <Filter>Source Files\Interface</Filter>
     </ClCompile>
     <ClCompile Include="Interface\pagewidgetitem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="DOM\domnode.cpp">
+      <Filter>Source Files\DOM</Filter>
+    </ClCompile>
+    <ClCompile Include="DOM\domdocument.cpp">
+      <Filter>Source Files\DOM</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\sourcetree.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="DOM\domnodewidgetitem.cpp">
+      <Filter>Source Files\DOM</Filter>
+    </ClCompile>
+    <ClCompile Include="DOM\domarraypath.cpp">
+      <Filter>Source Files\DOM</Filter>
+    </ClCompile>
+    <ClCompile Include="DOM\dompath.cpp">
+      <Filter>Source Files\DOM</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectManager\arrayelement.cpp">
+      <Filter>Source Files\Project</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +219,9 @@
       <Filter>Header Files\Interface</Filter>
     </QtMoc>
     <QtMoc Include="Interface\openproject.h">
+      <Filter>Header Files\Interface</Filter>
+    </QtMoc>
+    <QtMoc Include="Interface\sourcetree.h">
       <Filter>Header Files\Interface</Filter>
     </QtMoc>
   </ItemGroup>
@@ -286,7 +316,25 @@
       <Filter>Pre Compiled</Filter>
     </ClInclude>
     <ClInclude Include="Interface\pagewidgetitem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="DOM\domnode.h">
+      <Filter>Header Files\DOM</Filter>
+    </ClInclude>
+    <ClInclude Include="DOM\domdocument.h">
+      <Filter>Header Files\DOM</Filter>
+    </ClInclude>
+    <ClInclude Include="DOM\domnodewidgetitem.h">
+      <Filter>Header Files\DOM</Filter>
+    </ClInclude>
+    <ClInclude Include="DOM\domarraypath.h">
+      <Filter>Header Files\DOM</Filter>
+    </ClInclude>
+    <ClInclude Include="DOM\dompath.h">
+      <Filter>Header Files\DOM</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectManager\arrayelement.h">
+      <Filter>Header Files\Project</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

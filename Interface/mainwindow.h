@@ -3,6 +3,8 @@
 #include "../ProjectManager/projectmanager.h"
 #include "../BrowserController/browserexecutor.h"
 
+#include "../DOM/domarraypath.h"
+
 #include <QTreeWidget>
 #include <QMainWindow>
 
@@ -19,6 +21,7 @@ class MainWindow : public QMainWindow
 	static MainWindow* m_window;
 
 	bool m_is_control_pressed;
+	bool m_is_selecting_array;
 
 	QString m_path_to_maven;
 	QString m_path_to_inteliji;
@@ -31,6 +34,9 @@ class MainWindow : public QMainWindow
 	BrowserExecutor m_application;
 	ProjectManager	m_project_manager;
 
+	DomNode* m_current_node;
+	DomArrayPath m_array;
+	
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 	virtual ~MainWindow();
@@ -65,6 +71,10 @@ public slots:
 	void changePathToInteliji();
 	void projectSettings();
 	void showHtmlSource();
+
+	void elementDomSelected(QTreeWidgetItem*, int);
+	void selectArray();
+	void addArrayToProject();
 
 private:
 	void addElement();

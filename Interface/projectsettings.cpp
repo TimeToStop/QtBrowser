@@ -101,7 +101,7 @@ void ProjectSettings::browseElementsMetaPath()
 
 void ProjectSettings::addDefaultScript()
 {
-	QString path = QFileDialog::getOpenFileName(this, "JS", "", "*.js");
+	QString path = QFileDialog::getOpenFileName(this, "JS", m_debug_source, "*.js");
 
 	if (path != "")
 	{

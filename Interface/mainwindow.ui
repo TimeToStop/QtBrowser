@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1634</width>
-    <height>916</height>
+    <width>1690</width>
+    <height>862</height>
    </rect>
   </property>
   <property name="focusPolicy">
@@ -443,13 +443,75 @@
              </layout>
             </item>
             <item>
-             <widget class="Console" name="html_source" native="true">
+             <widget class="QWidget" name="source" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_11">
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_4">
+                   <item row="1" column="2">
+                    <widget class="QPushButton" name="add_array_to_project">
+                     <property name="text">
+                      <string>Add To Project</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLineEdit" name="current_path"/>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_10">
+                     <property name="text">
+                      <string>Array:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="array_value"/>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="QPushButton" name="select_array_elements">
+                     <property name="text">
+                      <string>Select Array Elements</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_7">
+                     <property name="text">
+                      <string>Current Element Path:</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="SourceTree" name="dom_tree">
+                   <property name="minimumSize">
+                    <size>
+                     <width>1000</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <attribute name="headerVisible">
+                    <bool>false</bool>
+                   </attribute>
+                   <column>
+                    <property name="text">
+                     <string notr="true">1</string>
+                    </property>
+                   </column>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
              </widget>
             </item>
             <item>
@@ -470,7 +532,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1634</width>
+     <width>1690</width>
      <height>21</height>
     </rect>
    </property>
@@ -552,6 +614,11 @@
    <extends>QWidget</extends>
    <header>console.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SourceTree</class>
+   <extends>QTreeWidget</extends>
+   <header>sourcetree.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

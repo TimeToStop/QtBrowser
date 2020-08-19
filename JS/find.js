@@ -5,7 +5,7 @@ function getPathIndexFor(element)
 
     for(let e of parent.children)
     {
-        if(e.id !== 'element-selection-div-to-ignore' && e.tagName === element.tagName)
+        if(e.id !== selection_id && e.tagName === element.tagName)
         {
             if(e.isSameNode(element))
             {
@@ -61,7 +61,7 @@ function dynamic_forward(tags)
         {
             for(var e of element.children)
             {
-                if(e.id !== 'element-selection-div-to-ignore' && e.tagName === tags[depth]._tag)
+                if(e.id !== selection_id && e.tagName === tags[depth]._tag)
                 {
                     anonimus(depth + 1, e);
                 }
@@ -110,7 +110,7 @@ function fast_forward(tags)
         let count_index = 0;
         for(let child of e.children)
         {
-            if(child.id !== 'element-selection-div-to-ignore' && child.tagName === tags[i]._tag)
+            if(child.id !== selection_id && child.tagName === tags[i]._tag)
             {
                 has_tag = true;
                 
@@ -158,7 +158,7 @@ function element_by_path(path)
 
 //      for(let e of elements)
 //      {
-//         if(e.id !== null && e.id !== '' && e.id !== 'element-selection-div-to-ignore')
+//         if(e.id !== null && e.id !== '' && e.id !== selection_id)
 //         {
 //             let test_e = parse_path(element_path(e));
 //             let dynamic = dynamic_forward(test_e);
@@ -184,7 +184,7 @@ function element_by_path(path)
 
 //     for(let e of elements)
 //     {
-//         if(e.id !== null && e.id !== '' && e.id !== 'element-selection-div-to-ignore')
+//         if(e.id !== null && e.id !== '' && e.id !== selection_id')
 //         {
 //             if(!e.isSameNode(element_by_path(element_path(e))))
 //             {

@@ -15,6 +15,12 @@
 
 #include "projectsettings.h"
 
+#include "../DOM/domnodewidgetitem.h"
+#include "../DOM/domnode.h"
+#include "../DOM/dompath.h"
+
+#include <QMessageBox>
+
 #include <QKeyEvent>
 #include <QFileDialog>
 
@@ -29,13 +35,17 @@ MainWindow* MainWindow::m_window = nullptr;
 MainWindow::MainWindow(QWidget *parent):
 	QMainWindow(parent),
 	m_is_control_pressed(false),
+	m_is_selecting_array(false),
 	m_path_to_maven(),
 	m_path_to_inteliji(),
 	m_scripts({ {"Find", "JS/find.js"}, {"Hover", "JS/hover.js"},
-		{"jQuery", "JS/jquery-3-5-1.min.js"} }),
+		{"jQuery", "JS/jquery-3-5-1.min.js"}, {"SourceHTML", "JS/html.js"} 
+	}),
 	m_main_project(nullptr),
 	m_project_manager(),
 	m_application(),
+	m_current_node(nullptr),
+	m_array(),
 	ui(new Ui::MainWindow())
 {
 	MainWindow::m_window = this;
@@ -43,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent):
 	readGlobalSettings();
 
 	connect(ui->elements, &QTreeWidget::itemDoubleClicked, this, &MainWindow::editElement);
+	connect(ui->dom_tree, &QTreeWidget::itemClicked,	   this, &MainWindow::elementDomSelected);
 
 	/*
 	* Browser signals
@@ -63,6 +74,9 @@ MainWindow::MainWindow(QWidget *parent):
 	connect(ui->stop,						   &QPushButton	::clicked,				this,		      &MainWindow::closeApplication	);
 	connect(ui->register_page,				   &QPushButton	::clicked,				this,			  &MainWindow::registerPage		);
 	connect(ui->pages,			qOverload<int>(&QComboBox   ::currentIndexChanged), this,			  &MainWindow::pageIndexChanged	);
+
+	connect(ui->add_array_to_project,	&QPushButton::clicked, this, &MainWindow::addArrayToProject);
+	connect(ui->select_array_elements,	&QPushButton::clicked, this, &MainWindow::selectArray);
 
 	/*
 	* UI Actions
@@ -87,8 +101,11 @@ MainWindow::MainWindow(QWidget *parent):
 	*  Default settings
 	*/
 
-	ui->html_source->hide();
+	ui->source->hide();
 	ui->browser->setDefaultScripts(m_scripts);
+	ui->current_path->setReadOnly(true);
+	ui->array_value->setReadOnly(true);
+
 	m_application.setBrowser(ui->browser);
 	m_application.setConsole(ui->application);
 	m_project_manager.setPathToMaven(m_path_to_maven);
@@ -201,6 +218,11 @@ void MainWindow::loadProgress(int progress)
 void MainWindow::loadFinished(bool b)
 {
 	ui->url->setText(ui->browser->url().toString());
+	
+	if (!ui->source->isHidden())
+	{
+		ui->dom_tree->setJsonHTML(ui->browser->htmlToJson());
+	}
 }
 
 void MainWindow::onElementHovered(const QString& tag, const QString& id, const QStringList& classes, const QString& inner, const QString& path)
@@ -266,14 +288,20 @@ void MainWindow::runInteljiIdea()
 
 void MainWindow::runApplication()
 {
-	m_application.close();
-	m_application.start(m_main_project);
-	ui->consoles_tab->setCurrentIndex(1);
+	if (m_main_project != nullptr)
+	{
+		m_application.close();
+		m_application.start(m_main_project);
+		ui->consoles_tab->setCurrentIndex(1);
+	}
 }
 
 void MainWindow::closeApplication()
 {
-	m_application.close();
+	if (m_main_project != nullptr)
+	{
+		m_application.close();
+	}
 }
 
 void MainWindow::editElement(QTreeWidgetItem* item, int)
@@ -345,13 +373,72 @@ void MainWindow::projectSettings()
 
 void MainWindow::showHtmlSource()
 {
-	if (ui->html_source->isHidden())
+	if (ui->source->isHidden())
 	{
-		ui->html_source->show();
+		ui->source->show();
+		ui->show_html->setText("Hide HTML Source");
+		ui->dom_tree->setJsonHTML(ui->browser->htmlToJson());
 	}
 	else
 	{
-		ui->html_source->hide();
+		m_current_node = nullptr;
+		ui->source->hide();
+		ui->show_html->setText("Show HTML Source");
+	}
+}
+
+void MainWindow::elementDomSelected(QTreeWidgetItem* item, int)
+{
+	m_current_node = static_cast<DomNodeWidgetItem*>(item)->node();
+
+	if (m_is_selecting_array)
+	{
+		if (!m_array.addDomPath(*m_current_node->path()))
+		{
+			QMessageBox::critical(this, "Array selection", "Array cannot be extended to this element");
+			item->setSelected(false);
+		}
+		else
+		{
+			ui->array_value->setText(m_array.toString());
+		}
+	}
+	else
+	{
+		ui->current_path->setText(m_current_node->path()->toString());
+	}
+}
+
+void MainWindow::selectArray()
+{
+	if (m_is_selecting_array)
+	{
+		m_array.clear();
+
+		ui->select_array_elements->setText("Select Array Elements");
+		ui->array_value->setText("");
+		ui->dom_tree->setSelectionMode(QAbstractItemView::SingleSelection);
+	}
+	else
+	{
+		if (m_current_node != nullptr)
+		{
+			m_array.addDomPath(*m_current_node->path());
+		}
+
+		ui->select_array_elements->setText("Stop Selecting");
+		ui->array_value->setText(ui->current_path->text());
+		ui->dom_tree->setSelectionMode(QAbstractItemView::MultiSelection);
+	}
+
+	m_is_selecting_array = !m_is_selecting_array;
+}
+
+void MainWindow::addArrayToProject()
+{
+	if (m_current_page != nullptr && m_is_selecting_array && !m_array.isEmpty())
+	{
+		//TODO: add to project
 	}
 }
 
