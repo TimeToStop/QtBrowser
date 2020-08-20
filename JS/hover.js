@@ -43,7 +43,7 @@ function drawSelection(element) {
         'left'   : '' + element.getBoundingClientRect().left + 'px',
         'width'  : '' + element.getBoundingClientRect().width + 'px',
         'height' : '' + element.getBoundingClientRect().height + 'px',
-        'outer' : 'red 1px solid',
+        'border' : 'red 1px solid',
         'z-index': '' + (maxZIndex() + 1),
         'display': '',
         'pointer-events' : 'none'

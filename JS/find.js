@@ -25,7 +25,7 @@ function element_path(element)
 
     for(let e = element; e.tagName !== 'body'.toUpperCase(); e = e.parentNode)
     {
-        path = e.tagName.toUpperCase() + '[' + getPathIndexFor(e) + ']' + '/' + path;
+        path = e.tagName.toUpperCase() + '[' + getPathIndexFor(e) + ']/' + path;
     }
 
     return path;
@@ -40,13 +40,16 @@ function parse_path(path)
     for(let e of elements)
     {
         let splitted = e.split('[');
-        let tag = splitted[0];
+        let tag = splitted[0].toUpperCase();
         let index = splitted[1].slice(0, -1);
 
-        result.push({
-            _tag : tag,
-            _index : parseInt(index, 10)
-        });
+        if(tag !== 'BODY')
+        {
+            result.push({
+                _tag : tag,
+                _index : (index !== '*' ? parseInt(index, 10) : -1) 
+            });
+        }
     }
 
     return result;
@@ -135,6 +138,71 @@ function fast_forward(tags)
     return e;
 }
 
+function fast_forward_array(path) 
+{
+    let tags = parse_path(path);
+
+    let result = [];
+    let anonimus = function (e, depth)
+    {
+        for(let i = depth; i < tags.length; i++)
+        {
+            if(tags[i]._index === -1)
+            {
+                if(i + 1 !== tags.length)
+                {
+                    for(let child of e.children)
+                    {
+                        anonimus(child, i + 1);
+                    }
+                }
+                else
+                {
+                    for(let child of e.children)
+                    {
+                        result.push(child);
+                    }
+                }
+
+                return;
+            }
+            else
+            {
+                let has_tag = false;
+                let count_index = 0;
+                for(let child of e.children)
+                {
+                    if(child.id !== selection_id && child.tagName === tags[i]._tag)
+                    {
+                        has_tag = true;
+                
+                        if(count_index === tags[i]._index)
+                        {
+                            e = child;
+                            break;
+                        }
+                        else
+                        {
+                            count_index++;
+                        }
+                    }
+                }
+
+                if(has_tag !== true || count_index !== tags[i]._index)
+                {
+                    return;
+                }
+            }
+        }
+
+        result.push(e);
+    }
+
+    anonimus(document.body, 0);
+
+    return result;
+}
+
 function element_by_path(path)
 {
     let elements = parse_path(path);
@@ -150,8 +218,7 @@ function element_by_path(path)
     }
 }
 
-
-// // TEST
+// TEST
 // function test()
 // {
 //     let elements = document.body.getElementsByTagName('*');
@@ -163,13 +230,15 @@ function element_by_path(path)
 //             let test_e = parse_path(element_path(e));
 //             let dynamic = dynamic_forward(test_e);
 //             let fast = fast_forward(test_e);
+//             let array = fast_forward_array(test_e)[0];
 
-//             if(!e.isSameNode(dynamic) || !e.isSameNode(fast))
+//             if(!e.isSameNode(dynamic) || !e.isSameNode(fast) || !e.isSameNode(array))
 //             {
-//                 console.log('Error: ' + e.id + ' req: ' + (e === dynamic) + ' forward: ' + (e === fast));
+//                 console.log('Error: ' + e.id + ' req: ' + (e.isSameNode(dynamic)) + ' forward: ' + (e.isSameNode(fast)) + ' array: ' + (e.isSameNode(array)));
 //                 console.log(e);
 //                 console.log(dynamic);
 //                 console.log(fast);
+//                 console.log(array);
 //             }
 //         }
 //      }
@@ -184,7 +253,7 @@ function element_by_path(path)
 
 //     for(let e of elements)
 //     {
-//         if(e.id !== null && e.id !== '' && e.id !== selection_id')
+//         if(e.id !== null && e.id !== '' && e.id !== selection_id)
 //         {
 //             if(!e.isSameNode(element_by_path(element_path(e))))
 //             {
@@ -198,6 +267,6 @@ function element_by_path(path)
 // }
 
 // test();
-// testFindElement();
+// //testFindElement();
 
 //TEST END UP HERE
