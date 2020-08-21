@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'mainwindowRoHhJb.ui'
+** Form generated from reading UI file 'mainwindowZhWgey.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MAINWINDOWROHHJB_H
-#define MAINWINDOWROHHJB_H
+#ifndef MAINWINDOWZHWGEY_H
+#define MAINWINDOWZHWGEY_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -95,6 +95,10 @@ public:
     QLabel *label_3;
     Console *inner;
     QVBoxLayout *verticalLayout_6;
+    QTabWidget *browser_tabs;
+    QWidget *tab_3;
+    QVBoxLayout *verticalLayout_13;
+    QVBoxLayout *verticalLayout_12;
     Browser *browser;
     QTabWidget *consoles_tab;
     QWidget *tab;
@@ -138,6 +142,7 @@ public:
         path_to_inteliji->setObjectName(QString::fromUtf8("path_to_inteliji"));
         project_settings = new QAction(MainWindow);
         project_settings->setObjectName(QString::fromUtf8("project_settings"));
+        project_settings->setEnabled(false);
         show_html = new QAction(MainWindow);
         show_html->setObjectName(QString::fromUtf8("show_html"));
         centralWidget = new QWidget(MainWindow);
@@ -168,21 +173,25 @@ public:
 
         generate = new QPushButton(centralWidget);
         generate->setObjectName(QString::fromUtf8("generate"));
+        generate->setEnabled(false);
 
         horizontalLayout_2->addWidget(generate);
 
         run_app = new QPushButton(centralWidget);
         run_app->setObjectName(QString::fromUtf8("run_app"));
+        run_app->setEnabled(false);
 
         horizontalLayout_2->addWidget(run_app);
 
         stop = new QPushButton(centralWidget);
         stop->setObjectName(QString::fromUtf8("stop"));
+        stop->setEnabled(false);
 
         horizontalLayout_2->addWidget(stop);
 
         run_inteliji = new QPushButton(centralWidget);
         run_inteliji->setObjectName(QString::fromUtf8("run_inteliji"));
+        run_inteliji->setEnabled(false);
 
         horizontalLayout_2->addWidget(run_inteliji);
 
@@ -205,6 +214,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
         widget->setSizePolicy(sizePolicy);
+        widget->setMinimumSize(QSize(400, 0));
         widget->setMaximumSize(QSize(400, 16777215));
         verticalLayout_10 = new QVBoxLayout(widget);
         verticalLayout_10->setSpacing(6);
@@ -253,6 +263,7 @@ public:
 
         register_page = new QPushButton(groupBox_3);
         register_page->setObjectName(QString::fromUtf8("register_page"));
+        register_page->setEnabled(false);
 
         horizontalLayout_3->addWidget(register_page);
 
@@ -355,6 +366,7 @@ public:
         tag->setObjectName(QString::fromUtf8("tag"));
         sizePolicy2.setHeightForWidth(tag->sizePolicy().hasHeightForWidth());
         tag->setSizePolicy(sizePolicy2);
+        tag->setReadOnly(true);
 
         gridLayout_2->addWidget(tag, 0, 1, 1, 1);
 
@@ -369,6 +381,7 @@ public:
         path->setObjectName(QString::fromUtf8("path"));
         sizePolicy2.setHeightForWidth(path->sizePolicy().hasHeightForWidth());
         path->setSizePolicy(sizePolicy2);
+        path->setReadOnly(true);
 
         gridLayout_2->addWidget(path, 2, 1, 1, 1);
 
@@ -383,6 +396,7 @@ public:
         id->setObjectName(QString::fromUtf8("id"));
         sizePolicy2.setHeightForWidth(id->sizePolicy().hasHeightForWidth());
         id->setSizePolicy(sizePolicy2);
+        id->setReadOnly(true);
 
         gridLayout_2->addWidget(id, 1, 1, 1, 1);
 
@@ -432,15 +446,30 @@ public:
         verticalLayout_6 = new QVBoxLayout();
         verticalLayout_6->setSpacing(6);
         verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
-        browser = new Browser(centralWidget);
+        browser_tabs = new QTabWidget(centralWidget);
+        browser_tabs->setObjectName(QString::fromUtf8("browser_tabs"));
+        browser_tabs->setTabsClosable(true);
+        browser_tabs->setMovable(true);
+        tab_3 = new QWidget();
+        tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        verticalLayout_13 = new QVBoxLayout(tab_3);
+        verticalLayout_13->setSpacing(6);
+        verticalLayout_13->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_13->setObjectName(QString::fromUtf8("verticalLayout_13"));
+        verticalLayout_12 = new QVBoxLayout();
+        verticalLayout_12->setSpacing(6);
+        verticalLayout_12->setObjectName(QString::fromUtf8("verticalLayout_12"));
+        browser = new Browser(tab_3);
         browser->setObjectName(QString::fromUtf8("browser"));
-        QSizePolicy sizePolicy5(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy5.setHorizontalStretch(0);
-        sizePolicy5.setVerticalStretch(0);
-        sizePolicy5.setHeightForWidth(browser->sizePolicy().hasHeightForWidth());
-        browser->setSizePolicy(sizePolicy5);
 
-        verticalLayout_6->addWidget(browser);
+        verticalLayout_12->addWidget(browser);
+
+
+        verticalLayout_13->addLayout(verticalLayout_12);
+
+        browser_tabs->addTab(tab_3, QString());
+
+        verticalLayout_6->addWidget(browser_tabs);
 
         consoles_tab = new QTabWidget(centralWidget);
         consoles_tab->setObjectName(QString::fromUtf8("consoles_tab"));
@@ -490,11 +519,13 @@ public:
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
         add_array_to_project = new QPushButton(source);
         add_array_to_project->setObjectName(QString::fromUtf8("add_array_to_project"));
+        add_array_to_project->setEnabled(false);
 
         gridLayout_4->addWidget(add_array_to_project, 1, 2, 1, 1);
 
         current_path = new QLineEdit(source);
         current_path->setObjectName(QString::fromUtf8("current_path"));
+        current_path->setReadOnly(true);
 
         gridLayout_4->addWidget(current_path, 0, 1, 1, 1);
 
@@ -505,11 +536,13 @@ public:
 
         array_value = new QLineEdit(source);
         array_value->setObjectName(QString::fromUtf8("array_value"));
+        array_value->setReadOnly(true);
 
         gridLayout_4->addWidget(array_value, 1, 1, 1, 1);
 
         select_array_elements = new QPushButton(source);
         select_array_elements->setObjectName(QString::fromUtf8("select_array_elements"));
+        select_array_elements->setEnabled(false);
 
         gridLayout_4->addWidget(select_array_elements, 0, 2, 1, 1);
 
@@ -585,6 +618,7 @@ public:
 
         retranslateUi(MainWindow);
 
+        browser_tabs->setCurrentIndex(0);
         consoles_tab->setCurrentIndex(0);
 
 
@@ -599,8 +633,8 @@ public:
         path_to_maven->setText(QCoreApplication::translate("MainWindow", "Path To Maven", nullptr));
         path_to_inteliji->setText(QCoreApplication::translate("MainWindow", "Path To Inteliji Idea", nullptr));
         project_settings->setText(QCoreApplication::translate("MainWindow", "Project Settings", nullptr));
-        show_html->setText(QCoreApplication::translate("MainWindow", "Show HTML Source", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "Project:", nullptr));
+        show_html->setText(QCoreApplication::translate("MainWindow", "Hide HTML Source", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "Project: None", nullptr));
         project_name->setText(QString());
         generate->setText(QCoreApplication::translate("MainWindow", "Generate Meta", nullptr));
         run_app->setText(QCoreApplication::translate("MainWindow", "Run Appliaction", nullptr));
@@ -621,6 +655,7 @@ public:
         label_2->setText(QCoreApplication::translate("MainWindow", "Classes:", nullptr));
         label_5->setText(QCoreApplication::translate("MainWindow", "Inner:", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "Tag:", nullptr));
+        browser_tabs->setTabText(browser_tabs->indexOf(tab_3), QCoreApplication::translate("MainWindow", "Title", nullptr));
         consoles_tab->setTabText(consoles_tab->indexOf(tab), QCoreApplication::translate("MainWindow", "Console", nullptr));
         consoles_tab->setTabText(consoles_tab->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Application  Output", nullptr));
         add_array_to_project->setText(QCoreApplication::translate("MainWindow", "Add To Project", nullptr));
@@ -640,4 +675,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MAINWINDOWROHHJB_H
+#endif // MAINWINDOWZHWGEY_H

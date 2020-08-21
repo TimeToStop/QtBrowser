@@ -38,6 +38,7 @@ void BrowserExecutor::newConnection()
 	else
 	{
 		m_console->log("Connection is not unique");
+		m_console->log("Connect rejected");
 	}
 }
 
@@ -60,6 +61,7 @@ void BrowserExecutor::close()
 {
 	if (m_server->isListening())
 	{
+		m_console->log("Application is closed");
 		m_server->close();
 	}
 
@@ -86,6 +88,8 @@ QString BrowserExecutor::getFileName(const QString& path) const
 
 void BrowserExecutor::clientDisconnected()
 {
+	m_console->log(QStringLiteral("Client disconnect: ") + (m_is_terminate ? "terminated" : "normal"));
+	m_client_socket = nullptr;
 	close();
 	emit(taskFinished(m_is_terminate));
 }

@@ -13,6 +13,7 @@ public:
 	~DomArrayPath();
 
 	bool isEmpty() const;
+	int dimensions() const;
 	QString toString() const;
 
 	bool addDomPath(const DomPath&);

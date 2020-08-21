@@ -70,6 +70,7 @@ public slots:
 	void changePathToMaven();
 	void changePathToInteliji();
 	void projectSettings();
+	void generateMetaProjectData();
 	void showHtmlSource();
 
 	void elementDomSelected(QTreeWidgetItem*, int);
@@ -80,6 +81,7 @@ private:
 	void addElement();
 	void findElement();
 	void rmElement();
+
 
 	void readGlobalSettings();
 	void saveGlobalSettings();

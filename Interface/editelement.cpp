@@ -30,6 +30,8 @@ EditElement::EditElement(std::shared_ptr<Element> element, QWidget *parent):
 		ui->type->setCurrentIndex(2);
 		break;
 	}
+
+	ui->is_array->setChecked(element->isArray());
 }
 
 EditElement::~EditElement()

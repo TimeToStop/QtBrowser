@@ -16,6 +16,21 @@ bool DomArrayPath::isEmpty() const
 	return m_list.isEmpty();
 }
 
+int DomArrayPath::dimensions() const
+{
+	int count = 0;
+
+	for (const QPair<QString, int>& element : m_list)
+	{
+		if (element.second == -1)
+		{
+			count++;
+		}
+	}
+
+	return count;
+}
+
 QString DomArrayPath::toString() const
 {
 	QString result;

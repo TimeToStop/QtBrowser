@@ -25,7 +25,7 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Project:</string>
+           <string>Project: None</string>
           </property>
          </widget>
         </item>
@@ -51,6 +51,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="generate">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Generate Meta</string>
           </property>
@@ -58,6 +61,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="run_app">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Run Appliaction</string>
           </property>
@@ -65,6 +71,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="stop">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Stop Application</string>
           </property>
@@ -72,6 +81,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="run_inteliji">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Run Inteliji</string>
           </property>
@@ -92,6 +104,12 @@
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>400</width>
+                <height>0</height>
+               </size>
               </property>
               <property name="maximumSize">
                <size>
@@ -153,6 +171,9 @@
                         </item>
                         <item>
                          <widget class="QPushButton" name="register_page">
+                          <property name="enabled">
+                           <bool>false</bool>
+                          </property>
                           <property name="text">
                            <string>Register</string>
                           </property>
@@ -290,6 +311,9 @@
                           <verstretch>0</verstretch>
                          </sizepolicy>
                         </property>
+                        <property name="readOnly">
+                         <bool>true</bool>
+                        </property>
                        </widget>
                       </item>
                       <item row="1" column="0">
@@ -313,6 +337,9 @@
                           <verstretch>0</verstretch>
                          </sizepolicy>
                         </property>
+                        <property name="readOnly">
+                         <bool>true</bool>
+                        </property>
                        </widget>
                       </item>
                       <item row="3" column="0">
@@ -335,6 +362,9 @@
                           <horstretch>0</horstretch>
                           <verstretch>0</verstretch>
                          </sizepolicy>
+                        </property>
+                        <property name="readOnly">
+                         <bool>true</bool>
                         </property>
                        </widget>
                       </item>
@@ -404,13 +434,30 @@
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_6">
               <item>
-               <widget class="Browser" name="browser" native="true">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
+               <widget class="QTabWidget" name="browser_tabs">
+                <property name="currentIndex">
+                 <number>0</number>
                 </property>
+                <property name="tabsClosable">
+                 <bool>true</bool>
+                </property>
+                <property name="movable">
+                 <bool>true</bool>
+                </property>
+                <widget class="QWidget" name="tab_3">
+                 <attribute name="title">
+                  <string>Title</string>
+                 </attribute>
+                 <layout class="QVBoxLayout" name="verticalLayout_13">
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_12">
+                    <item>
+                     <widget class="Browser" name="browser" native="true"/>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </widget>
                </widget>
               </item>
               <item>
@@ -457,13 +504,20 @@
                   <layout class="QGridLayout" name="gridLayout_4">
                    <item row="1" column="2">
                     <widget class="QPushButton" name="add_array_to_project">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
                      <property name="text">
                       <string>Add To Project</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLineEdit" name="current_path"/>
+                    <widget class="QLineEdit" name="current_path">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="1" column="0">
                     <widget class="QLabel" name="label_10">
@@ -473,10 +527,17 @@
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QLineEdit" name="array_value"/>
+                    <widget class="QLineEdit" name="array_value">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="0" column="2">
                     <widget class="QPushButton" name="select_array_elements">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
                      <property name="text">
                       <string>Select Array Elements</string>
                      </property>
@@ -591,13 +652,16 @@
    </property>
   </action>
   <action name="project_settings">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Project Settings</string>
    </property>
   </action>
   <action name="show_html">
    <property name="text">
-    <string>Show HTML Source</string>
+    <string>Hide HTML Source</string>
    </property>
   </action>
  </widget>

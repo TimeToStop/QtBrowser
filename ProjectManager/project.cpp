@@ -29,7 +29,7 @@ const QString Project::m_pages_page_class =
         "\t}\n\n";
 
 const QString Project::m_pages_element =
-        "\t\tpublic static final %1 %2 = new %1(%6 %3, %4.self, \"%5\");\n\n";
+        "\t\tpublic static final %1 %2 = new %1(%3, %4.self, \"%5\");\n\n";
 
 const QString Project::m_path_to_src                   = "/src/main/java/";
 const QString Project::m_properties_file               = "project.properties";
@@ -216,7 +216,7 @@ void Project::saveJavaPageMeta() const
 
             for (int i = 0; i < page->size(); i++)
             {
-                QString type, redirect, array_info;
+                QString type, redirect;
 
                 switch (page->getElement(i)->type())
                 {
@@ -233,9 +233,7 @@ void Project::saveJavaPageMeta() const
 
                 if (page->getElement(i)->isArray())
                 {
-                    QString e = type.left(type.size() - 2), eid = type;
-                    type = QStringLiteral("ArrayElementID<%1, %2>").arg(e, eid);
-                    array_info = e + ".class, " + eid + ".class, ";
+                    type = "Array" + type;
                 }
 
                 if (page->getElement(i)->isWaitingForRedirect())
@@ -247,7 +245,7 @@ void Project::saveJavaPageMeta() const
                     redirect = "false";
                 }
 
-                element_list += m_pages_element.arg(type, page->getElement(i)->name(), redirect, page->name(), page->getElement(i)->path(), array_info);
+                element_list += m_pages_element.arg(type, page->getElement(i)->name(), redirect, page->name(), page->getElement(i)->path());
             }
 
             page_list += m_pages_page_class.arg(page->name(), QString::number(page_id++), page->request(), page->target(), element_list);

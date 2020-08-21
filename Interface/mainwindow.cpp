@@ -69,12 +69,13 @@ MainWindow::MainWindow(QWidget *parent):
 	* Buttons UI
 	*/
 
-	connect(ui->load,						   &QPushButton	::clicked,				this, qOverload<>(&MainWindow::loadPage			));
-	connect(ui->run_inteliji,				   &QPushButton	::clicked,				this,		      &MainWindow::runInteljiIdea	);
-	connect(ui->run_app,					   &QPushButton	::clicked,				this,			  &MainWindow::runApplication	);
-	connect(ui->stop,						   &QPushButton	::clicked,				this,		      &MainWindow::closeApplication	);
-	connect(ui->register_page,				   &QPushButton	::clicked,				this,			  &MainWindow::registerPage		);
-	connect(ui->pages,			qOverload<int>(&QComboBox   ::currentIndexChanged), this,			  &MainWindow::pageIndexChanged	);
+	connect(ui->load,						   &QPushButton	::clicked,				this, qOverload<>(&MainWindow::loadPage					));
+	connect(ui->generate,					   &QPushButton ::clicked,				this,			  &MainWindow::generateMetaProjectData	);
+	connect(ui->run_inteliji,				   &QPushButton	::clicked,				this,		      &MainWindow::runInteljiIdea			);
+	connect(ui->run_app,					   &QPushButton	::clicked,				this,			  &MainWindow::runApplication			);
+	connect(ui->stop,						   &QPushButton	::clicked,				this,		      &MainWindow::closeApplication			);
+	connect(ui->register_page,				   &QPushButton	::clicked,				this,			  &MainWindow::registerPage				);
+	connect(ui->pages,			qOverload<int>(&QComboBox   ::currentIndexChanged), this,			  &MainWindow::pageIndexChanged			);
 
 	connect(ui->add_array_to_project,	&QPushButton::clicked, this, &MainWindow::addArrayToProject);
 	connect(ui->select_array_elements,	&QPushButton::clicked, this, &MainWindow::selectArray);
@@ -102,10 +103,7 @@ MainWindow::MainWindow(QWidget *parent):
 	*  Default settings
 	*/
 
-	ui->source->hide();
 	ui->browser->setDefaultScripts(m_scripts);
-	ui->current_path->setReadOnly(true);
-	ui->array_value->setReadOnly(true);
 
 	m_application.setBrowser(ui->browser);
 	m_application.setConsole(ui->application);
@@ -156,13 +154,22 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
 
 void MainWindow::setMainProject(std::shared_ptr<Project> project)
 {
+	bool has_project = (project != nullptr);
 	m_main_project = project;
 
-	if (m_main_project != nullptr)
+	if (has_project)
 	{
 		ui->project_name->setText(m_main_project->name());
 		updateTargetElements();
 	}
+
+	ui->register_page->setEnabled(has_project);
+	ui->generate->setEnabled(has_project);
+	ui->run_app->setEnabled(has_project);
+	ui->run_inteliji->setEnabled(has_project);
+	ui->stop->setEnabled(has_project);
+	ui->select_array_elements->setEnabled(has_project);
+	ui->add_array_to_project->setEnabled(has_project);
 }
 
 void MainWindow::updateTargetElements()
@@ -264,6 +271,10 @@ void MainWindow::registerPage()
 			page->setRequestURL(d.request());
 
 			updateTargetElements();
+			
+			ui->pages->blockSignals(true);
+			ui->pages->setCurrentIndex(ui->pages->count() - 1);
+			ui->pages->blockSignals(false);
 		}
 	}
 }
@@ -376,6 +387,14 @@ void MainWindow::projectSettings()
 	}
 }
 
+void MainWindow::generateMetaProjectData()
+{
+	if (m_main_project != nullptr)
+	{
+		updateTargetElements();
+	}
+}
+
 void MainWindow::showHtmlSource()
 {
 	if (ui->source->isHidden())
@@ -445,12 +464,19 @@ void MainWindow::addArrayToProject()
 		&& m_is_selecting_array
 		&& !m_array.isEmpty())
 	{
-		AddArrayElement d(m_current_page, m_array.toString(), this);
-
-		if (d.exec() == QDialog::Accepted)
+		if (m_array.dimensions() > 1)
 		{
-			m_current_page->addElement(std::make_shared<Element>(m_current_page, true, d.isWaitForRedirect(), d.type(), d.name(), d.path()));
-			updateTargetElements();
+			QMessageBox::critical(this, "Array", "Array with more than one demension is unsupported by java framework");
+		}
+		else
+		{
+			AddArrayElement d(m_current_page, m_array.toString(), this);
+
+			if (d.exec() == QDialog::Accepted)
+			{
+				m_current_page->addElement(std::make_shared<Element>(m_current_page, true, d.isWaitForRedirect(), d.type(), d.name(), d.path()));
+				updateTargetElements();
+			}
 		}
 	}
 }
