@@ -20,7 +20,6 @@ void ElementWidgetItem::doubleClicked()
 	if (d.exec() == QDialog::Accepted)
 	{
 		m_element->setName(d.name());
-		m_element->setElementType(d.type());
 		m_element->setIsWaitingForRedirect(d.waitForRedirect());
 
 		setText(1, d.name());

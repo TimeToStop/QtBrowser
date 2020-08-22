@@ -4,6 +4,8 @@
 #include "hoverhandler.h"
 
 #include <QWebEngineScript>
+#include <QWebEngineProfile>
+#include <QWebEngineCookieStore>
 #include <QFile>
 #include <QWebChannel>
 
@@ -63,6 +65,8 @@ void Browser::loadURL(const QString& url)
 				task_qt_objects.taskExecuted();
 			});
 	});
+
+	page->profile()->cookieStore()->deleteAllCookies();
 
 	m_scripts.initAllScripts(page);
 	m_is_browser_init_loading = false;

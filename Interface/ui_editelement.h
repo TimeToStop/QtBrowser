@@ -1,18 +1,17 @@
 /********************************************************************************
-** Form generated from reading UI file 'editelementAKcRdF.ui'
+** Form generated from reading UI file 'editelementRsoJRp.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef EDITELEMENTAKCRDF_H
-#define EDITELEMENTAKCRDF_H
+#ifndef EDITELEMENTRSOJRP_H
+#define EDITELEMENTRSOJRP_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
-#include <QtWidgets/QComboBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -32,13 +31,11 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *verticalSpacer;
     QGridLayout *gridLayout;
-    QLabel *label_2;
-    QLineEdit *name;
-    QLabel *label_3;
-    QComboBox *type;
-    QLabel *label;
     QCheckBox *redirect;
+    QLineEdit *name;
     QCheckBox *is_array;
+    QLabel *label;
+    QLabel *label_3;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
     QPushButton *apply;
@@ -48,7 +45,7 @@ public:
     {
         if (EditElement->objectName().isEmpty())
             EditElement->setObjectName(QString::fromUtf8("EditElement"));
-        EditElement->resize(359, 162);
+        EditElement->resize(359, 121);
         horizontalLayout = new QHBoxLayout(EditElement);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -66,45 +63,32 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        label_2 = new QLabel(EditElement);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
+        redirect = new QCheckBox(EditElement);
+        redirect->setObjectName(QString::fromUtf8("redirect"));
 
-        gridLayout->addWidget(label_2, 1, 0, 1, 1);
+        gridLayout->addWidget(redirect, 1, 1, 1, 1);
 
         name = new QLineEdit(EditElement);
         name->setObjectName(QString::fromUtf8("name"));
 
         gridLayout->addWidget(name, 0, 1, 1, 1);
 
-        label_3 = new QLabel(EditElement);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
+        is_array = new QCheckBox(EditElement);
+        is_array->setObjectName(QString::fromUtf8("is_array"));
+        is_array->setEnabled(false);
+        is_array->setCheckable(true);
 
-        gridLayout->addWidget(label_3, 2, 0, 1, 1);
-
-        type = new QComboBox(EditElement);
-        type->addItem(QString());
-        type->addItem(QString());
-        type->addItem(QString());
-        type->setObjectName(QString::fromUtf8("type"));
-
-        gridLayout->addWidget(type, 1, 1, 1, 1);
+        gridLayout->addWidget(is_array, 2, 1, 1, 1);
 
         label = new QLabel(EditElement);
         label->setObjectName(QString::fromUtf8("label"));
 
         gridLayout->addWidget(label, 0, 0, 1, 1);
 
-        redirect = new QCheckBox(EditElement);
-        redirect->setObjectName(QString::fromUtf8("redirect"));
+        label_3 = new QLabel(EditElement);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
 
-        gridLayout->addWidget(redirect, 2, 1, 1, 1);
-
-        is_array = new QCheckBox(EditElement);
-        is_array->setObjectName(QString::fromUtf8("is_array"));
-        is_array->setEnabled(false);
-        is_array->setCheckable(true);
-
-        gridLayout->addWidget(is_array, 3, 1, 1, 1);
+        gridLayout->addWidget(label_3, 1, 0, 1, 1);
 
 
         horizontalLayout_3->addLayout(gridLayout);
@@ -144,15 +128,10 @@ public:
     void retranslateUi(QWidget *EditElement)
     {
         EditElement->setWindowTitle(QCoreApplication::translate("EditElement", "EditElement", nullptr));
-        label_2->setText(QCoreApplication::translate("EditElement", "Type:", nullptr));
-        label_3->setText(QCoreApplication::translate("EditElement", "Redirect:", nullptr));
-        type->setItemText(0, QCoreApplication::translate("EditElement", "TextInput", nullptr));
-        type->setItemText(1, QCoreApplication::translate("EditElement", "Readable", nullptr));
-        type->setItemText(2, QCoreApplication::translate("EditElement", "Clickable", nullptr));
-
-        label->setText(QCoreApplication::translate("EditElement", "Name:", nullptr));
         redirect->setText(QCoreApplication::translate("EditElement", "Wait For Redirection", nullptr));
         is_array->setText(QCoreApplication::translate("EditElement", "Is Array", nullptr));
+        label->setText(QCoreApplication::translate("EditElement", "Name:", nullptr));
+        label_3->setText(QCoreApplication::translate("EditElement", "Redirect:", nullptr));
         apply->setText(QCoreApplication::translate("EditElement", "Apply", nullptr));
         exit->setText(QCoreApplication::translate("EditElement", "Exit", nullptr));
     } // retranslateUi
@@ -165,4 +144,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // EDITELEMENTAKCRDF_H
+#endif // EDITELEMENTRSOJRP_H

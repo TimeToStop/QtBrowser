@@ -104,6 +104,7 @@ MainWindow::MainWindow(QWidget *parent):
 	*/
 
 	ui->browser->setDefaultScripts(m_scripts);
+	ui->elements->setSelectionMode(QAbstractItemView::SelectionMode::ContiguousSelection);
 
 	m_application.setBrowser(ui->browser);
 	m_application.setConsole(ui->application);
@@ -230,11 +231,7 @@ void MainWindow::loadProgress(int progress)
 void MainWindow::loadFinished(bool b)
 {
 	ui->url->setText(ui->browser->url().toString());
-	
-	if (!ui->source->isHidden())
-	{
-		ui->dom_tree->setJsonHTML(ui->browser->htmlToJson());
-	}
+	ui->dom_tree->setJsonHTML(ui->browser->htmlToJson());
 }
 
 void MainWindow::onElementHovered(const QString& tag, const QString& id, const QStringList& classes, const QString& inner, const QString& path)
@@ -275,6 +272,8 @@ void MainWindow::registerPage()
 			ui->pages->blockSignals(true);
 			ui->pages->setCurrentIndex(ui->pages->count() - 1);
 			ui->pages->blockSignals(false);
+
+			m_current_page = page;
 		}
 	}
 }
@@ -474,7 +473,7 @@ void MainWindow::addArrayToProject()
 
 			if (d.exec() == QDialog::Accepted)
 			{
-				m_current_page->addElement(std::make_shared<Element>(m_current_page, true, d.isWaitForRedirect(), d.type(), d.name(), d.path()));
+				m_current_page->addElement(std::make_shared<Element>(m_current_page, true, d.isWaitForRedirect(), d.name(), d.path()));
 				updateTargetElements();
 			}
 		}
@@ -492,7 +491,7 @@ void MainWindow::addElement()
 	AddPageElement d(m_current_page, ui->tag->text(), ui->id->text(), list, ui->inner->toPlainText(), ui->path->text(), this);
 	if (d.exec() == QDialog::Accepted)
 	{
-		m_current_page->addElement(std::make_shared<Element>(m_current_page, false, d.isWaitingForRedirect(), d.type(), d.name(), d.path()));
+		m_current_page->addElement(std::make_shared<Element>(m_current_page, false, d.isWaitingForRedirect(), d.name(), d.path()));
 		updateTargetElements();
 	}
 }

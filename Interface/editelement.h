@@ -17,7 +17,6 @@ public:
 
 	bool waitForRedirect() const;
 	QString name() const;
-	ElementType type() const;
 
 public slots:
 	void edit();

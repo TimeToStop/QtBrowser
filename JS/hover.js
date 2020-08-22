@@ -1,14 +1,14 @@
-const tags_to_hover_handle = [
-    'input',
-    'label',
-    'textarea',
-    'span',
-    'a',
-    'legend'
+var tags_to_hover_handle = [
+        'input',
+        'label',
+        'textarea',
+        'span',
+        'a',
+        'legend'
 ];
-
-const selection_id = 'element-selection-div-to-ignore';
-var selected_element = null;
+    
+var selection_id =   'element-selection-div-to-ignore';
+var selected_element =  null;
 
 function hoverSelection(){
     var elements = document.body.getElementsByTagName('*');

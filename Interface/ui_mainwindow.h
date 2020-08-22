@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'mainwindowZhWgey.ui'
+** Form generated from reading UI file 'mainwindowurDluq.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MAINWINDOWZHWGEY_H
-#define MAINWINDOWZHWGEY_H
+#ifndef MAINWINDOWURDLUQ_H
+#define MAINWINDOWURDLUQ_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -634,8 +634,8 @@ public:
         path_to_inteliji->setText(QCoreApplication::translate("MainWindow", "Path To Inteliji Idea", nullptr));
         project_settings->setText(QCoreApplication::translate("MainWindow", "Project Settings", nullptr));
         show_html->setText(QCoreApplication::translate("MainWindow", "Hide HTML Source", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "Project: None", nullptr));
-        project_name->setText(QString());
+        label->setText(QCoreApplication::translate("MainWindow", "Project:", nullptr));
+        project_name->setText(QCoreApplication::translate("MainWindow", "None", nullptr));
         generate->setText(QCoreApplication::translate("MainWindow", "Generate Meta", nullptr));
         run_app->setText(QCoreApplication::translate("MainWindow", "Run Appliaction", nullptr));
         stop->setText(QCoreApplication::translate("MainWindow", "Stop Application", nullptr));
@@ -675,4 +675,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MAINWINDOWZHWGEY_H
+#endif // MAINWINDOWURDLUQ_H

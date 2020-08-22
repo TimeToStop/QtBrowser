@@ -48,7 +48,7 @@ std::shared_ptr<Project> Project::create(const QString& name, const QString& pat
     project->createDefaultPropertiesFile();
     project->rmSrcFile("/main/App.java");
     project->addSrcDirectory("generated");
-    project->addProjectDirectory("plugins"); 
+    project->addProjectDirectory("plugins");  
     project->addProjectDirectory("source");
     project->saveToPropertiesFile();
 
@@ -218,22 +218,13 @@ void Project::saveJavaPageMeta() const
             {
                 QString type, redirect;
 
-                switch (page->getElement(i)->type())
-                {
-                case ElementType::INPUT:
-                    type = "InputElementID";
-                    break;
-                case ElementType::CLICKABLE:
-                    type = "ClickElementID";
-                    break;
-                case ElementType::READABLE:
-                    type = "ReadElementID";
-                    break;
-                }
-
                 if (page->getElement(i)->isArray())
                 {
-                    type = "Array" + type;
+                    type = "ArrayElementID";
+                }
+                else
+                {
+                    type = "ElementID";
                 }
 
                 if (page->getElement(i)->isWaitingForRedirect())
@@ -303,21 +294,8 @@ void Project::saveProjectPageMeta() const
 
             for (size_t i = 0; i < page->size(); i++)
             {
-                QString redirect, is_array, type;
+                QString redirect, is_array;
                 writer.writeStartElement("element");
-
-                switch (page->getElement(i)->type())
-                {
-                case ElementType::INPUT:
-                    type = "input";
-                    break;
-                case ElementType::CLICKABLE:
-                    type = "click";
-                    break;
-                case ElementType::READABLE:
-                    type = "read";
-                    break;
-                }
 
                 if (page->getElement(i)->isWaitingForRedirect())
                 {
@@ -338,7 +316,6 @@ void Project::saveProjectPageMeta() const
                 }
 
                 writer.writeAttribute("redirect", redirect);
-                writer.writeAttribute("type", type);
                 writer.writeAttribute("array", is_array);
                 writer.writeAttribute("name", page->getElement(i)->name());
                 writer.writeAttribute("path", page->getElement(i)->path());
@@ -525,14 +502,12 @@ void Project::loadFromMeta()
                             {
                                 QXmlStreamAttributes attributes = reader.attributes();
                                 if (attributes.hasAttribute("name") && attributes.hasAttribute("path") 
-                                    && attributes.hasAttribute("redirect") && attributes.hasAttribute("type"))
+                                    && attributes.hasAttribute("redirect"))
                                 {
                                     bool redirect;
                                     bool is_array;
-                                    ElementType type;
                                     QString array_attr = attributes.value("array").toString();
                                     QString redirect_attr = attributes.value("redirect").toString();
-                                    QString type_attr = attributes.value("type").toString();
 
 
                                     if (redirect_attr == "true")
@@ -561,24 +536,7 @@ void Project::loadFromMeta()
                                         continue;
                                     }
 
-                                    if (type_attr == "click")
-                                    {
-                                        type = ElementType::CLICKABLE;
-                                    }
-                                    else if (type_attr == "read")
-                                    {
-                                        type = ElementType::READABLE;
-                                    }
-                                    else if(type_attr == "input")
-                                    {
-                                        type = ElementType::INPUT;
-                                    }
-                                    else
-                                    {
-                                        continue;
-                                    }
-
-                                    page->addElement(std::make_shared<Element>(page, is_array, redirect, type, attributes.value("name").toString(), attributes.value("path").toString()));
+                                    page->addElement(std::make_shared<Element>(page, is_array, redirect, attributes.value("name").toString(), attributes.value("path").toString()));
                                 }
                             }
                         }

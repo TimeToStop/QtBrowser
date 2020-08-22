@@ -2,11 +2,10 @@
 
 #include "page.h"
 
-Element::Element(std::weak_ptr<Page> page, bool is_array, bool is_waiting_for_redirect, ElementType type, const QString& name, const QString& path):
+Element::Element(std::weak_ptr<Page> page, bool is_array, bool is_waiting_for_redirect, const QString& name, const QString& path):
     m_page(page),
     m_is_array(is_array),
     m_is_waiting_for_redirect(is_waiting_for_redirect),
-    m_type(type),
     m_name(name),
     m_path(path)
 {
@@ -19,11 +18,6 @@ Element::~Element()
 void Element::setIsWaitingForRedirect(bool wait)
 {
     m_is_waiting_for_redirect = wait;
-}
-
-void Element::setElementType(ElementType type)
-{
-    m_type = type;
 }
 
 void Element::setName(const QString& name)
@@ -44,11 +38,6 @@ bool Element::isWaitingForRedirect() const
 bool Element::isArray() const
 {
     return m_is_array;
-}
-
-ElementType Element::type() const
-{
-    return m_type;
 }
 
 QString Element::name() const

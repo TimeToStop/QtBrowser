@@ -25,14 +25,14 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Project: None</string>
+           <string>Project:</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="project_name">
           <property name="text">
-           <string/>
+           <string>None</string>
           </property>
          </widget>
         </item>
